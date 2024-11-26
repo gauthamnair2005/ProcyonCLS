@@ -2,7 +2,7 @@ import kernel
 import sys
 import ekernel
 import time
-import requests 
+import requests
 import zipfile
 import shutil
 import os
@@ -20,9 +20,9 @@ def getLatestReleaseTag():
         release_info = response.json()
         latest_tag = release_info["tag_name"], release_info["zipball_url"]
         return latest_tag
-    except:
-        kernel.printError("Server unreachable..!")
-        exit(1)
+    except requests.RequestException as e:
+        kernel.printError(f"Error fetching latest release: {e}")
+        sys.exit(1)
 
 def readCurrentTag():
     if os.path.exists(current_tag_file):
@@ -34,54 +34,80 @@ def writeCurrentTag(tag):
     with open(current_tag_file, "w") as f:
         f.write(tag)
 
-def downloadAndExtractRepo(url, extractTo):
+def downloadRelease(url, dest):
     try:
         response = requests.get(url, stream=True)
         response.raise_for_status()
-        zip_filename = "update.zip"
-        with open(zip_filename, "wb") as f:
+        with open(dest, 'wb') as f:
             for chunk in response.iter_content(chunk_size=8192):
-                f.wrtie(chunk)
-        with zipfile.ZipFile(zip_filename, "r") as zip_ref:
-            zip_ref.extractall(extractTo)
-        os.remove(zip_filename)
-    except:
-        kernel.printError("Error downloading update..!")
-        exit(1)
+                f.write(chunk)
+    except requests.RequestException as e:
+        kernel.printError(f"Error downloading release: {e}")
+        sys.exit(1)
 
-def replaceLocalFiles(src_dir, dest_dir):
-    for item in os.listdir(dest_dir):
-        item_path = os.path.join(dest_dir, item)
-        if os.path.isdir(item_path):
-            shutil.rmtree(item_path)
+def extractRelease(zip_path, extract_to):
+    try:
+        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+            zip_ref.extractall(extract_to)
+    except zipfile.BadZipFile as e:
+        kernel.printError(f"Error extracting release: {e}")
+        sys.exit(1)
+
+def replaceLocalFiles(extracted_path, target_path):
+    if not os.path.exists(extracted_path):
+        kernel.printError(f"Extracted path does not exist: {extracted_path}")
+        sys.exit(1)
+    for item in os.listdir(extracted_path):
+        s = os.path.join(extracted_path, item)
+        d = os.path.join(target_path, item)
+        if os.path.isdir(s):
+            if os.path.exists(d):
+                shutil.rmtree(d)
+            shutil.copytree(s, d)
         else:
-            os.remove(item_path)
-    for item in os.listdir(src_dir):
-        item_path = os.path.join(src_dir, item)
-        shutil.move(item_path, dest_dir)
+            shutil.copy2(s, d)
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "KRNL_0.5C3":
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.5C3 Munnar")
+        if sys.argv[1] == "KRNL_0.5C4":
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.5C4 Munnar")
             ekernel.printHeader("ProcyonCLS Updater")
             latest_tag, zip_url = getLatestReleaseTag()
             current_tag = readCurrentTag()
             if latest_tag != current_tag:
-                kernel.printWarning(f"Update available : {current_tag} -> {latest_tag}")
-                temp_dir = os.path.join(current_directory, "temp")
-                downloadAndExtractRepo(zip_url, temp_dir)
-                extracted_folder = os.path.join(temp_dir, os.listdir(temp_dir)[0])
-                replaceLocalFiles(extracted_folder, current_directory)
-                writeCurrentTag(latest_tag)
-                shutil.rmtree(temp_dir)
-                kernel.printSuccess("Update successful, please reboot ProcyonCLS")
+                kernel.printWarning(f"Update available: {current_tag} -> {latest_tag}")
+                zip_path = os.path.join(current_directory, "latest_release.zip")
+                temp_extract_path = os.path.join(current_directory, "temp")
+
+                downloadRelease(zip_url, zip_path)
+                extractRelease(zip_path, temp_extract_path)
+
+                extracted_folder_name = None
+                for item in os.listdir(temp_extract_path):
+                    if os.path.isdir(os.path.join(temp_extract_path, item)):
+                        extracted_folder_name = item
+                        break
+
+                if extracted_folder_name:
+                    extracted_path = os.path.join(temp_extract_path, extracted_folder_name)
+                    replaceLocalFiles(extracted_path, current_directory)
+                    writeCurrentTag(latest_tag)
+                    kernel.printSuccess("Update completed successfully!")
+                else:
+                    kernel.printError("No extracted folder found.")
+                shutil.rmtree(temp_extract_path)
+                os.remove(zip_path)
             else:
-                kernel.printSuccess("You're up to date.!")
+                kernel.printSuccess("You're up to date!")
         else:
-            kernel.printError("This version of updater is incompatible with current version of ProcyonCLS")
+            kernel.printError("This version of updater is incompatible with the current version of ProcyonCLS")
     else:
         kernel.printError("OS Scope Error")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        kernel.bsod("0x0005", "User interrupted execution")
+    except Exception as e:
+        kernel.bsod("0x0006", f"Error : {e}")

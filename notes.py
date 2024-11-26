@@ -5,8 +5,8 @@ import time
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "KRNL_0.5C3":
-            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.5C3 Munnar")
+        if sys.argv[1] == "KRNL_0.5C4":
+            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.5C4 Munnar")
             ekernel.printHeader("Notes")
             filename = input("Enter filename : ").strip()
             accessMode = input("Enter access mode (r/w/a/r+) : ").strip()
