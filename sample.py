@@ -4,9 +4,9 @@ import ekernel
 
 def main():
     if len(sys.argv) == 3:
-        if sys.argv[1] == "KRNL_0.6":
+        if sys.argv[1] == "KRNL_0.7":
             if sys.argv[2] == "False":
-                ekernel.splashScreen("App Sample for ProcyonCLS", "Version 0.6 Compatible App 0.1")
+                ekernel.splashScreen("App Sample for ProcyonCLS", "Version 0.7 Compatible App 0.1")
                 ekernel.printHeader("Sample")
                 kernel.println("Hello, World!")
                 ekernel.prettyPrint("Hello, World!")
@@ -19,7 +19,7 @@ def main():
                 kernel.println("This is normal text")
             else:
                 # Admin Access True
-                ekernel.splashScreen("App Sample for ProcyonCLS", "Version 0.6 Compatible App 0.1")
+                ekernel.splashScreen("App Sample for ProcyonCLS", "Version 0.7 Compatible App 0.1")
                 ekernel.printHeader("Sample")
                 kernel.println("Hello, World!")
                 ekernel.prettyPrint("Hello, World!")

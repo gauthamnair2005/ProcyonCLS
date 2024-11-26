@@ -78,7 +78,7 @@ def prompt(user, username):
     time.sleep(5)
     kernel.clrscr()
     ekernel.printHeader("ProcyonCLS Shell")
-    kernel.printWarning("/!\\ This is a preliminary alpha release..!!")
+    kernel.printWarning("/!\\ This is a preliminary release..!!")
     while True:
         prmpt = input(f"{username}@ProcyonCLS:~$ ").strip()
         if prmpt == "exit" or prmpt == "shutdown":
@@ -233,7 +233,7 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "KRNL_0.6":
+        if sys.argv[1] == "KRNL_0.7":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("֎ ProcyonCLS", font="slant", justify="center"))
             print(pyfiglet.figlet_format("Preliminary Release", font="slant", justify="center"))
@@ -275,7 +275,7 @@ def main():
                         kernel.printError("Login Failed!")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected KRNL_0.6, got {sys.argv[1]}")
+            print(f"Expected KRNL_0.7, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

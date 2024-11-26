@@ -76,15 +76,21 @@ def replaceLocalFiles(extracted_path, target_path):
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] != None:
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.6 Munnar")
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.7 Munnar")
             ekernel.printHeader("ProcyonCLS Updater")
+            kernel.println("Checking for updates...")
+            time.sleep(2)
             latest_tag, zip_url = getLatestReleaseTag()
             current_tag = readCurrentTag()
             if latest_tag != current_tag:
-                kernel.printWarning(f"Update available: {current_tag} -> {latest_tag}")
+                kernel.printInfo(f"Update available: {current_tag} -> {latest_tag}")
+                confirm = input("Do you want to update? (y/n) : ").strip()
+                if confirm.lower() != "y":
+                    kernel.printWarning("Update cancelled by user")
+                    sys.exit(0)
+                kernel.println("Updating ProcyonCLS...")
                 zip_path = os.path.join(current_directory, "latest_release.zip")
                 temp_extract_path = os.path.join(current_directory, "temp")
-
                 downloadRelease(zip_url, zip_path)
                 extractRelease(zip_path, temp_extract_path)
 
@@ -99,12 +105,17 @@ def main():
                     replaceLocalFiles(extracted_path, current_directory)
                     writeCurrentTag(latest_tag)
                     kernel.printSuccess("Update completed successfully!")
+                    time.sleep(1)
+                    kernel.println("Rebooting...")
+                    kernel.reboot()
                 else:
                     kernel.printError("No extracted folder found.")
                 shutil.rmtree(temp_extract_path)
                 os.remove(zip_path)
             else:
                 kernel.printSuccess("You're up to date!")
+                time.sleep(1)
+                kernel.println("Shutting down..")
         else:
             kernel.printError("This version of updater is incompatible with the current version of ProcyonCLS")
     else:
