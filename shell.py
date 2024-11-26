@@ -233,14 +233,14 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "KRNL_0.5C2":
+        if sys.argv[1] == "KRNL_0.5C3":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("֎ ProcyonCLS", font="slant", justify="center"))
             print(pyfiglet.figlet_format("Preliminary Release", font="slant", justify="center"))
             print("\n\n\nCopyright © 2024, Procyonis Computing\n\n\nStarting...")
             for _ in range(10):
                 print("═", end="", flush=True)
-                time.sleep(0.5C2)
+                time.sleep(0.5)
             for _ in range(100):
                 print("═", end="", flush=True)
                 time.sleep(0.1)
@@ -275,7 +275,7 @@ def main():
                         kernel.printError("Login Failed!")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected KRNL_0.5C2, got {sys.argv[1]}")
+            print(f"Expected KRNL_0.5C3, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

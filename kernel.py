@@ -13,9 +13,9 @@ def log_error(message):
 try:
     def main():
         if len(sys.argv) == 2:
-            if sys.argv[1] == "BTLDR_0.5C2":
+            if sys.argv[1] == "BTLDR_0.5C3":
                 os.system("cls" if sys.platform == "win32" else "clear")
-                print("Procyon Neo Kernel v0.5C2")
+                print("Procyon Neo Kernel v0.5C3")
                 print("..............")
                 print("Loading Kernel modules...")
                 time.sleep(1)
@@ -30,7 +30,7 @@ try:
                 time.sleep(2)
                 if os.path.exists("shell.py"):
                     log_error("Kernel Loaded Successfully")
-                    os.system("python3 shell.py KRNL_0.5C2")
+                    os.system("python3 shell.py KRNL_0.5C3")
                 else:
                     os.system("cls" if sys.platform == "win32" else "clear")
                     print("Kernel Panic : OS error")
@@ -45,7 +45,7 @@ try:
                 print("Technical Details : ")
                 print(" Error Code : 0x0001")
                 print(" Error Description : Incompatible version reported by Bootloader")
-                print(f" Reported {sys.argv[1]} as opposed to BTLDR_0.5C2")
+                print(f" Reported {sys.argv[1]} as opposed to BTLDR_0.5C3")
                 log_error("Incompatible version reported by Bootloader")
                 sys.exit(1)
         else:
@@ -76,7 +76,7 @@ def reboot():
     os.execv(sys.executable, ['python3', 'bootload.py'])
 
 def getVersion():
-    return "KRNL_0.5C2"
+    return "KRNL_0.5C3"
 
 def getBuild():
     return "2024.11.26.1054"
@@ -131,5 +131,5 @@ def bsod(error, msg):
     sys.exit(1)
 
 def callApplication(app, isAdmin = False):
-    appResolved = app + ".py KRNL_0.5C2 " + str(isAdmin)
+    appResolved = app + ".py KRNL_0.5C3 " + str(isAdmin)
     os.system(appResolved)
