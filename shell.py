@@ -115,7 +115,7 @@ def prompt(user, username):
             os.system("python3")
         elif prmpt == "clsupdate":
             if ekernel.admin(username):
-                kernel.callApplication("updater", isAdmin=True)
+                os.execv(sys.executable, ['python3', 'updater.py', 'KRNL_0.5'])
             else:
                 kernel.printError("Admin access denied, updater needs admin access to run!")
         elif prmpt == "security":
@@ -233,7 +233,7 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "KRNL_0.5C4":
+        if sys.argv[1] == "KRNL_0.6":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("֎ ProcyonCLS", font="slant", justify="center"))
             print(pyfiglet.figlet_format("Preliminary Release", font="slant", justify="center"))
@@ -275,7 +275,7 @@ def main():
                         kernel.printError("Login Failed!")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected KRNL_0.5C4, got {sys.argv[1]}")
+            print(f"Expected KRNL_0.6, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

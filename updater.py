@@ -69,8 +69,8 @@ def replaceLocalFiles(extracted_path, target_path):
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "KRNL_0.5C4":
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.5C4 Munnar")
+        if sys.argv[1] != None:
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.6 Munnar")
             ekernel.printHeader("ProcyonCLS Updater")
             latest_tag, zip_url = getLatestReleaseTag()
             current_tag = readCurrentTag()
