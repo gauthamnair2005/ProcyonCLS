@@ -19,6 +19,7 @@ def getLatestReleaseTag():
         response.raise_for_status()
         release_info = response.json()
         latest_tag = release_info["tag_name"], release_info["zipball_url"]
+        return latest_tag
     except:
         kernel.printError("Server unreachable..!")
         exit(1)
