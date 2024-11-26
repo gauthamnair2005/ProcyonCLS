@@ -233,7 +233,7 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "KRNL_0.7":
+        if sys.argv[1] == "KRNL_0.8":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("֎ ProcyonCLS", font="slant", justify="center"))
             print(pyfiglet.figlet_format("Preliminary Release", font="slant", justify="center"))
@@ -275,7 +275,7 @@ def main():
                         kernel.printError("Login Failed!")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected KRNL_0.7, got {sys.argv[1]}")
+            print(f"Expected KRNL_0.8, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

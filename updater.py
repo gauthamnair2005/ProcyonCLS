@@ -76,7 +76,7 @@ def replaceLocalFiles(extracted_path, target_path):
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] != None:
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.7 Munnar")
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.8 Munnar")
             ekernel.printHeader("ProcyonCLS Updater")
             kernel.println("Checking for updates...")
             time.sleep(2)
@@ -87,35 +87,33 @@ def main():
                 confirm = input("Do you want to update? (y/n) : ").strip()
                 if confirm.lower() != "y":
                     kernel.printWarning("Update cancelled by user")
-                    sys.exit(0)
-                kernel.println("Updating ProcyonCLS...")
-                zip_path = os.path.join(current_directory, "latest_release.zip")
-                temp_extract_path = os.path.join(current_directory, "temp")
-                downloadRelease(zip_url, zip_path)
-                extractRelease(zip_path, temp_extract_path)
+                elif confirm.lower() == "y":
+                    kernel.println("Updating ProcyonCLS...")
+                    zip_path = os.path.join(current_directory, "latest_release.zip")
+                    temp_extract_path = os.path.join(current_directory, "temp")
+                    downloadRelease(zip_url, zip_path)
+                    extractRelease(zip_path, temp_extract_path)
 
-                extracted_folder_name = None
-                for item in os.listdir(temp_extract_path):
-                    if os.path.isdir(os.path.join(temp_extract_path, item)):
-                        extracted_folder_name = item
-                        break
+                    extracted_folder_name = None
+                    for item in os.listdir(temp_extract_path):
+                        if os.path.isdir(os.path.join(temp_extract_path, item)):
+                            extracted_folder_name = item
+                            break
 
-                if extracted_folder_name:
-                    extracted_path = os.path.join(temp_extract_path, extracted_folder_name)
-                    replaceLocalFiles(extracted_path, current_directory)
-                    writeCurrentTag(latest_tag)
-                    kernel.printSuccess("Update completed successfully!")
-                    time.sleep(1)
-                    kernel.println("Rebooting...")
-                    kernel.reboot()
+                    if extracted_folder_name:
+                        extracted_path = os.path.join(temp_extract_path, extracted_folder_name)
+                        replaceLocalFiles(extracted_path, current_directory)
+                        writeCurrentTag(latest_tag)
+                        kernel.printSuccess("Update completed successfully!")
+                        time.sleep(1)
+                        kernel.println("Rebooting...")
+                        kernel.reboot()
                 else:
                     kernel.printError("No extracted folder found.")
                 shutil.rmtree(temp_extract_path)
                 os.remove(zip_path)
             else:
                 kernel.printSuccess("You're up to date!")
-                time.sleep(1)
-                kernel.println("Shutting down..")
         else:
             kernel.printError("This version of updater is incompatible with the current version of ProcyonCLS")
     else:

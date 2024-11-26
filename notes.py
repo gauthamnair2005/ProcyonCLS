@@ -5,8 +5,8 @@ import time
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "KRNL_0.7":
-            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.7 Munnar")
+        if sys.argv[1] == "KRNL_0.8":
+            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.8 Munnar")
             ekernel.printHeader("Notes")
             filename = input("Enter filename : ").strip()
             filename = "notes/" + filename
