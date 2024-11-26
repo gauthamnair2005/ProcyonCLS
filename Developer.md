@@ -25,7 +25,7 @@ import sys
 
 def main():
     if len(sys.argv) == 2:
-        if sys.argv[1] == "KRNL_0.5":
+        if sys.argv[1] == "KRNL_0.5C2":
             kernel.println("Hello, World!")
             ekernel.prettyPrint("Hello, World!")
         else:
@@ -51,13 +51,13 @@ The above code is a simple example of a ProcyonCLS application. It imports the K
 
 * `if len(sys.argv) == 2:` - This checks if there are two command line arguments.
 
-* `if sys.argv[1] == "KRNL_0.5":` - This checks if the second command line argument is `KRNL_0.5`.
+* `if sys.argv[1] == "KRNL_0.5C2":` - This checks if the second command line argument is `KRNL_0.5C2`.
 
 * `kernel.println("Hello, World!")` - This prints "Hello, World!" to the command line.
 
 * `ekernel.prettyPrint("Hello, World!")` - This prints "Hello, World!" to the command line in a pretty format.
 
-* `else:` - This is the else statement for the `if sys.argv[1] == "KRNL_0.5":` statement.
+* `else:` - This is the else statement for the `if sys.argv[1] == "KRNL_0.5C2":` statement.
 
 * `kernel.printError("Incompatible kernel")` - This prints an error message to the command line.
 

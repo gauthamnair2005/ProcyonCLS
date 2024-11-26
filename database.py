@@ -6,8 +6,8 @@ import time
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "KRNL_0.5":
-            ekernel.splashScreen("ProcyonCLS Database", "Version 0.5 Munnar Engine SQLite3")
+        if sys.argv[1] == "KRNL_0.5C2":
+            ekernel.splashScreen("ProcyonCLS Database", "Version 0.5C2 Munnar Engine SQLite3")
             ekernel.printHeader("ProcyonDB")
             prompt = ""
             while prompt != "exit":
