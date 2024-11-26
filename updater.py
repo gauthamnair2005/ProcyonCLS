@@ -11,6 +11,8 @@ owner = "gauthamnair2005"
 repo = "ProcyonCLS"
 current_tag_file = "tag.txt"
 current_directory = os.getcwd()
+db_file = "configuration.db"
+protected_dirs = ["databases", "notes"]
 
 def getLatestReleaseTag():
     try:
@@ -61,10 +63,14 @@ def replaceLocalFiles(extracted_path, target_path):
         s = os.path.join(extracted_path, item)
         d = os.path.join(target_path, item)
         if os.path.isdir(s):
+            if os.path.basename(d) in protected_dirs:
+                continue
             if os.path.exists(d):
                 shutil.rmtree(d)
             shutil.copytree(s, d)
         else:
+            if os.path.basename(d) == db_file:
+                continue
             shutil.copy2(s, d)
 
 def main():
