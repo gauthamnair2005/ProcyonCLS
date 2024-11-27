@@ -76,7 +76,7 @@ def replaceLocalFiles(extracted_path, target_path):
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] != None:
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.8 Munnar")
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.9 Munnar")
             ekernel.printHeader("ProcyonCLS Updater")
             kernel.println("Checking for updates...")
             time.sleep(2)
@@ -91,7 +91,9 @@ def main():
                     kernel.println("Updating ProcyonCLS...")
                     zip_path = os.path.join(current_directory, "latest_release.zip")
                     temp_extract_path = os.path.join(current_directory, "temp")
+                    kernel.println("Downloading update..")
                     downloadRelease(zip_url, zip_path)
+                    kernel.println("Extracting update..")
                     extractRelease(zip_path, temp_extract_path)
 
                     extracted_folder_name = None
@@ -102,7 +104,9 @@ def main():
 
                     if extracted_folder_name:
                         extracted_path = os.path.join(temp_extract_path, extracted_folder_name)
+                        kernel.println("Updating files...")
                         replaceLocalFiles(extracted_path, current_directory)
+                        kernel.println("Writing new tag..")
                         writeCurrentTag(latest_tag)
                         kernel.printSuccess("Update completed successfully!")
                         time.sleep(1)

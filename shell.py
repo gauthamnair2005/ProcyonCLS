@@ -64,7 +64,8 @@ def create_user_applet():
     password = getpass.getpass("Enter Password: ").strip()
     first_name = input("Enter First Name: ").strip()
     last_name = input("Enter Last Name: ").strip()
-    age = int(input("Enter Age: ").strip())
+    age = input("Enter Age: ").strip()
+    age = int(age) if age.isdigit() else None
     other_details = input("Enter Other Details: ").strip()
     add_user(username, password, first_name, last_name, age, other_details)
     kernel.printSuccess("User Created Successfully!")
@@ -77,10 +78,12 @@ def prompt(user, username):
     ekernel.prettyPrint(f"Welcome, {user}")
     time.sleep(5)
     kernel.clrscr()
-    ekernel.printHeader("ProcyonCLS Shell")
-    kernel.printWarning("/!\\ This is a preliminary release..!!")
+    ekernel.printHeader("ProcyonCLS Desktop")
+    kernel.printWarning("This is a Pre-Release version of ProcyonCLS!")
+    kernel.printInfo("Check for updates regularly to get latest bugfixes and features.")
+    kernel.println(time.strftime("%d/%m/%Y %H:%M:%S"))
     while True:
-        prmpt = input(f"{username}@ProcyonCLS:~$ ").strip()
+        prmpt = input(f"\033[92m{username}\033[0m@\033[96mProcyonCLS\033[0m:~\033[93m$\033[0m ").strip()
         if prmpt == "exit" or prmpt == "shutdown":
             kernel.shutDown()
         elif prmpt == "reboot":
@@ -132,12 +135,13 @@ def prompt(user, username):
             kernel.printInfo(f"Release : {kernel.getRelease()}")
         elif prmpt == "info":
             ekernel.printHeader("Software Information")
+            kernel.printInfo("ProcyonCLS Pre-Release Build")
             kernel.printInfo(f"Version : {kernel.getVersion()}")
             kernel.printInfo(f"Build : {kernel.getBuild()}")
             kernel.printInfo(f"Author : {kernel.getAuthor()}")
             kernel.printInfo(f"Company : {kernel.getCompany()}")
             kernel.printInfo(f"License : {kernel.getLicense()}")
-            kernel.printInfo(f"Name : {kernel.getKernelName()}")
+            kernel.printInfo(f"Kernel Name : {kernel.getKernelName()}")
             kernel.printInfo(f"Code Name : {kernel.getCodeName()}")
             kernel.printInfo(f"Release : {kernel.getRelease()}")
         elif prmpt in ["calc", "calculator", "eval", "evaluator"]:
@@ -175,27 +179,28 @@ def prompt(user, username):
         elif prmpt == "help":
             ekernel.printHeader("Help")
             kernel.printInfo("Available commands :")
-            kernel.printInfo("help - Display this help message")
-            kernel.printInfo("exit - Exit the shell")
-            kernel.printInfo("bsod - Invoke a Blue Screen of Death")
-            kernel.printInfo("run <application> - Run a 3rd party application")
-            kernel.printInfo("admin <application> - Run a 3rd party application with admin privileges")
-            kernel.printInfo("clrscr - Clear the screen")
-            kernel.printInfo("eval - Open the evaluator")
-            kernel.printInfo("date - Display the current date")
-            kernel.printInfo("time - Display the current time")
-            kernel.printInfo("datetime - Display the current date and time")
-            kernel.printInfo("reset password - Reset the user password")
-            kernel.printInfo("update <field> <value> - Update user details")
-            kernel.printInfo("create user - Create a new user")
-            kernel.printInfo("ver - Display OS version information")
-            kernel.printInfo("info - Display OS information")
-            kernel.printInfo("notes - Open the notes application")
-            kernel.printInfo("dir/ls - List files and folders in the current directory")
-            kernel.printInfo("mkdir - Create a new folder")
-            kernel.printInfo("delete - Delete a file")
-            kernel.printInfo("reboot - Reboot the system")
-            kernel.printInfo("shutdown - Shutdown the system")
+            kernel.println("help - Display this help message")
+            kernel.println("exit - Exit the shell")
+            kernel.println("bsod - Invoke a Blue Screen of Death")
+            kernel.println("run <application> - Run a 3rd party application")
+            kernel.println("admin <application> - Run a 3rd party application with admin privileges")
+            kernel.println("clrscr - Clear the screen")
+            kernel.println("eval - Open the evaluator")
+            kernel.println("date - Display the current date")
+            kernel.println("time - Display the current time")
+            kernel.println("datetime - Display the current date and time")
+            kernel.println("reset password - Reset the user password")
+            kernel.println("update <field> <value> - Update user details")
+            kernel.println("create user - Create a new user")
+            kernel.println("ver - Display OS version information")
+            kernel.println("info - Display OS information")
+            kernel.println("notes - Open the notes application")
+            kernel.println("dir/ls - List files and folders in the current directory")
+            kernel.println("mkdir - Create a new folder")
+            kernel.println("security - Open the security application")
+            kernel.println("delete - Delete a file")
+            kernel.println("reboot - Reboot the system")
+            kernel.println("shutdown - Shutdown the system")
         elif prmpt == "logout":
             break
         elif prmpt == "delete user":
@@ -233,15 +238,15 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "KRNL_0.8":
+        if sys.argv[1] == "0.9":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("֎ ProcyonCLS", font="slant", justify="center"))
-            print(pyfiglet.figlet_format("Preliminary Release", font="slant", justify="center"))
+            print(pyfiglet.figlet_format("Pre-Release Build 0.9", font="slant", justify="center"))
             print("\n\n\nCopyright © 2024, Procyonis Computing\n\n\nStarting...")
-            for _ in range(10):
+            for _ in range(5):
                 print("═", end="", flush=True)
                 time.sleep(0.5)
-            for _ in range(100):
+            for _ in range(50):
                 print("═", end="", flush=True)
                 time.sleep(0.1)
             for _ in range(3):
@@ -275,7 +280,7 @@ def main():
                         kernel.printError("Login Failed!")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected KRNL_0.8, got {sys.argv[1]}")
+            print(f"Expected 0.9, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

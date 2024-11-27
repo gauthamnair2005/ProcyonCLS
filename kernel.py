@@ -13,24 +13,30 @@ def log_error(message):
 try:
     def main():
         if len(sys.argv) == 2:
-            if sys.argv[1] == "BTLDR_0.8":
+            if sys.argv[1] == "0.9":
                 os.system("cls" if sys.platform == "win32" else "clear")
-                print("Procyon Neo Kernel v0.8")
+                print("Procyon Neo Kernel v0.9")
                 print("..............")
                 print("Loading Kernel modules...")
                 time.sleep(1)
-                print("PDD", end=" ", flush=True)
-                time.sleep(5)
+                print("FDD", end=" ", flush=True)
+                time.sleep(2)
                 print("\033[92m[Done]\033[0m")
-                print("API", end=" ", flush=True)
-                time.sleep(5)
+                print("FND", end=" ", flush=True)
+                time.sleep(2)
+                print("\033[92m[Done]\033[0m")
+                print("FODBCD", end=" ", flush=True)
+                time.sleep(2)
+                print("\033[92m[Done]\033[0m")
+                print("APIs", end=" ", flush=True)
+                time.sleep(2)
                 print("\033[92m[Done]\033[0m")
                 print("Kernel Loaded Successfully!")
                 print("Booting ProcyonCLS...")
                 time.sleep(2)
                 if os.path.exists("shell.py"):
                     log_error("Kernel Loaded Successfully")
-                    os.system("python3 shell.py KRNL_0.8")
+                    os.system("python3 shell.py 0.9")
                 else:
                     os.system("cls" if sys.platform == "win32" else "clear")
                     print("Kernel Panic : OS error")
@@ -45,7 +51,7 @@ try:
                 print("Technical Details : ")
                 print(" Error Code : 0x0001")
                 print(" Error Description : Incompatible version reported by Bootloader")
-                print(f" Reported {sys.argv[1]} as opposed to BTLDR_0.8")
+                print(f" Reported {sys.argv[1]} as opposed to 0.9")
                 log_error("Incompatible version reported by Bootloader")
                 sys.exit(1)
         else:
@@ -76,7 +82,7 @@ def reboot():
     os.execv(sys.executable, ['python3', 'bootload.py'])
 
 def getVersion():
-    return "KRNL_0.8"
+    return "0.9"
 
 def getBuild():
     return "2024.11.26.1209"
@@ -91,13 +97,13 @@ def getLicense():
     return "GNU GPL v3.0"
 
 def getKernelName():
-    return "ProcyonCLS Kernel"
+    return "Procyon Neo Kernel"
 
 def getCodeName():
     return "Munnar"
 
 def getRelease():
-    return "Preliminary Release"
+    return "Pre-Release"
 
 def printError(param):
     print(f"\033[91m{param}\033[0m")
@@ -131,5 +137,5 @@ def bsod(error, msg):
     sys.exit(1)
 
 def callApplication(app, isAdmin = False):
-    appResolved = app + ".py KRNL_0.8 " + str(isAdmin)
+    appResolved = app + ".py 0.9 " + str(isAdmin)
     os.system(appResolved)

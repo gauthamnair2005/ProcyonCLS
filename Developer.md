@@ -25,7 +25,9 @@ import sys
 
 def main():
     if len(sys.argv) == 2:
-        if sys.argv[1] == "KRNL_0.8":
+        if sys.argv[1] == "0.9":
+            ekernel.splashScreen("App", "Version (String)")
+            ekernel.printHeader("App")
             kernel.println("Hello, World!")
             ekernel.prettyPrint("Hello, World!")
         else:
@@ -51,13 +53,17 @@ The above code is a simple example of a ProcyonCLS application. It imports the K
 
 * `if len(sys.argv) == 2:` - This checks if there are two command line arguments.
 
-* `if sys.argv[1] == "KRNL_0.8":` - This checks if the second command line argument is `KRNL_0.8`.
+* `if sys.argv[1] == "0.9":` - This checks if the second command line argument is `0.9`.
+
+* `ekernel.splashScreen("App", "Version (String)")` - This prints the splash screen with the application name and version.
+
+* `ekernel.printHeader("App")` - This prints the header for the application.
 
 * `kernel.println("Hello, World!")` - This prints "Hello, World!" to the command line.
 
 * `ekernel.prettyPrint("Hello, World!")` - This prints "Hello, World!" to the command line in a pretty format.
 
-* `else:` - This is the else statement for the `if sys.argv[1] == "KRNL_0.8":` statement.
+* `else:` - This is the else statement for the `if sys.argv[1] == "0.9":` statement.
 
 * `kernel.printError("Incompatible kernel")` - This prints an error message to the command line.
 
@@ -75,4 +81,4 @@ To run this application, you need to first logon to ProcyonCLS and then type `ru
 
 ### Conclusion
 
-This document has provided an overview of how to develop applications for ProcyonCLS. For more information on developing applications for ProcyonCLS, refer to the ProcyonCLS documentation.
+This document has provided an overview of how to develop applications for ProcyonCLS. For more information on developing applications for ProcyonCLS, refer to the sample.py file in the ProcyonCLS repository.
