@@ -6,8 +6,8 @@ import time
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9":
-            ekernel.splashScreen("ProcyonCLS Security", "Version 0.9 Munnar")
+        if sys.argv[1] == "0.9A":
+            ekernel.splashScreen("ProcyonCLS Security", "Version 0.9A Munnar")
             ekernel.printHeader("Security")
             kernel.println("1. Scan for vulnerabilities")
             kernel.println("2. Update ProcyonCLS")
@@ -33,6 +33,7 @@ def main():
                                 pass
             elif choice == 2:
                 os.execv(sys.executable, ['python3', 'updater.py', 'KRNL_0.5'])
+                exit(0)
             elif choice == 3:
                 kernel.println("Exiting..")
                 sys.exit(0)

@@ -13,30 +13,33 @@ def log_error(message):
 try:
     def main():
         if len(sys.argv) == 2:
-            if sys.argv[1] == "0.9":
+            if sys.argv[1] == "0.9A":
                 os.system("cls" if sys.platform == "win32" else "clear")
-                print("Procyon Neo Kernel v0.9")
+                print("Procyon Neo Kernel v0.9A")
                 print("..............")
                 print("Loading Kernel modules...")
                 time.sleep(1)
                 print("FDD", end=" ", flush=True)
-                time.sleep(2)
+                time.sleep(1)
                 print("\033[92m[Done]\033[0m")
                 print("FND", end=" ", flush=True)
-                time.sleep(2)
+                time.sleep(1)
                 print("\033[92m[Done]\033[0m")
                 print("FODBCD", end=" ", flush=True)
-                time.sleep(2)
+                time.sleep(1)
+                print("\033[92m[Done]\033[0m")
+                print("Extended Kernel", end=" ", flush=True)
+                time.sleep(1)
                 print("\033[92m[Done]\033[0m")
                 print("APIs", end=" ", flush=True)
-                time.sleep(2)
+                time.sleep(1)
                 print("\033[92m[Done]\033[0m")
                 print("Kernel Loaded Successfully!")
                 print("Booting ProcyonCLS...")
                 time.sleep(2)
                 if os.path.exists("shell.py"):
                     log_error("Kernel Loaded Successfully")
-                    os.system("python3 shell.py 0.9")
+                    os.system("python3 shell.py 0.9A")
                 else:
                     os.system("cls" if sys.platform == "win32" else "clear")
                     print("Kernel Panic : OS error")
@@ -51,7 +54,7 @@ try:
                 print("Technical Details : ")
                 print(" Error Code : 0x0001")
                 print(" Error Description : Incompatible version reported by Bootloader")
-                print(f" Reported {sys.argv[1]} as opposed to 0.9")
+                print(f" Reported {sys.argv[1]} as opposed to 0.9A")
                 log_error("Incompatible version reported by Bootloader")
                 sys.exit(1)
         else:
@@ -82,10 +85,10 @@ def reboot():
     os.execv(sys.executable, ['python3', 'bootload.py'])
 
 def getVersion():
-    return "0.9"
+    return "0.9A"
 
 def getBuild():
-    return "2024.11.26.1209"
+    return "2024.11.27.1110"
 
 def getAuthor():
     return "Gautham Nair"
@@ -137,5 +140,5 @@ def bsod(error, msg):
     sys.exit(1)
 
 def callApplication(app, isAdmin = False):
-    appResolved = app + ".py 0.9 " + str(isAdmin)
+    appResolved = app + ".py 0.9A " + str(isAdmin)
     os.system(appResolved)

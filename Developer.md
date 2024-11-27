@@ -25,7 +25,7 @@ import sys
 
 def main():
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9":
+        if sys.argv[1] == "0.9A":
             ekernel.splashScreen("App", "Version (String)")
             ekernel.printHeader("App")
             kernel.println("Hello, World!")
@@ -53,7 +53,7 @@ The above code is a simple example of a ProcyonCLS application. It imports the K
 
 * `if len(sys.argv) == 2:` - This checks if there are two command line arguments.
 
-* `if sys.argv[1] == "0.9":` - This checks if the second command line argument is `0.9`.
+* `if sys.argv[1] == "0.9A":` - This checks if the second command line argument is `0.9A`.
 
 * `ekernel.splashScreen("App", "Version (String)")` - This prints the splash screen with the application name and version.
 
@@ -63,7 +63,7 @@ The above code is a simple example of a ProcyonCLS application. It imports the K
 
 * `ekernel.prettyPrint("Hello, World!")` - This prints "Hello, World!" to the command line in a pretty format.
 
-* `else:` - This is the else statement for the `if sys.argv[1] == "0.9":` statement.
+* `else:` - This is the else statement for the `if sys.argv[1] == "0.9A":` statement.
 
 * `kernel.printError("Incompatible kernel")` - This prints an error message to the command line.
 

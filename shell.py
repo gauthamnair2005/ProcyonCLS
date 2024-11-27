@@ -76,7 +76,7 @@ def create_user_applet():
 def prompt(user, username):
     kernel.clrscr()
     ekernel.prettyPrint(f"Welcome, {user}")
-    time.sleep(5)
+    time.sleep(3)
     kernel.clrscr()
     ekernel.printHeader("ProcyonCLS Desktop")
     kernel.printWarning("This is a Pre-Release version of ProcyonCLS!")
@@ -130,20 +130,21 @@ def prompt(user, username):
             kernel.println(os.listdir())
         elif prmpt == "ver":
             ekernel.printHeader("Version Information")
-            kernel.printInfo(f"Version : {kernel.getVersion()}")
-            kernel.printInfo(f"Code Name : {kernel.getCodeName()}")
-            kernel.printInfo(f"Release : {kernel.getRelease()}")
+            kernel.printInfo("ProcyonCLS Pre-Release Build")
+            kernel.println(f"Version : {kernel.getVersion()}")
+            kernel.println(f"Code Name : {kernel.getCodeName()}")
+            kernel.println(f"Release : {kernel.getRelease()}")
         elif prmpt == "info":
             ekernel.printHeader("Software Information")
             kernel.printInfo("ProcyonCLS Pre-Release Build")
-            kernel.printInfo(f"Version : {kernel.getVersion()}")
-            kernel.printInfo(f"Build : {kernel.getBuild()}")
-            kernel.printInfo(f"Author : {kernel.getAuthor()}")
-            kernel.printInfo(f"Company : {kernel.getCompany()}")
-            kernel.printInfo(f"License : {kernel.getLicense()}")
-            kernel.printInfo(f"Kernel Name : {kernel.getKernelName()}")
-            kernel.printInfo(f"Code Name : {kernel.getCodeName()}")
-            kernel.printInfo(f"Release : {kernel.getRelease()}")
+            kernel.println(f"Version : {kernel.getVersion()}")
+            kernel.println(f"Build : {kernel.getBuild()}")
+            kernel.println(f"Author : {kernel.getAuthor()}")
+            kernel.println(f"Company : {kernel.getCompany()}")
+            kernel.println(f"License : {kernel.getLicense()}")
+            kernel.println(f"Kernel Name : {kernel.getKernelName()}")
+            kernel.println(f"Code Name : {kernel.getCodeName()}")
+            kernel.println(f"Release : {kernel.getRelease()}")
         elif prmpt in ["calc", "calculator", "eval", "evaluator"]:
             try:
                 kernel.callApplication("evaluator", isAdmin=False)
@@ -163,6 +164,8 @@ def prompt(user, username):
                 kernel.printSuccess("Password reset successfully!")
             else:
                 kernel.printError("Admin access denied")
+        elif prmpt == "update":
+            kernel.printError("Usage: update <field> <value>")
         elif prmpt.startswith("update "):
             parts = prmpt.split()
             if len(parts) == 3:
@@ -238,10 +241,10 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9":
+        if sys.argv[1] == "0.9A":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("֎ ProcyonCLS", font="slant", justify="center"))
-            print(pyfiglet.figlet_format("Pre-Release Build 0.9", font="slant", justify="center"))
+            print(pyfiglet.figlet_format("Pre-Release Build 0.9A", font="slant", justify="center"))
             print("\n\n\nCopyright © 2024, Procyonis Computing\n\n\nStarting...")
             for _ in range(5):
                 print("═", end="", flush=True)
@@ -273,14 +276,16 @@ def main():
                     if user_data and user_data[1] == password:
                         kernel.printSuccess("Login Successful!")
                         kernel.printWarning("Please wait..")
-                        time.sleep(5)
+                        time.sleep(2)
                         prompt(get_name(username), username)
                         break
                     else:
                         kernel.printError("Login Failed!")
+                        time.sleep(2)
+                        kernel.clrscr()
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9, got {sys.argv[1]}")
+            print(f"Expected 0.9A, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")
