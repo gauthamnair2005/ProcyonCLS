@@ -6,6 +6,7 @@ import time
 import getpass
 import ekernel
 import sqlite3
+import updater
 
 def initialize_db():
     conn = sqlite3.connect('configuration.db')
@@ -19,6 +20,14 @@ def initialize_db():
                         other_details TEXT)''')
     conn.commit()
     conn.close()
+
+def updateCheckOnStart():
+    newtag = updater.getLatestReleaseTag()
+    currenttag = updater.readCurrentTag()
+    if newtag != currenttag:
+        kernel.printWarning(f"ProcyonCLS Munnar {newtag} is available!")
+        kernel.printInfo("Run 'clsupdate' to update")
+    return None
 
 def add_user(username, password, first_name, last_name, age, other_details):
     conn = sqlite3.connect('configuration.db')
@@ -58,6 +67,42 @@ def delete_user(username):
     conn.commit()
     conn.close()
 
+def oobe():
+    ekernel.prettyPrint("Welcome to ProcyonCLS")
+    time.sleep(2)
+    kernel.clrscr()
+    ekernel.printHeader("Out of Box Experience")
+    kernel.println("Get ready to experience the ProcyonCLS Munnar")
+    time.sleep(2)
+    kernel.printError("..........")
+    time.sleep(1)
+    kernel.printWarning(".........")
+    time.sleep(1)
+    kernel.printSuccess(".......")
+    time.sleep(1)
+    kernel.printInfo("......")
+    time.sleep(2)
+    kernel.clrscr()
+    ekernel.printHeader("Out of Box Experience")
+    time.sleep(2)
+    kernel.printInfo("ProcyonCLS now is even better with new features and improvements")
+    time.sleep(2)
+    kernel.println("* ProcyonCLS now boots faster than ever, and is loaded with new features.")
+    time.sleep(0.9)
+    kernel.println("* ProcyonCLS now has a new security application, to keep your system secure.")
+    time.sleep(0.9)
+    kernel.println("* ProcyonCLS now has a new notes application, to keep your notes safe.")
+    time.sleep(0.9)
+    kernel.println("* ProcyonCLS now has a new database application, to store your data.")
+    time.sleep(0.9)
+    kernel.println("* ProcyonCLS now has a new evaluator application, to perform calculations.")
+    time.sleep(0.9)
+    kernel.println("* ProcyonCLS now has an updater, which helps you get up to date.")
+    time.sleep(10)
+    input("Press Enter to continue...")
+    kernel.clrscr()
+
+
 def create_user_applet():
     ekernel.printHeader("User Creation")
     username = input("Enter Username: ").strip()
@@ -74,6 +119,7 @@ def create_user_applet():
     prompt(first_name, username)
 
 def prompt(user, username):
+    updateCheckOnStart()
     kernel.clrscr()
     ekernel.prettyPrint(f"Welcome, {user}")
     time.sleep(3)
@@ -113,9 +159,16 @@ def prompt(user, username):
         elif prmpt == "database":
             kernel.callApplication("database", isAdmin=False)
         elif prmpt == "linea":
-            kernel.println("Coming Soon!")
+            kernel.callApplication("linearun", isAdmin=False)
+        elif prmpt == "market" or prmpt == "appmarket" or prmpt == "appstore" or prmpt == "store":
+            if ekernel.admin(username):
+                kernel.callApplication("appmarket", isAdmin=True)
+            else:
+                kernel.printError("Admin access denied, market needs admin access to run!")
         elif prmpt == "python":
             os.system("python3")
+        elif prmpt == "browser":
+            kernel.callApplication("browser", isAdmin=False)
         elif prmpt == "clsupdate":
             if ekernel.admin(username):
                 os.execv(sys.executable, ['python3', 'updater.py', 'KRNL_0.5'])
@@ -241,10 +294,10 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9A":
+        if sys.argv[1] == "0.9B":
             os.system("cls" if sys.platform == "win32" else "clear")
-            print(pyfiglet.figlet_format("֎ ProcyonCLS", font="slant", justify="center"))
-            print(pyfiglet.figlet_format("Pre-Release Build 0.9A", font="slant", justify="center"))
+            print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
+            print("0.9B Munnar")
             print("\n\n\nCopyright © 2024, Procyonis Computing\n\n\nStarting...")
             for _ in range(5):
                 print("═", end="", flush=True)
@@ -266,6 +319,7 @@ def main():
             user_count = cursor.fetchone()[0]
             conn.close()
             if user_count == 0:
+                oobe()
                 create_user_applet()
             else:
                 while True:
@@ -285,7 +339,7 @@ def main():
                         kernel.clrscr()
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9A, got {sys.argv[1]}")
+            print(f"Expected 0.9B, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

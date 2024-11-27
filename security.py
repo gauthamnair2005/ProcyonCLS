@@ -6,8 +6,8 @@ import time
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9A":
-            ekernel.splashScreen("ProcyonCLS Security", "Version 0.9A Munnar")
+        if sys.argv[1] == "0.9B":
+            ekernel.splashScreen("ProcyonCLS Security", "Version 0.9B Munnar")
             ekernel.printHeader("Security")
             kernel.println("1. Scan for vulnerabilities")
             kernel.println("2. Update ProcyonCLS")
