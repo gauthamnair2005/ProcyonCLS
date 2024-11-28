@@ -4,8 +4,8 @@ import ekernel
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9C":
-            ekernel.splashScreen("ProcyonCLS App Market", "Version 0.9C Munnar")
+        if sys.argv[1] == "0.9D":
+            ekernel.splashScreen("ProcyonCLS App Market", "Version 0.9D Munnar")
             ekernel.printHeader("App Market")
             kernel.println("Coming Soon..!")
         else:

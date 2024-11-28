@@ -1,16 +1,41 @@
+import openai
+import os
+from prompt_toolkit import prompt
 import kernel
 import sys
 import ekernel
 
+def generate_response(prompt_text):
+    response = openai.Completion.create(
+        engine="davinci",
+        prompt=prompt_text,
+        max_tokens=150,
+        n=1,
+        stop=None,
+        temperature=0.9,
+    )
+    return response.choices[0].text.strip()
+
+def chat():
+    print("Welcome to Procyon ChatCLS")
+    print("Type 'exit' to end the conversation.")
+    while True:
+        user_input = prompt("You: ")
+        if user_input.lower() == 'exit':
+            print("Goodbye!")
+            break
+        response = generate_response(user_input)
+        print(f"ChatCLS : {response}")
+
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9C":
-            ekernel.splashScreen("ProcyonCLS Chat", "Version 0.9C Munnar")
+        if sys.argv[1] == "0.9D":
+            ekernel.splashScreen("Procyon ChatCLS", "Version 0.9D Munnar")
             ekernel.printHeader("ChatCLS")
-            kernel.println("Coming Soon..!")
-            kernel.printWarning("You'll need OpenAI API key to use this feature, after it releases")
+            openai.api_key = os.getenv(input("Enter your OpenAI API key: "))
+            chat()
         else:
-            kernel.printError("This version of evaluator is incompatible with current version of ProcyonCLS")
+            kernel.printError("This version of market is incompatible with current version of ProcyonCLS")
     else:
         kernel.printError("OS Scope Error")
 

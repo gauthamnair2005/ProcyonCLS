@@ -24,9 +24,10 @@ def initialize_db():
 def updateCheckOnStart():
     newtag = updater.getLatestReleaseTag()
     currenttag = updater.readCurrentTag()
-    if newtag != currenttag:
-        kernel.printWarning(f"ProcyonCLS Munnar {newtag} is available!")
+    if newtag[0] != currenttag:
+        kernel.printWarning(f"ProcyonCLS Munnar {newtag[0]} is available!")
         kernel.printInfo("Run 'clsupdate' to update")
+        time.sleep(2)
     return None
 
 def add_user(username, password, first_name, last_name, age, other_details):
@@ -119,13 +120,13 @@ def create_user_applet():
     prompt(first_name, username)
 
 def prompt(user, username):
-    updateCheckOnStart()
     kernel.clrscr()
     ekernel.prettyPrint(f"Welcome, {user}")
     time.sleep(3)
     kernel.clrscr()
     ekernel.printHeader("ProcyonCLS Munnar")
-    kernel.printWarning("This is a Pre-Release version of ProcyonCLS Munnar!")
+    updateCheckOnStart()
+    kernel.printWarning("This is a Developer Preview version of ProcyonCLS Munnar!")
     kernel.printInfo("Check for updates regularly to get latest bugfixes and features.")
     kernel.println(time.strftime("%d/%m/%Y %H:%M:%S"))
     while True:
@@ -134,6 +135,8 @@ def prompt(user, username):
             kernel.shutDown()
         elif prmpt == "reboot":
             kernel.reboot()
+        elif prmpt == "chatcls":
+            kernel.callApplication("chatcls", isAdmin=False)
         elif prmpt == "delete":
             fileFolder = input("Enter file name to delete : ").strip()
             if os.path.exists(fileFolder):
@@ -156,8 +159,6 @@ def prompt(user, username):
                     kernel.printError(f"Error creating folder: {e}")
         elif prmpt == "notes":
             kernel.callApplication("notes", isAdmin=False)
-        elif prmpt == "database":
-            kernel.callApplication("database", isAdmin=False)
         elif prmpt == "linea":
             kernel.callApplication("linearun", isAdmin=False)
         elif prmpt == "market" or prmpt == "appmarket" or prmpt == "appstore" or prmpt == "store":
@@ -170,10 +171,12 @@ def prompt(user, username):
         elif prmpt == "browser":
             kernel.callApplication("browser", isAdmin=False)
         elif prmpt == "clsupdate":
-            if ekernel.admin(username):
-                os.execv(sys.executable, ['python3', 'updater.py', 'KRNL_0.5'])
-            else:
-                kernel.printError("Admin access denied, updater needs admin access to run!")
+            confirm = input("Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
+            if confirm.lower() == "y":
+                if ekernel.admin(username):
+                    os.execv(sys.executable, ['python3', 'updater.py', 'KRNL_0.5'])
+                else:
+                    kernel.printError("Admin access denied, updater needs admin access to run!")
         elif prmpt == "security":
             if ekernel.admin(username):
                 kernel.callApplication("security", isAdmin=True)
@@ -183,20 +186,20 @@ def prompt(user, username):
             kernel.println(os.listdir())
         elif prmpt == "ver":
             ekernel.printHeader("Version Information")
-            kernel.printInfo("ProcyonCLS Pre-Release Build")
+            kernel.printInfo("ProcyonCLS Developer Preview")
+            kernel.println(f"OS Name : {kernel.getCodeName()}")
             kernel.println(f"Version : {kernel.getVersion()}")
-            kernel.println(f"Code Name : {kernel.getCodeName()}")
             kernel.println(f"Release : {kernel.getRelease()}")
         elif prmpt == "info":
             ekernel.printHeader("Software Information")
-            kernel.printInfo("ProcyonCLS Pre-Release Build")
+            kernel.printInfo("ProcyonCLS Developer Preview")
+            kernel.println(f"OS Name : {kernel.getCodeName()}")
             kernel.println(f"Version : {kernel.getVersion()}")
             kernel.println(f"Build : {kernel.getBuild()}")
             kernel.println(f"Author : {kernel.getAuthor()}")
             kernel.println(f"Company : {kernel.getCompany()}")
             kernel.println(f"License : {kernel.getLicense()}")
             kernel.println(f"Kernel Name : {kernel.getKernelName()}")
-            kernel.println(f"Code Name : {kernel.getCodeName()}")
             kernel.println(f"Release : {kernel.getRelease()}")
         elif prmpt in ["calc", "calculator", "eval", "evaluator"]:
             try:
@@ -294,10 +297,11 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9C":
+        if sys.argv[1] == "0.9D":
             os.system("cls" if sys.platform == "win32" else "clear")
-            print("\033[92m" + pyfiglet.figlet_format("ProcyonCLS Munnar", font="slant", justify="center") + "\033[0m")
-            print("0.9C")
+            print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
+            print("\033[92m" + pyfiglet.figlet_format("Munnar", font="slant", justify="center") + "\033[0m")
+            print("0.9D")
             print("\n\n\nCopyright © 2024, Procyonis Computing\n\n\nStarting...")
             for _ in range(5):
                 print("\033[91m═\033[0m", end="", flush=True)
@@ -342,7 +346,7 @@ def main():
                         kernel.clrscr()
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9C, got {sys.argv[1]}")
+            print(f"Expected 0.9D, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")
