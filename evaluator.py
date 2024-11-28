@@ -1,12 +1,11 @@
 import kernel
 import sys
 import ekernel
-import time
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9B":
-            ekernel.splashScreen("ProcyonCLS Evaluator", "Version 0.9B Munnar")
+        if sys.argv[1] == "0.9C":
+            ekernel.splashScreen("ProcyonCLS Evaluator", "Version 0.9C Munnar")
             ekernel.printHeader("Evaluator")
             kernel.println("Type expression or 'exit' to quit")
             while True:

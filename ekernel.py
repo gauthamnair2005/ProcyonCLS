@@ -1,7 +1,5 @@
 # ProcyonCLS Extended Kernel
 
-import os
-import sys
 import time
 import kernel
 import getpass
@@ -44,6 +42,10 @@ def textBrowser(url):
     import requests
     from bs4 import BeautifulSoup
     try:
+        if url.startswith("http://") or url.startswith("https://"):
+            pass
+        else:
+            url = "https://" + url
         response = requests.get(url, verify=True)
         soup = BeautifulSoup(response.content, 'html.parser')
         text = soup.get_text()

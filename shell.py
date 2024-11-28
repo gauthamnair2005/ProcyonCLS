@@ -68,7 +68,7 @@ def delete_user(username):
     conn.close()
 
 def oobe():
-    ekernel.prettyPrint("Welcome to ProcyonCLS")
+    ekernel.prettyPrint("Welcome to ProcyonCLS Munnar")
     time.sleep(2)
     kernel.clrscr()
     ekernel.printHeader("Out of Box Experience")
@@ -124,8 +124,8 @@ def prompt(user, username):
     ekernel.prettyPrint(f"Welcome, {user}")
     time.sleep(3)
     kernel.clrscr()
-    ekernel.printHeader("ProcyonCLS Desktop")
-    kernel.printWarning("This is a Pre-Release version of ProcyonCLS!")
+    ekernel.printHeader("ProcyonCLS Munnar")
+    kernel.printWarning("This is a Pre-Release version of ProcyonCLS Munnar!")
     kernel.printInfo("Check for updates regularly to get latest bugfixes and features.")
     kernel.println(time.strftime("%d/%m/%Y %H:%M:%S"))
     while True:
@@ -294,20 +294,23 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9B":
+        if sys.argv[1] == "0.9C":
             os.system("cls" if sys.platform == "win32" else "clear")
-            print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
-            print("0.9B Munnar")
+            print("\033[92m" + pyfiglet.figlet_format("ProcyonCLS Munnar", font="slant", justify="center") + "\033[0m")
+            print("0.9C")
             print("\n\n\nCopyright © 2024, Procyonis Computing\n\n\nStarting...")
             for _ in range(5):
-                print("═", end="", flush=True)
+                print("\033[91m═\033[0m", end="", flush=True)
                 time.sleep(0.5)
-            for _ in range(50):
-                print("═", end="", flush=True)
+            for _ in range(25):
+                print("\033[93m═\033[0m", end="", flush=True)
                 time.sleep(0.1)
             for _ in range(3):
-                print("═", end="", flush=True)
+                print("\033[92m═\033[0m", end="", flush=True)
                 time.sleep(0.2)
+            for _ in range(5):
+                print("\033[94m═\033[0m", end="", flush=True)
+                time.sleep(0.5)
             time.sleep(2)
             kernel.clrscr()
             kernel.println("Welcome")
@@ -339,7 +342,7 @@ def main():
                         kernel.clrscr()
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9B, got {sys.argv[1]}")
+            print(f"Expected 0.9C, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

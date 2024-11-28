@@ -2,12 +2,11 @@ import kernel
 import sys
 import ekernel
 import sqlite3
-import time
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9B":
-            ekernel.splashScreen("ProcyonCLS Database", "Version : 0.9B Munnar | Engine : SQLite3")
+        if sys.argv[1] == "0.9C":
+            ekernel.splashScreen("ProcyonCLS Database", "Version : 0.9C Munnar | Engine : SQLite3")
             ekernel.printHeader("ProcyonDB")
             prompt = ""
             while prompt != "exit":

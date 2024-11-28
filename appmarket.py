@@ -1,12 +1,11 @@
 import kernel
 import sys
 import ekernel
-import time
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9B":
-            ekernel.splashScreen("ProcyonCLS App Market", "Version 0.9B Munnar")
+        if sys.argv[1] == "0.9C":
+            ekernel.splashScreen("ProcyonCLS App Market", "Version 0.9C Munnar")
             ekernel.printHeader("App Market")
             kernel.println("Coming Soon..!")
         else:
