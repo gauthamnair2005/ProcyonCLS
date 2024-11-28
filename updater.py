@@ -76,7 +76,7 @@ def replaceLocalFiles(extracted_path, target_path):
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] != None:
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.9D")
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.9E")
             ekernel.printHeader("ProcyonCLS Updater")
             kernel.println("Checking for updates...")
             time.sleep(2)
@@ -88,12 +88,12 @@ def main():
                 if confirm.lower() != "y":
                     kernel.printWarning("Update cancelled by user")
                 elif confirm.lower() == "y":
-                    kernel.println("Updating ProcyonCLS...")
+                    kernel.printInfo("Updating ProcyonCLS...")
                     zip_path = os.path.join(current_directory, "latest_release.zip")
                     temp_extract_path = os.path.join(current_directory, "temp")
-                    kernel.println("Downloading update..")
+                    kernel.println("● Downloading update..")
                     downloadRelease(zip_url, zip_path)
-                    kernel.println("Extracting update..")
+                    kernel.println("● Extracting update..")
                     extractRelease(zip_path, temp_extract_path)
 
                     extracted_folder_name = None
@@ -104,10 +104,13 @@ def main():
 
                     if extracted_folder_name:
                         extracted_path = os.path.join(temp_extract_path, extracted_folder_name)
-                        kernel.println("Updating files...")
+                        kernel.println("● Updating files...")
                         replaceLocalFiles(extracted_path, current_directory)
-                        kernel.println("Writing new tag..")
+                        kernel.println("● Writing new tag..")
                         writeCurrentTag(latest_tag)
+                        kernel.println("● Cleaning up..")
+                        shutil.rmtree("temp")
+                        os.remove("latest_release.zip")
                         kernel.printSuccess("Update completed successfully!")
                         time.sleep(1)
                         kernel.println("Rebooting...")
@@ -118,7 +121,7 @@ def main():
                 os.remove(zip_path)
             else:
                 kernel.printSuccess("You're up to date!")
-                os.execv(sys.executable, ['python3', 'shell.py', '0.9D'])
+                os.execv(sys.executable, ['python3', 'shell.py', '0.9E'])
         else:
             kernel.printError("This version of updater is incompatible with the current version of ProcyonCLS")
     else:

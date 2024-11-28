@@ -4,7 +4,7 @@ import ekernel
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9D":
+        if sys.argv[1] == "0.9E":
             ekernel.splashScreen("Linea Programming Language", "0.5 'Bettafish'")
             ekernel.printHeader("Linea")
             kernel.println("Coming Soon..!")
