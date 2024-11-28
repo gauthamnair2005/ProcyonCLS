@@ -23,7 +23,7 @@ def splashScreen(name, ver):
     kernel.clrscr()
     prettyPrint(name)
     kernel.println(ver)
-    time.sleep(2)
+    time.sleep(2.5)
     kernel.clrscr()
 
 def prettyPrint(param):

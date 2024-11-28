@@ -4,9 +4,13 @@ import ekernel
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9EC":
-            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.9EC")
+        if sys.argv[1] == "0.9F":
+            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.9F")
             ekernel.printHeader("Notes")
+            kernel.println("● R - Read")
+            kernel.println("● W - Write")
+            kernel.println("● A - Append")
+            kernel.println("● R+ - Read and Write")
             filename = input("Enter filename : ").strip()
             filename = "notes/" + filename
             accessMode = input("Enter access mode (r/w/a/r+) : ").strip()

@@ -13,12 +13,12 @@ def log_error(message):
 try:
     def main():
         if len(sys.argv) == 2:
-            if sys.argv[1] == "0.9EC":
+            if sys.argv[1] == "0.9F":
                 os.system("cls" if sys.platform == "win32" else "clear")
-                print("Procyon Neo Kernel v0.9EC")
+                print("Procyon Neo Kernel v0.9F")
                 print("..............")
                 print("Loading Kernel modules...")
-                time.sleep(1)
+                time.sleep(0.5)
                 print("FDD", end=" ", flush=True)
                 time.sleep(1)
                 print("\033[92m[Done]\033[0m")
@@ -36,10 +36,10 @@ try:
                 print("\033[92m[Done]\033[0m")
                 print("Kernel Loaded Successfully!")
                 print("Booting ProcyonCLS...")
-                time.sleep(2)
+                time.sleep(1)
                 if os.path.exists("shell.py"):
                     log_error("Kernel Loaded Successfully")
-                    os.system("python3 shell.py 0.9EC")
+                    os.system("python3 shell.py 0.9F")
                 else:
                     os.system("cls" if sys.platform == "win32" else "clear")
                     print("Kernel Panic : OS error")
@@ -54,7 +54,7 @@ try:
                 print("Technical Details : ")
                 print(" Error Code : 0x0001")
                 print(" Error Description : Incompatible version reported by Bootloader")
-                print(f" Reported {sys.argv[1]} as opposed to 0.9EC")
+                print(f" Reported {sys.argv[1]} as opposed to 0.9F")
                 log_error("Incompatible version reported by Bootloader")
                 sys.exit(1)
         else:
@@ -85,10 +85,10 @@ def reboot():
     os.execv(sys.executable, ['python3', 'bootload.py'])
 
 def getVersion():
-    return "0.9EC"
+    return "0.9F"
 
 def getBuild():
-    return "2024.11.28.1700"
+    return "2024.11.28.1900"
 
 def getAuthor():
     return "Gautham Nair"
@@ -109,7 +109,7 @@ def getReleaseName():
     return "ProcyonCLS 2025"
 
 def getRelease():
-    return "Developer Preview"
+    return "Developer Preview III"
 
 def printError(param):
     print(f"\033[91m{param}\033[0m")
@@ -143,5 +143,5 @@ def bsod(error, msg):
     sys.exit(1)
 
 def callApplication(app, isAdmin = False):
-    appResolved = app + ".py 0.9EC " + str(isAdmin)
+    appResolved = app + ".py 0.9F " + str(isAdmin)
     os.system(appResolved)

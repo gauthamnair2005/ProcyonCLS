@@ -136,6 +136,7 @@ def oobe():
     time.sleep(10)
     input("Press Enter to continue... ")
     ekernel.prettyPrint("Let's get started!")
+    time.sleep(5)
     kernel.clrscr()
 
 
@@ -161,9 +162,10 @@ def prompt(user, username):
     kernel.clrscr()
     ekernel.printHeader("ProcyonCLS 2025")
     updateCheckOnStart()
-    kernel.printWarning("This is a Developer Preview version of ProcyonCLS 2025!")
+    kernel.printWarning("This is Developer Preview III build of ProcyonCLS 2025!")
     kernel.printInfo("Check for updates regularly to get latest bugfixes and features.")
-    kernel.println(time.strftime("%d/%m/%Y %H:%M:%S"))
+    kernel.printInfo(time.strftime("● Date : %d/%m/%Y"))
+    kernel.printInfo(time.strftime("● Time : %H:%M:%S"))
     while True:
         prmpt = input(f"\033[92m{username}\033[0m@\033[96mProcyonCLS\033[0m:~\033[93m$\033[0m ").strip()
         if prmpt == "exit" or prmpt == "shutdown":
@@ -200,8 +202,6 @@ def prompt(user, username):
                     kernel.printError(f"Error creating folder: {e}")
         elif prmpt == "notes":
             kernel.callApplication("notes", isAdmin=False)
-        elif prmpt == "linea":
-            kernel.callApplication("linearun", isAdmin=False)
         elif prmpt == "market" or prmpt == "appmarket" or prmpt == "appstore" or prmpt == "store":
             if ekernel.admin(username):
                 kernel.callApplication("appmarket", isAdmin=True)
@@ -228,21 +228,21 @@ def prompt(user, username):
         elif prmpt == "ver":
             ekernel.printHeader("Version Information")
             kernel.printInfo("ProcyonCLS Developer Preview")
-            kernel.println(f"OS Name : {kernel.getReleaseName()}")
-            kernel.println(f"Version : {kernel.getVersion()}")
-            kernel.println(f"Release : {kernel.getRelease()}")
+            kernel.println(f"● OS Name : {kernel.getReleaseName()}")
+            kernel.println(f"● Version : {kernel.getVersion()}")
+            kernel.println(f"● Release : {kernel.getRelease()}")
         elif prmpt == "info":
             ekernel.printHeader("Software Information")
             kernel.printInfo("ProcyonCLS Developer Preview")
-            kernel.println(f"OS Name : {kernel.getReleaseName()}")
-            kernel.println(f"Version : {kernel.getVersion()}")
-            kernel.println(f"Codename : {kernel.getCodeName()}")
-            kernel.println(f"Build : {kernel.getBuild()}")
-            kernel.println(f"Author : {kernel.getAuthor()}")
-            kernel.println(f"Company : {kernel.getCompany()}")
-            kernel.println(f"License : {kernel.getLicense()}")
-            kernel.println(f"Kernel : {kernel.getKernelName()} {kernel.getVersion()}")
-            kernel.println(f"Release : {kernel.getRelease()}")
+            kernel.println(f"● OS Name : {kernel.getReleaseName()}")
+            kernel.println(f"● Version : {kernel.getVersion()}")
+            kernel.println(f"● Codename : {kernel.getCodeName()}")
+            kernel.println(f"● Build : {kernel.getBuild()}")
+            kernel.println(f"● Author : {kernel.getAuthor()}")
+            kernel.println(f"● Company : {kernel.getCompany()}")
+            kernel.println(f"● License : {kernel.getLicense()}")
+            kernel.println(f"● Kernel : {kernel.getKernelName()} {kernel.getVersion()}")
+            kernel.println(f"● Release : {kernel.getRelease()}")
         elif prmpt in ["calc", "calculator", "eval", "evaluator"]:
             try:
                 kernel.callApplication("evaluator", isAdmin=False)
@@ -280,34 +280,33 @@ def prompt(user, username):
         elif prmpt == "help":
             ekernel.printHeader("Help")
             kernel.printInfo("Available commands :")
-            kernel.println("help - Display this help message")
-            kernel.println("exit - Exit the shell")
-            kernel.println("run <application> - Run a 3rd party application")
-            kernel.println("admin <application> - Run a 3rd party application with admin privileges")
-            kernel.println("clrscr - Clear the screen")
-            kernel.println("eval - Open the evaluator")
-            kernel.println("date - Display the current date")
-            kernel.println("time - Display the current time")
-            kernel.println("datetime - Display the current date and time")
-            kernel.println("reset password - Reset the user password")
-            kernel.println("update <field> <value> - Update user details")
-            kernel.println("create user - Create a new user")
-            kernel.println("ver - Display OS version information")
-            kernel.println("info - Display OS information")
-            kernel.println("notes - Open the notes application")
-            kernel.println("dir/ls - List files and folders in the current directory")
-            kernel.println("mkdir - Create a new folder")
-            kernel.println("security - Open the security application")
-            kernel.println("delete - Delete a file")
-            kernel.println("chatcls - Open the ChatCLS application")
-            kernel.println("linea - Open the Linea application")
-            kernel.println("market - Open the AppMarket application")
-            kernel.println("clsupdate - Update the OS")
-            kernel.println("browser - Open the browser application")
-            kernel.println("netget - Open the NetGet application")
-            kernel.println("delete user - Delete the current user")
-            kernel.println("reboot - Reboot the system")
-            kernel.println("shutdown - Shutdown the system")
+            kernel.println("● help - Display this help message")
+            kernel.println("● exit - Exit the shell")
+            kernel.println("● run <application> - Run a 3rd party application")
+            kernel.println("● admin <application> - Run a 3rd party application with admin privileges")
+            kernel.println("● clrscr - Clear the screen")
+            kernel.println("● eval - Open the evaluator")
+            kernel.println("● date - Display the current date")
+            kernel.println("● time - Display the current time")
+            kernel.println("● datetime - Display the current date and time")
+            kernel.println("● reset password - Reset the user password")
+            kernel.println("● update <field> <value> - Update user details")
+            kernel.println("● create user - Create a new user")
+            kernel.println("● ver - Display OS version information")
+            kernel.println("● info - Display OS information")
+            kernel.println("● notes - Open the notes application")
+            kernel.println("● dir/ls - List files and folders in the current directory")
+            kernel.println("● mkdir - Create a new folder")
+            kernel.println("● security - Open the security application")
+            kernel.println("● delete - Delete a file")
+            kernel.println("● chatcls - Open the ChatCLS application")
+            kernel.println("● market - Open the AppMarket application")
+            kernel.println("● clsupdate - Update the OS")
+            kernel.println("● browser - Open the browser application")
+            kernel.println("● netget - Open the NetGet application")
+            kernel.println("● delete user - Delete the current user")
+            kernel.println("● reboot - Reboot the system")
+            kernel.println("● shutdown - Shutdown the system")
         elif prmpt == "logout":
             break
         elif prmpt == "delete user":
@@ -345,16 +344,16 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9EC":
+        if sys.argv[1] == "0.9F":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
             print("\033[92m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("0.9EC")
-            print("\n\n\nCopyright © 2024, Procyonis Computing\n\n\nStarting...")
+            print("    0.9F Developer Preview III")
+            print("\n\n\n    Copyright © 2024, Procyonis Computing\n\n\nStarting...")
             for _ in range(5):
                 print("\033[91m═\033[0m", end="", flush=True)
                 time.sleep(0.5)
-            for _ in range(25):
+            for _ in range(10):
                 print("\033[93m═\033[0m", end="", flush=True)
                 time.sleep(0.1)
             for _ in range(3):
@@ -377,11 +376,12 @@ def main():
                 oobe()
                 create_user_applet()
             else:
-                while True:
+                while tries <= 5:
                     ekernel.printHeader("Login")
                     username = input("Enter Username: ").strip()
                     password = getpass.getpass("Enter Password: ").strip()
                     user_data = get_user(username)
+                    tries = 0
                     if user_data and user_data[1] == password:
                         kernel.printSuccess("Login Successful!")
                         kernel.printWarning("Please wait..")
@@ -390,11 +390,29 @@ def main():
                         break
                     else:
                         kernel.printError("Login Failed!")
+                        tries += 1
                         time.sleep(2)
                         kernel.clrscr()
+                else:
+                    kernel.printError("Maximum login attempts reached")
+                    confirm = input("Do you want to reset the password (y/n) : ").strip()
+                    if confirm.lower() == "y":
+                        reset = input("Enter username to reset password : ").strip()
+                        if get_user(reset):
+                            confirmN = input("Enter your last name to confirm identity : ").strip()
+                            if confirmN == get_user(reset)[3]:
+                                new_password = getpass.getpass("Enter new password : ").strip()
+                                update_user(reset, 'password', new_password)
+                                kernel.printSuccess("Password reset successfully!")
+                            else:
+                                kernel.printError("Identity not confirmed")
+                        else:
+                            kernel.printError("User not found")
+                    else:
+                        kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9EC, got {sys.argv[1]}")
+            print(f"Expected 0.9F, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")
