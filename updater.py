@@ -76,7 +76,7 @@ def replaceLocalFiles(extracted_path, target_path):
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] != None:
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.9FC2")
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.9FC3")
             ekernel.printHeader("ProcyonCLS Updater")
             kernel.println("Checking for updates...")
             time.sleep(2)
@@ -121,7 +121,7 @@ def main():
                 os.remove(zip_path)
             else:
                 kernel.printSuccess("You're up to date!")
-                os.execv(sys.executable, ['python3', 'shell.py', '0.9FC2'])
+                os.execv(sys.executable, ['python3', 'shell.py', '0.9FC3'])
         else:
             kernel.printError("This version of updater is incompatible with the current version of ProcyonCLS")
     else:

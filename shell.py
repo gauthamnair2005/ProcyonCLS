@@ -164,8 +164,8 @@ def prompt(user, username):
     updateCheckOnStart()
     kernel.printWarning("This is Developer Preview III build of ProcyonCLS 2025!")
     kernel.printInfo("Check for updates regularly to get latest bugfixes and features.")
-    kernel.printInfo(time.strftime("● Date : %d/%m/%Y"))
-    kernel.printInfo(time.strftime("● Time : %H:%M:%S"))
+    kernel.printInfo("● " + time.strftime("Date : %d/%m/%Y"))
+    kernel.printInfo("● " + time.strftime("Time : %H:%M:%S"))
     while True:
         prmpt = input(f"\033[92m{username}\033[0m@\033[96mProcyonCLS\033[0m:~\033[93m$\033[0m ").strip()
         if prmpt == "exit" or prmpt == "shutdown":
@@ -344,14 +344,14 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9FC2":
+        if sys.argv[1] == "0.9FC3":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
             print("\033[92m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("             0.9FC2 Developer Preview III")
-            print("\n\n\n        Copyright © 2024, Procyonis Computing\n\n\nStarting...")
+            print("                  0.9FC3 Developer Preview III")
+            print("\n\n\n          Copyright © 2024, Procyonis Computing\n\n\n           Starting...")
             for _ in range(5):
-                print("\033[91m═\033[0m", end="", flush=True)
+                print("\033[91m           ═\033[0m", end="", flush=True)
                 time.sleep(0.5)
             for _ in range(10):
                 print("\033[93m═\033[0m", end="", flush=True)
@@ -412,7 +412,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9FC2, got {sys.argv[1]}")
+            print(f"Expected 0.9FC3, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")
