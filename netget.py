@@ -4,8 +4,8 @@ import ekernel
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9F":
-            ekernel.splashScreen("ProcyonCLS NetGet", "Version 0.9F")
+        if sys.argv[1] == "0.9FC":
+            ekernel.splashScreen("ProcyonCLS NetGet", "Version 0.9FC")
             ekernel.printHeader("NetGet Downloader")
             url = input("Enter URL : ").strip()
             destAndFileExtension = input("Enter destination and filename to save with extension : ").strip()

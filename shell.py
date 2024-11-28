@@ -344,11 +344,11 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9F":
+        if sys.argv[1] == "0.9FC":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
             print("\033[92m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("    0.9F Developer Preview III")
+            print("    0.9FC Developer Preview III")
             print("\n\n\n    Copyright © 2024, Procyonis Computing\n\n\nStarting...")
             for _ in range(5):
                 print("\033[91m═\033[0m", end="", flush=True)
@@ -376,12 +376,12 @@ def main():
                 oobe()
                 create_user_applet()
             else:
+                tries = 0
                 while tries <= 5:
                     ekernel.printHeader("Login")
                     username = input("Enter Username: ").strip()
                     password = getpass.getpass("Enter Password: ").strip()
                     user_data = get_user(username)
-                    tries = 0
                     if user_data and user_data[1] == password:
                         kernel.printSuccess("Login Successful!")
                         kernel.printWarning("Please wait..")
@@ -412,7 +412,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9F, got {sys.argv[1]}")
+            print(f"Expected 0.9FC, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

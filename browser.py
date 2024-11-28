@@ -4,8 +4,8 @@ import ekernel
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9F":
-            ekernel.splashScreen("ProcyonCLS Text Browser", "Version 0.9F")
+        if sys.argv[1] == "0.9FC":
+            ekernel.splashScreen("ProcyonCLS Text Browser", "Version 0.9FC")
             ekernel.printHeader("Text Browser")
             url = input("Enter URL : ").strip()
             ekernel.textBrowser(url)
