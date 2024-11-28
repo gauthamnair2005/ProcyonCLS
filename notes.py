@@ -4,8 +4,8 @@ import ekernel
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9E":
-            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.9E")
+        if sys.argv[1] == "0.9EC":
+            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.9EC")
             ekernel.printHeader("Notes")
             filename = input("Enter filename : ").strip()
             filename = "notes/" + filename

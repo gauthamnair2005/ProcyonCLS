@@ -13,9 +13,9 @@ def log_error(message):
 try:
     def main():
         if len(sys.argv) == 2:
-            if sys.argv[1] == "0.9E":
+            if sys.argv[1] == "0.9EC":
                 os.system("cls" if sys.platform == "win32" else "clear")
-                print("Procyon Neo Kernel v0.9E")
+                print("Procyon Neo Kernel v0.9EC")
                 print("..............")
                 print("Loading Kernel modules...")
                 time.sleep(1)
@@ -39,7 +39,7 @@ try:
                 time.sleep(2)
                 if os.path.exists("shell.py"):
                     log_error("Kernel Loaded Successfully")
-                    os.system("python3 shell.py 0.9E")
+                    os.system("python3 shell.py 0.9EC")
                 else:
                     os.system("cls" if sys.platform == "win32" else "clear")
                     print("Kernel Panic : OS error")
@@ -54,7 +54,7 @@ try:
                 print("Technical Details : ")
                 print(" Error Code : 0x0001")
                 print(" Error Description : Incompatible version reported by Bootloader")
-                print(f" Reported {sys.argv[1]} as opposed to 0.9E")
+                print(f" Reported {sys.argv[1]} as opposed to 0.9EC")
                 log_error("Incompatible version reported by Bootloader")
                 sys.exit(1)
         else:
@@ -85,10 +85,10 @@ def reboot():
     os.execv(sys.executable, ['python3', 'bootload.py'])
 
 def getVersion():
-    return "0.9E"
+    return "0.9EC"
 
 def getBuild():
-    return "2024.11.28.1628"
+    return "2024.11.28.1700"
 
 def getAuthor():
     return "Gautham Nair"
@@ -100,7 +100,7 @@ def getLicense():
     return "GNU GPL v3.0"
 
 def getKernelName():
-    return "Procyon Neo Kernel"
+    return "Procyon Neo"
 
 def getCodeName():
     return "Munnar"
@@ -143,5 +143,5 @@ def bsod(error, msg):
     sys.exit(1)
 
 def callApplication(app, isAdmin = False):
-    appResolved = app + ".py 0.9E " + str(isAdmin)
+    appResolved = app + ".py 0.9EC " + str(isAdmin)
     os.system(appResolved)

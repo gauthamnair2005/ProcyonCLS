@@ -133,7 +133,7 @@ def oobe():
     kernel.println("● Run 'browser' to open the browser application")
     time.sleep(0.9)
     kernel.println("● Run 'netget' to open the NetGet application")
-    time.aleep(10)
+    time.sleep(10)
     input("Press Enter to continue... ")
     ekernel.prettyPrint("Let's get started!")
     kernel.clrscr()
@@ -345,11 +345,11 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9E":
+        if sys.argv[1] == "0.9EC":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
             print("\033[92m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("0.9E")
+            print("0.9EC")
             print("\n\n\nCopyright © 2024, Procyonis Computing\n\n\nStarting...")
             for _ in range(5):
                 print("\033[91m═\033[0m", end="", flush=True)
@@ -394,7 +394,7 @@ def main():
                         kernel.clrscr()
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9E, got {sys.argv[1]}")
+            print(f"Expected 0.9EC, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")
