@@ -1,37 +1,44 @@
 import kernel
 import sys
 import ekernel
+import os
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9FC3":
-            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.9FC3")
+        if sys.argv[1] == "0.9G":
+            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.9G")
             ekernel.printHeader("Notes")
             kernel.println("● R - Read")
             kernel.println("● W - Write")
             kernel.println("● A - Append")
             kernel.println("● R+ - Read and Write")
-            filename = input("Enter filename : ").strip()
-            filename = "notes/" + filename
-            accessMode = input("Enter access mode (r/w/a/r+) : ").strip()
-            try:
-                if accessMode == "r":
-                    with open(filename, "r") as file:
-                        kernel.println(file.read())
-                elif accessMode == "w":
-                    with open(filename, "w") as file:
-                        file.write(input("Enter text : "))
-                elif accessMode == "a":
-                    with open(filename, "a") as file:
-                        file.write(input("Enter text : "))
-                elif accessMode in ["rw", "ra"]:
-                    with open(filename, "r+") as file:
-                        kernel.println(file.read())
-                        file.write(input("Enter text : "))
+            while True:
+                filename = input("Enter filename : ").strip()
+                if filename == "exit":
+                    break
+                elif filename in os.listdir():
+                    kernel.printError("Cannot access system files")
                 else:
-                    kernel.printError("Invalid access mode")
-            except:
-                kernel.printError("Error accessing file")
+                    filename = "notes/" + filename
+                    accessMode = input("Enter access mode (r/w/a/r+) : ").strip()
+                    try:
+                        if accessMode == "r":
+                            with open(filename, "r") as file:
+                                kernel.println(file.read())
+                        elif accessMode == "w":
+                            with open(filename, "w") as file:
+                                file.write(input("Enter text : "))
+                        elif accessMode == "a":
+                            with open(filename, "a") as file:
+                                file.write(input("Enter text : "))
+                        elif accessMode in ["rw", "ra"]:
+                            with open(filename, "r+") as file:
+                                kernel.println(file.read())
+                                file.write(input("Enter text : "))
+                        else:
+                            kernel.printError("Invalid access mode")
+                    except:
+                        kernel.printError("Error accessing file")
         else:
             kernel.printError("This version of notes is incompatible with current version of ProcyonCLS")
     else:

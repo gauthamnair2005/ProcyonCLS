@@ -135,6 +135,7 @@ def oobe():
     kernel.println("● Run 'netget' to open the NetGet application")
     time.sleep(10)
     input("Press Enter to continue... ")
+    kernel.clrscr()
     ekernel.prettyPrint("Let's get started!")
     time.sleep(5)
     kernel.clrscr()
@@ -151,7 +152,7 @@ def create_user_applet():
     other_details = input("Enter Other Details: ").strip()
     add_user(username, password, first_name, last_name, age, other_details)
     kernel.printSuccess("User Created Successfully!")
-    kernel.printWarning("Please wait..")
+    kernel.printWarning("Hang tight..")
     time.sleep(5)
     prompt(first_name, username)
 
@@ -162,7 +163,7 @@ def prompt(user, username):
     kernel.clrscr()
     ekernel.printHeader("ProcyonCLS 2025")
     updateCheckOnStart()
-    kernel.printWarning("This is Developer Preview III build of ProcyonCLS 2025!")
+    kernel.printWarning("This is Developer Preview IV build of ProcyonCLS 2025!")
     kernel.printInfo("Check for updates regularly to get latest bugfixes and features.")
     kernel.printInfo("● " + time.strftime("Date : %d/%m/%Y"))
     kernel.printInfo("● " + time.strftime("Time : %H:%M:%S"))
@@ -224,16 +225,17 @@ def prompt(user, username):
             else:
                 kernel.printError("Admin access denied, security needs admin access to run!")
         elif prmpt in ["dir", "ls"]:
-            kernel.println(os.listdir())
+            for i in os.listdir():
+                kernel.println(i)
         elif prmpt == "ver":
             ekernel.printHeader("Version Information")
-            kernel.printInfo("ProcyonCLS Developer Preview")
+            kernel.printInfo("ProcyonCLS 2025 Developer Preview IV")
             kernel.println(f"● OS Name : {kernel.getReleaseName()}")
             kernel.println(f"● Version : {kernel.getVersion()}")
             kernel.println(f"● Release : {kernel.getRelease()}")
         elif prmpt == "info":
             ekernel.printHeader("Software Information")
-            kernel.printInfo("ProcyonCLS Developer Preview")
+            kernel.printInfo("ProcyonCLS 2025 Developer Preview IV")
             kernel.println(f"● OS Name : {kernel.getReleaseName()}")
             kernel.println(f"● Version : {kernel.getVersion()}")
             kernel.println(f"● Codename : {kernel.getCodeName()}")
@@ -319,10 +321,13 @@ def prompt(user, username):
         elif prmpt == "bsod":
             kernel.bsod("0x0004", "User invoked BSOD")
         elif prmpt.startswith("run "):
-            try:
-                kernel.callApplication(prmpt[4:], isAdmin=False)
-            except Exception as e:
-                kernel.printError(f"Error running 3rd party application: {e}")
+            if prmpt[4:] in ["bootload", "kernel", "shell", "ekernel"]:
+                kernel.printError("Cannot run system files")
+            else:
+                try:
+                    kernel.callApplication(prmpt[4:], isAdmin=False)
+                except Exception as e:
+                    kernel.printError(f"Error running 3rd party application: {e}")
         elif prmpt.startswith("admin "):
             if ekernel.admin(username):
                 if prmpt[6:] in ["bootload", "kernel", "shell", "ekernel"]:
@@ -344,12 +349,13 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9FC3":
+        if sys.argv[1] == "0.9G":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
             print("\033[92m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("                  0.9FC3 Developer Preview III")
-            print("\n\n\n          Copyright © 2024, Procyonis Computing\n\n\n           Starting...")
+            print("                      0.9G Developer Preview IV")
+            print("\n\n\n             Copyright © 2024, Procyonis Computing\n\n\n           Starting...")
+            print("           ", end="", flush=True)
             for _ in range(5):
                 print("\033[91m           ═\033[0m", end="", flush=True)
                 time.sleep(0.5)
@@ -384,7 +390,7 @@ def main():
                     user_data = get_user(username)
                     if user_data and user_data[1] == password:
                         kernel.printSuccess("Login Successful!")
-                        kernel.printWarning("Please wait..")
+                        kernel.printWarning("Hang tight..")
                         time.sleep(2)
                         prompt(get_name(username), username)
                         break
@@ -412,7 +418,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9FC3, got {sys.argv[1]}")
+            print(f"Expected 0.9G, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

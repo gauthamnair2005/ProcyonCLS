@@ -7,6 +7,8 @@ import hashlib
 import pyfiglet
 import sqlite3
 import requests
+import requests
+from bs4 import BeautifulSoup
 
 
 def urlDownloader(url, destAndExtensionOfFile):
@@ -51,8 +53,6 @@ def admin(username, display = "Enter Password : "):
         return False
         
 def textBrowser(url):
-    import requests
-    from bs4 import BeautifulSoup
     try:
         if url.startswith("http://") or url.startswith("https://"):
             pass

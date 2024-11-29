@@ -1,1 +1,1 @@
-Written from ProcyonCLS Notes 0.9FC3
+To get started, create a note (txt file) from notes app
