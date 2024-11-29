@@ -5,13 +5,15 @@ import os
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9GC2":
-            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.9GC2")
+        if sys.argv[1] == "0.9GC3":
+            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.9GC3")
             ekernel.printHeader("Notes")
             kernel.println("● R - Read")
             kernel.println("● W - Write")
             kernel.println("● A - Append")
             kernel.println("● R+ - Read and Write")
+            if not os.path.exists("notes"):
+                os.mkdir("notes")
             while True:
                 filename = input("Enter filename : ").strip()
                 if filename == "exit":

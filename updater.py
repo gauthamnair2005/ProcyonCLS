@@ -12,7 +12,7 @@ repo = "ProcyonCLS"
 current_tag_file = "tag.txt"
 current_directory = os.getcwd()
 db_file = "configuration.db"
-protected_dirs = ["databases", "notes"]
+protected_dirs = ["notes", "apps"]
 
 def getLatestReleaseTag():
     try:
@@ -35,6 +35,17 @@ def readCurrentTag():
 def writeCurrentTag(tag):
     with open(current_tag_file, "w") as f:
         f.write(tag)
+
+def fetchWhatsNew():
+    try:
+        url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
+        response = requests.get(url)
+        response.raise_for_status()
+        release_info = response.json()
+        return release_info["body"]
+    except requests.RequestException as e:
+        kernel.printError(f"Error fetching latest release: {e}")
+        sys.exit(1)
 
 def downloadRelease(url, dest):
     try:
@@ -76,14 +87,15 @@ def replaceLocalFiles(extracted_path, target_path):
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] != None:
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.9GC2")
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.9GC3")
             ekernel.printHeader("ProcyonCLS Updater")
             kernel.println("Checking for updates...")
             time.sleep(2)
             latest_tag, zip_url = getLatestReleaseTag()
             current_tag = readCurrentTag()
-            if latest_tag != current_tag:
+            if latest_tag > current_tag:
                 kernel.printInfo(f"Update available: {current_tag} -> {latest_tag}")
+                kernel.println(fetchWhatsNew())
                 confirm = input("Do you want to update? (y/n) : ").strip()
                 if confirm.lower() != "y":
                     kernel.printWarning("Update cancelled by user")
@@ -119,9 +131,11 @@ def main():
                     kernel.printError("No extracted folder found.")
                 shutil.rmtree(temp_extract_path)
                 os.remove(zip_path)
+            elif latest_tag < current_tag:
+                kernel.printWarning("You're using version newer than version published, make sure you obtained current version from trusted sources")
             else:
                 kernel.printSuccess("You're up to date!")
-                os.execv(sys.executable, ['python3', 'shell.py', '0.9GC2'])
+                os.execv(sys.executable, ['python3', 'shell.py', '0.9GC3'])
         else:
             kernel.printError("This version of updater is incompatible with the current version of ProcyonCLS")
     else:

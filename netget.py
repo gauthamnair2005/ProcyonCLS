@@ -1,12 +1,15 @@
 import kernel
 import sys
 import ekernel
+import os
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9GC2":
-            ekernel.splashScreen("ProcyonCLS NetGet", "Version 0.9GC2")
+        if sys.argv[1] == "0.9GC3":
+            ekernel.splashScreen("ProcyonCLS NetGet", "Version 0.9GC3")
             ekernel.printHeader("NetGet Downloader")
+            if not os.path.exists("downloads"):
+                os.mkdir("downloads")
             url = input("Enter URL : ").strip()
             destAndFileExtension = input("Enter destination and filename to save with extension : ").strip()
             ekernel.urlDownloader(url, destAndFileExtension)

@@ -24,9 +24,9 @@ def initialize_db():
 def updateCheckOnStart():
     newtag = updater.getLatestReleaseTag()
     currenttag = updater.readCurrentTag()
-    if newtag[0] != currenttag:
-        kernel.printWarning(f"ProcyonCLS 2025 {newtag[0]} is available!")
-        kernel.printInfo("Run 'clsupdate' to update")
+    if newtag[0] > currenttag:
+        kernel.printWarning(f"ProcyonCLS {newtag[0]} is available!")
+        kernel.printInfo("Run 'clsupdate' to see what's new and update")
         time.sleep(2)
     return None
 
@@ -76,70 +76,11 @@ def oobe():
     time.sleep(1)
     kernel.printInfo("Take a tour of ProcyonCLS 2025 and its features")
     time.sleep(1)
-    kernel.println("● 3rd party applications can be run using the 'run' command")
-    time.sleep(0.9)
-    kernel.println("● Use the 'eval' command to open the evaluator")
-    time.sleep(0.9)
-    kernel.println("● Use the 'notes' command to open the notes application")
-    time.sleep(0.9)
-    kernel.println("● Use the 'chatcls' command to open the ChatCLS application")
-    time.sleep(0.9)
-    kernel.println("● A sample application has been included in this developer preview")
-    time.sleep(0.9)
-    kernel.println("● Use the 'help' command to view available commands")
-    time.sleep(0.9)
-    kernel.println("● Use the 'exit' command to exit the shell")
-    time.sleep(0.9)
-    kernel.println("● Use the 'reboot' command to reboot the system")
-    time.sleep(0.9)    
-    kernel.println("● Use the 'shutdown' command to shutdown the system")
-    time.sleep(0.9)
-    kernel.println("● Use the 'clrscr' command to clear the screen")
-    time.sleep(0.9)
-    kernel.println("● Use the 'date' command to display the current date")
-    time.sleep(0.9)
-    kernel.println("● Use the 'time' command to display the current time")
-    time.sleep(0.9)
-    kernel.println("● Use the 'datetime' command to display the current date and time")
-    time.sleep(0.9)
-    kernel.println("● Use the 'reset password' command to reset the user password")
-    time.sleep(0.9)
-    kernel.println("● Use the 'update <field> <value>' command to update user details")
-    time.sleep(0.9)
-    kernel.println("● Use the 'create user' command to create a new user")
-    time.sleep(0.9)
-    kernel.println("● Use the 'delete user' command to delete the current user")
-    time.sleep(0.9)
-    kernel.println("● Read the Developer.md file to know how to develop applications for ProcyonCLS 2025")
-    time.sleep(0.9)
-    kernel.println("● Run 'ver' to view OS version information")
-    time.sleep(0.9)
-    kernel.println("● Run 'info' to view OS information")
-    time.sleep(0.9)
-    kernel.println("● Run 'clsupdate' to update the OS")
-    time.sleep(0.9)
-    kernel.println("● Run 'security' to open the security application")
-    time.sleep(0.9)
-    kernel.println("● Run 'dir' or 'ls' to list files and folders in the current directory")
-    time.sleep(0.9)
-    kernel.println("● Run 'mkdir' to create a new folder")
-    time.sleep(0.9)
-    kernel.println("● Run 'delete' to delete a file")
-    time.sleep(0.9)    
-    kernel.println("● Run 'linea' to open the Linea application")
-    time.sleep(0.9)
-    kernel.println("● Run 'market' to open the AppMarket application")
-    time.sleep(0.9)    
-    kernel.println("● Run 'browser' to open the browser application")
-    time.sleep(0.9)
-    kernel.println("● Run 'netget' to open the NetGet application")
-    time.sleep(10)
-    input("Press Enter to continue... ")
+    kernel.prinln("OOBE will be updated by Developer Preview VI")
     kernel.clrscr()
     ekernel.prettyPrint("Let's get started!")
     time.sleep(5)
     kernel.clrscr()
-
 
 def create_user_applet():
     ekernel.printHeader("User Creation")
@@ -191,6 +132,16 @@ def prompt(user, username):
                     kernel.printError(f"Error deleting file: {e}")
             else:
                 kernel.printError(f"{fileFolder} not found")
+        elif prmpt.startswith("mkdir "):
+            folder = prmpt[6:]
+            if sys.platform == "win32" and folder.lower() in ["con", "prn", "aux", "nul"] + [f"com{i}" for i in range(1, 10)] + [f"lpt{i}" for i in range(1, 10)]:
+                kernel.bsod("0x0007", "Attempted to create system file")
+            else:
+                try:
+                    os.mkdir(folder)
+                    kernel.printSuccess(f"{folder} created successfully!")
+                except Exception as e:
+                    kernel.printError(f"Error creating folder: {e}")
         elif prmpt == "mkdir":
             folder = input("Enter folder name : ").strip()
             if sys.platform == "win32" and folder.lower() in ["con", "prn", "aux", "nul"] + [f"com{i}" for i in range(1, 10)] + [f"lpt{i}" for i in range(1, 10)]:
@@ -229,13 +180,13 @@ def prompt(user, username):
                 kernel.println(i)
         elif prmpt == "ver":
             ekernel.printHeader("Version Information")
-            kernel.printInfo(f"{kernel.getReleaseName} {kernel.getRelease()}")
+            kernel.printInfo(f"{kernel.getReleaseName()} {kernel.getRelease()}")
             kernel.println(f"● OS Name : {kernel.getReleaseName()}")
             kernel.println(f"● Version : {kernel.getVersion()}")
             kernel.println(f"● Release : {kernel.getRelease()}")
         elif prmpt == "info":
             ekernel.printHeader("Software Information")
-            kernel.printInfo(f"{kernel.getReleaseName} {kernel.getRelease()}")
+            kernel.printInfo(f"{kernel.getReleaseName()} {kernel.getRelease()}")
             kernel.println(f"● OS Name : {kernel.getReleaseName()}")
             kernel.println(f"● Version : {kernel.getVersion()}")
             kernel.println(f"● Codename : {kernel.getCodeName()}")
@@ -353,11 +304,11 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9GC2":
+        if sys.argv[1] == "0.9GC3":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
             print("\033[92m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("                         0.9GC2 Developer Preview IV")
+            print("                         0.9GC3 Developer Preview IV")
             print("\n\n\n                    Copyright © 2024, Procyonis Computing\n\n\n                                 Starting...")
             print("                         ", end="", flush=True)
             for _ in range(5):
@@ -422,7 +373,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9GC2, got {sys.argv[1]}")
+            print(f"Expected 0.9GC3, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

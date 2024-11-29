@@ -4,13 +4,13 @@ import ekernel
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9GC2":
-            ekernel.splashScreen("ProcyonCLS Text Browser", "Version 0.9GC2")
-            ekernel.printHeader("Text Browser")
+        if sys.argv[1] == "0.9GC3":
+            ekernel.splashScreen("ProcyonCLS HTML Viewer", "Version 0.9GC3")
+            ekernel.printHeader("HTML Viewer")
             url = input("Enter URL : ").strip()
             ekernel.textBrowser(url)
         else:
-            kernel.printError("This version of browser is incompatible with current version of ProcyonCLS")
+            kernel.printError("This version of HTML Viewer is incompatible with current version of ProcyonCLS")
     else:
         kernel.printError("OS Scope Error")
 
