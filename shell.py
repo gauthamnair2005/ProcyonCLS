@@ -76,7 +76,7 @@ def oobe():
     time.sleep(1)
     kernel.printInfo("Take a tour of ProcyonCLS 2025 and its features")
     time.sleep(1)
-    kernel.prinln("OOBE will be updated by Developer Preview VI")
+    kernel.println("OOBE will be updated by Developer Preview VI")
     kernel.clrscr()
     ekernel.prettyPrint("Let's get started!")
     time.sleep(5)
@@ -304,11 +304,11 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9GC3":
+        if sys.argv[1] == "0.9GC4":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
             print("\033[92m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("                         0.9GC3 Developer Preview IV")
+            print("                         0.9GC4 Developer Preview IV")
             print("\n\n\n                    Copyright © 2024, Procyonis Computing\n\n\n                                 Starting...")
             print("                         ", end="", flush=True)
             for _ in range(5):
@@ -373,7 +373,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9GC3, got {sys.argv[1]}")
+            print(f"Expected 0.9GC4, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")
