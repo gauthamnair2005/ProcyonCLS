@@ -229,13 +229,13 @@ def prompt(user, username):
                 kernel.println(i)
         elif prmpt == "ver":
             ekernel.printHeader("Version Information")
-            kernel.printInfo("ProcyonCLS 2025 Developer Preview IV")
+            kernel.printInfo(f"{kernel.getReleaseName} {kernel.getRelease()}")
             kernel.println(f"● OS Name : {kernel.getReleaseName()}")
             kernel.println(f"● Version : {kernel.getVersion()}")
             kernel.println(f"● Release : {kernel.getRelease()}")
         elif prmpt == "info":
             ekernel.printHeader("Software Information")
-            kernel.printInfo("ProcyonCLS 2025 Developer Preview IV")
+            kernel.printInfo(f"{kernel.getReleaseName} {kernel.getRelease()}")
             kernel.println(f"● OS Name : {kernel.getReleaseName()}")
             kernel.println(f"● Version : {kernel.getVersion()}")
             kernel.println(f"● Codename : {kernel.getCodeName()}")
@@ -353,13 +353,13 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9GC":
+        if sys.argv[1] == "0.9GC2":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
             print("\033[92m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("                       0.9GC Developer Preview IV")
-            print("\n\n\n               Copyright © 2024, Procyonis Computing\n\n\n           Starting...")
-            print("           ", end="", flush=True)
+            print("                         0.9GC2 Developer Preview IV")
+            print("\n\n\n                    Copyright © 2024, Procyonis Computing\n\n\n                                 Starting...")
+            print("                         ", end="", flush=True)
             for _ in range(5):
                 print("\033[91m═\033[0m", end="", flush=True)
                 time.sleep(0.5)
@@ -422,7 +422,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9GC, got {sys.argv[1]}")
+            print(f"Expected 0.9GC2, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")
