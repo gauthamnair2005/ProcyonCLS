@@ -29,8 +29,8 @@ def chat():
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9G":
-            ekernel.splashScreen("Procyon ChatCLS", "Version 0.9G")
+        if sys.argv[1] == "0.9GC":
+            ekernel.splashScreen("Procyon ChatCLS", "Version 0.9GC")
             ekernel.printHeader("ChatCLS")
             openai.api_key = os.getenv(input("Enter your OpenAI API key: "))
             chat()

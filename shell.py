@@ -309,6 +309,10 @@ def prompt(user, username):
             kernel.println("● delete user - Delete the current user")
             kernel.println("● reboot - Reboot the system")
             kernel.println("● shutdown - Shutdown the system")
+        elif prmpt.startswith("prettyprint "):
+            ekernel.prettyPrint(prmpt[12:])
+        elif prmpt.startswith("echo "):
+            kernel.println(prmpt[5:])
         elif prmpt == "logout":
             break
         elif prmpt == "delete user":
@@ -349,15 +353,15 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9G":
+        if sys.argv[1] == "0.9GC":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
             print("\033[92m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("                      0.9G Developer Preview IV")
-            print("\n\n\n             Copyright © 2024, Procyonis Computing\n\n\n           Starting...")
+            print("                       0.9GC Developer Preview IV")
+            print("\n\n\n               Copyright © 2024, Procyonis Computing\n\n\n           Starting...")
             print("           ", end="", flush=True)
             for _ in range(5):
-                print("\033[91m           ═\033[0m", end="", flush=True)
+                print("\033[91m═\033[0m", end="", flush=True)
                 time.sleep(0.5)
             for _ in range(10):
                 print("\033[93m═\033[0m", end="", flush=True)
@@ -418,7 +422,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9G, got {sys.argv[1]}")
+            print(f"Expected 0.9GC, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

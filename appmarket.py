@@ -4,8 +4,8 @@ import ekernel
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9G":
-            ekernel.splashScreen("ProcyonCLS App Market", "Version 0.9G")
+        if sys.argv[1] == "0.9GC":
+            ekernel.splashScreen("ProcyonCLS App Market", "Version 0.9GC")
             ekernel.printHeader("App Market")
             kernel.println("Submit your apps to ProcyonCLS App Market to see them here soon..!")
         else:
