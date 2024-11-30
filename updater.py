@@ -87,12 +87,13 @@ def replaceLocalFiles(extracted_path, target_path):
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] != None:
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.9GC4")
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.9H")
             ekernel.printHeader("ProcyonCLS Updater")
+            current_tag = readCurrentTag()
+            kernel.printInfo(f"Current version: {current_tag}")
             kernel.println("Checking for updates...")
             time.sleep(2)
             latest_tag, zip_url = getLatestReleaseTag()
-            current_tag = readCurrentTag()
             if latest_tag > current_tag:
                 kernel.printInfo(f"Update available: {current_tag} -> {latest_tag}")
                 kernel.println(fetchWhatsNew())
@@ -135,7 +136,7 @@ def main():
                 kernel.printWarning("You're using version newer than version published, make sure you obtained current version from trusted sources")
             else:
                 kernel.printSuccess("You're up to date!")
-                os.execv(sys.executable, ['python3', 'shell.py', '0.9GC4'])
+                os.execv(sys.executable, ['python3', 'shell.py', '0.9H'])
         else:
             kernel.printError("This version of updater is incompatible with the current version of ProcyonCLS")
     else:

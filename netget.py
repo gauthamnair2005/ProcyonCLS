@@ -5,8 +5,8 @@ import os
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9GC4":
-            ekernel.splashScreen("ProcyonCLS NetGet", "Version 0.9GC4")
+        if sys.argv[1] == "0.9H":
+            ekernel.splashScreen("ProcyonCLS NetGet", "Version 0.9H")
             ekernel.printHeader("NetGet Downloader")
             if not os.path.exists("downloads"):
                 os.mkdir("downloads")
