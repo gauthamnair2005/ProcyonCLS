@@ -69,7 +69,7 @@ def delete_user(username):
     conn.close()
 
 def oobe():
-    ekernel.prettyPrint("Welcome to ProcyonCLS 2025")
+    print("\033[0;35m" + pyfiglet.figlet_format("Welcome to ProcyonCLS 2025") + "\033[0m")
     time.sleep(2)
     kernel.clrscr()
     ekernel.printHeader("Out of Box Experience")
@@ -78,7 +78,7 @@ def oobe():
     time.sleep(1)
     kernel.println("OOBE will be updated by Developer Preview VI")
     kernel.clrscr()
-    ekernel.prettyPrint("Let's get started!")
+    print("\033[0;35m" + pyfiglet.figlet_format("Let's Get Started") + "\033[0m")
     time.sleep(5)
     kernel.clrscr()
 
@@ -104,7 +104,7 @@ def prompt(user, username):
     kernel.clrscr()
     ekernel.printHeader("ProcyonCLS 2025")
     updateCheckOnStart()
-    kernel.printWarning("This is Developer Preview IV build of ProcyonCLS 2025!")
+    kernel.printWarning("This is Developer Preview V build of ProcyonCLS 2025!")
     kernel.printInfo("Check for updates regularly to get latest bugfixes and features.")
     kernel.printInfo("● " + time.strftime("Date : %d/%m/%Y"))
     kernel.printInfo("● " + time.strftime("Time : %H:%M:%S"))
@@ -236,7 +236,7 @@ def prompt(user, username):
             kernel.println("● help - Display this help message")
             kernel.println("● exit - Exit the shell")
             kernel.println("● run <application> - Run a 3rd party application")
-            kernel.println("● admin <application> - Run a 3rd party application with admin privileges")
+            kernel.println("● admin <application> - Run a 3rd party application with admin prVileges")
             kernel.println("● clrscr - Clear the screen")
             kernel.println("● eval - Open the evaluator")
             kernel.println("● date - Display the current date")
@@ -304,25 +304,28 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9I":
+        if sys.argv[1] == "0.9J":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
-            print("\033[92m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("                         0.9I Developer Preview IV")
+            print("\033[0;35m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
+            print("                         0.9J Developer Preview V")
             print("\n\n\n                    Copyright © 2024, Procyonis Computing\n\n\n                                 Starting...")
             print("                         ", end="", flush=True)
             for _ in range(5):
-                print("\033[91m═\033[0m", end="", flush=True)
+                print("\033[0;35m═\033[0m", end="", flush=True)
                 time.sleep(0.5)
-            for _ in range(10):
-                print("\033[93m═\033[0m", end="", flush=True)
+            for _ in range(8):
+                print("\033[0;35m═\033[0m", end="", flush=True)
                 time.sleep(0.1)
             for _ in range(3):
-                print("\033[92m═\033[0m", end="", flush=True)
+                print("\033[0;35m═\033[0m", end="", flush=True)
                 time.sleep(0.2)
             for _ in range(5):
-                print("\033[94m═\033[0m", end="", flush=True)
+                print("\033[0;35m═\033[0m", end="", flush=True)
                 time.sleep(0.5)
+            for _ in range(3):
+                print("\033[0;35m═\033[0m", end="", flush=True)
+                time.sleep(0.2)
             time.sleep(2)
             kernel.clrscr()
             kernel.println("Welcome")
@@ -373,7 +376,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9I, got {sys.argv[1]}")
+            print(f"Expected 0.9J, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

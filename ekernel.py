@@ -29,7 +29,7 @@ def splashScreen(name, ver):
     kernel.clrscr()
 
 def prettyPrint(param):
-    kernel.println(pyfiglet.figlet_format(param))
+    print("\033[0;35m" + pyfiglet.figlet_format(param) + "\033[0m")
 
 def printHeader(header):
     color = "\033[96m"

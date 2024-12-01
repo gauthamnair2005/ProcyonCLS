@@ -8,10 +8,10 @@ count = 0
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9I":
-            ekernel.splashScreen("ProcyonCLS Security", "Version 0.9I")
+        if sys.argv[1] == "0.9J":
+            ekernel.splashScreen("ProcyonCLS Security", "Version 0.9J")
             ekernel.printHeader("Security")
-            kernel.printInfo("Security Update : UB-20241130-2")
+            kernel.printInfo("Security Update : UB-20241201")
             kernel.println("1. Scan for vulnerabilities")
             kernel.println("2. Update ProcyonCLS")
             kernel.println("3. Exit")
@@ -54,9 +54,9 @@ def main():
                     if file.endswith(".py"):
                         try:
                             checkVulnerability(file)
-                        except Exception as e:
-                            kernel.printError("Network error: " + str(e))
-                            kernel.printWarning("Please check your internet connection, performing less effective offline scan..")
+                        except:
+                            kernel.printError("Network error")
+                            kernel.printWarning("Please check your internet connection, performing less effectVe offline scan..")
                             with open(file, "r", encoding="utf-8") as openfile:
                                 if file != "security.py":
                                     content = openfile.read()
@@ -76,7 +76,7 @@ def main():
                         kernel.printWarning("Please update ProcyonCLS to the latest version")
                         confirm = input("Do you want to update ProcyonCLS (y/n) : ").strip()
                         if confirm.lower() == "y":
-                            os.execv(sys.executable, ['python3', 'updater.py', '0.9I'])
+                            os.execv(sys.executable, ['python3', 'updater.py', '0.9J'])
                             exit(0)
                         else:
                             kernel.printWarning("Not updated ProcyonCLS, please update soon..!")
@@ -96,7 +96,7 @@ def main():
             elif choice == 2:
                 confirm = input("Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
                 if confirm.lower() == "y":
-                    os.execv(sys.executable, ['python3', 'updater.py', '0.9I'])
+                    os.execv(sys.executable, ['python3', 'updater.py', '0.9J'])
                     exit(0)
             elif choice == 3:
                 kernel.println("Exiting..")
