@@ -14,6 +14,18 @@ current_directory = os.getcwd()
 db_file = "configuration.db"
 protected_dirs = ["notes", "apps"]
 
+def getLatestReleaseTagOnly():
+    try:
+        url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
+        response = requests.get(url)
+        response.raise_for_status()
+        release_info = response.json()
+        latest_tag = release_info["tag_name"]
+        return latest_tag
+    except requests.RequestException as e:
+        kernel.printError(f"Error fetching latest release: {e}")
+        sys.exit(1)
+
 def getLatestReleaseTag():
     try:
         url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
@@ -87,7 +99,7 @@ def replaceLocalFiles(extracted_path, target_path):
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] != None:
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.9J")
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 0.9JC")
             ekernel.printHeader("ProcyonCLS Updater")
             current_tag = readCurrentTag()
             kernel.printInfo(f"Current version: {current_tag}")
@@ -136,7 +148,7 @@ def main():
                 kernel.printWarning("You're using version newer than version published, make sure you obtained current version from trusted sources")
             else:
                 kernel.printSuccess("You're up to date!")
-                os.execv(sys.executable, ['python3', 'shell.py', '0.9J'])
+                os.execv(sys.executable, ['python3', 'shell.py', '0.9JC'])
         else:
             kernel.printError("This version of updater is incompatible with the current version of ProcyonCLS")
     else:

@@ -8,10 +8,10 @@ count = 0
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9J":
-            ekernel.splashScreen("ProcyonCLS Security", "Version 0.9J")
+        if sys.argv[1] == "0.9JC":
+            ekernel.splashScreen("ProcyonCLS Security", "Version 0.9JC")
             ekernel.printHeader("Security")
-            kernel.printInfo("Security Update : UB-20241201")
+            kernel.printInfo("Security Update : UB-20241201-2")
             kernel.println("1. Scan for vulnerabilities")
             kernel.println("2. Update ProcyonCLS")
             kernel.println("3. Exit")
@@ -69,14 +69,14 @@ def main():
                     kernel.printError(f"{count} vulnerabilities found.!") 
                     kernel.printWarning("Reason (Either of them):\n● ProcyonCLS is outdated\n● File has been modified")
                     kernel.printInfo("Detecting which reason is true..")
-                    updTag = updater.getLatestReleaseTag()
+                    updTag = updater.getLatestReleaseTagOnly()
                     curTag = updater.readCurrentTag()
                     if curTag != updTag:
                         kernel.printError("Reason : ProcyonCLS is outdated")
                         kernel.printWarning("Please update ProcyonCLS to the latest version")
                         confirm = input("Do you want to update ProcyonCLS (y/n) : ").strip()
                         if confirm.lower() == "y":
-                            os.execv(sys.executable, ['python3', 'updater.py', '0.9J'])
+                            os.execv(sys.executable, ['python3', 'updater.py', '0.9JC'])
                             exit(0)
                         else:
                             kernel.printWarning("Not updated ProcyonCLS, please update soon..!")
@@ -96,7 +96,7 @@ def main():
             elif choice == 2:
                 confirm = input("Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
                 if confirm.lower() == "y":
-                    os.execv(sys.executable, ['python3', 'updater.py', '0.9J'])
+                    os.execv(sys.executable, ['python3', 'updater.py', '0.9JC'])
                     exit(0)
             elif choice == 3:
                 kernel.println("Exiting..")

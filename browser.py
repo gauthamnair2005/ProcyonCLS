@@ -4,8 +4,8 @@ import ekernel
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9J":
-            ekernel.splashScreen("ProcyonCLS HTML Viewer", "Version 0.9J")
+        if sys.argv[1] == "0.9JC":
+            ekernel.splashScreen("ProcyonCLS HTML Viewer", "Version 0.9JC")
             ekernel.printHeader("HTML Viewer")
             url = input("Enter URL : ").strip()
             ekernel.textBrowser(url)
