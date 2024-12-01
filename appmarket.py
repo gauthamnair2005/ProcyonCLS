@@ -5,8 +5,8 @@ import os
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9JC":
-            ekernel.splashScreen("ProcyonCLS App Market", "Version 0.9JC")
+        if sys.argv[1] == "0.9JC2":
+            ekernel.splashScreen("ProcyonCLS App Market", "Version 0.9JC2")
             ekernel.printHeader("App Market")
             if not os.path.exists("apps"):
                 os.mkdir("apps")
