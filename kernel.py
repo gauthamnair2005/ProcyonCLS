@@ -13,9 +13,9 @@ def log_error(message):
 try:
     def main():
         if len(sys.argv) == 2:
-            if sys.argv[1] == "0.9JC2":
+            if sys.argv[1] == "0.9K":
                 os.system("cls" if sys.platform == "win32" else "clear")
-                print("Procyon Neo Kernel v0.9JC2")
+                print("Procyon Neo Kernel v0.9K")
                 print("..............")
                 print("Loading Kernel modules...")
                 time.sleep(0.5)
@@ -44,7 +44,7 @@ try:
                 time.sleep(1)
                 if os.path.exists("shell.py"):
                     log_error("Kernel Loaded Successfully")
-                    os.system("python3 shell.py 0.9JC2")
+                    os.system("python3 shell.py 0.9K")
                 else:
                     os.system("cls" if sys.platform == "win32" else "clear")
                     print("Kernel Panic : OS error")
@@ -59,7 +59,7 @@ try:
                 print("Technical Details : ")
                 print(" Error Code : 0x0001")
                 print(" Error Description : Incompatible version reported by Bootloader")
-                print(f" Reported {sys.argv[1]} as opposed to 0.9JC2")
+                print(f" Reported {sys.argv[1]} as opposed to 0.9K")
                 log_error("Incompatible version reported by Bootloader")
                 sys.exit(1)
         else:
@@ -90,10 +90,10 @@ def reboot():
     os.execv(sys.executable, ['python3', 'bootload.py'])
 
 def getVersion():
-    return "0.9JC2"
+    return "0.9K"
 
 def getBuild():
-    return "2024.12.01.1700"
+    return "2024.12.02.1144"
 
 def getAuthor():
     return "Gautham Nair"
@@ -148,5 +148,5 @@ def bsod(error, msg):
     sys.exit(1)
 
 def callApplication(app, isAdmin = False):
-    appResolved = app + ".py 0.9JC2 " + str(isAdmin)
+    appResolved = app + ".py 0.9K " + str(isAdmin)
     os.system(appResolved)

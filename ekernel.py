@@ -32,7 +32,7 @@ def prettyPrint(param):
     print("\033[0;35m" + pyfiglet.figlet_format(param) + "\033[0m")
 
 def printHeader(header):
-    color = "\033[96m"
+    color = "\033[0;35m"
     reset = "\033[0m"
     print(f"{color}▓▒ {header} ▒░{reset}")
 

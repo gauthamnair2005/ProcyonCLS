@@ -83,7 +83,9 @@ def oobe():
     kernel.clrscr()
 
 def create_user_applet():
-    ekernel.printHeader("User Creation")
+    ekernel.printHeader("ProcyonCLS 2025")
+    kernel.printInfo("Create a new user")
+    kernel.printInfo("-------------------------")
     username = input("Enter Username: ").strip()
     password = getpass.getpass("Enter Password: ").strip()
     first_name = input("Enter First Name: ").strip()
@@ -103,6 +105,8 @@ def prompt(user, username):
     time.sleep(3)
     kernel.clrscr()
     ekernel.printHeader("ProcyonCLS 2025")
+    kernel.printInfo("Workspace")
+    kernel.printInfo("-------------------------")
     updateCheckOnStart()
     kernel.printWarning("This is Developer Preview V build of ProcyonCLS 2025!")
     kernel.printInfo("Check for updates regularly to get latest bugfixes and features.")
@@ -304,11 +308,11 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9JC2":
+        if sys.argv[1] == "0.9K":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
             print("\033[0;35m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("                         0.9JC2 Developer Preview V")
+            print("                         0.9K Developer Preview V")
             print("\n\n\n                    Copyright © 2024, Procyonis Computing\n\n\n                                 Starting...")
             print("                         ", end="", flush=True)
             for _ in range(5):
@@ -342,7 +346,9 @@ def main():
             else:
                 tries = 0
                 while tries <= 5:
-                    ekernel.printHeader("Login")
+                    ekernel.printHeader("ProcyonCLS 2025")
+                    kernel.printInfo("Login")
+                    kernel.printInfo("-------------------------")
                     username = input("Enter Username: ").strip()
                     password = getpass.getpass("Enter Password: ").strip()
                     user_data = get_user(username)
@@ -376,7 +382,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 0.9JC2, got {sys.argv[1]}")
+            print(f"Expected 0.9K, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")
