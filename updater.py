@@ -123,7 +123,7 @@ def replaceLocalFiles(extracted_path, target_path):
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] != None:
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 1.1.1")
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 1.1.2")
             ekernel.printHeader("ProcyonCLS Updater")
             current_tag = readCurrentTag()
             kernel.printInfo(f"Current version: {current_tag}")
@@ -162,7 +162,6 @@ def main():
                         os.remove("latest_release.zip")
                         kernel.printSuccess("Update completed successfully!")
                         time.sleep(1)
-                        kernel.println("Rebooting...")
                         kernel.reboot()
                 else:
                     kernel.printError("No extracted folder found.")
@@ -172,7 +171,7 @@ def main():
                 kernel.printWarning("You're using version newer than version published, make sure you obtained current version from trusted sources")
             else:
                 kernel.printSuccess("You're up to date!")
-                os.execv(sys.executable, ['python3', 'shell.py', '1.1.1'])
+                os.execv(sys.executable, ['python3', 'shell.py', '1.1.2'])
         else:
             kernel.printError("This version of updater is incompatible with the current version of ProcyonCLS")
     else:

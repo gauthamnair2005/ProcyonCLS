@@ -14,7 +14,7 @@ ProcyonCLS is a versatile and user-friendly command line system designed to cate
 
 ## 🚀 Current Version 🚀
 
-`1.1.1`
+`1.1.2`
 
 ---
 
@@ -33,7 +33,7 @@ To obtain and run ProcyonCLS, follow these steps:
    ```
 2. Run the system:
    ```sh
-   python3 bootload.py
+   python3 start.py
    ```
 
 ## 🧑‍💻 Contributing
