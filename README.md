@@ -28,7 +28,7 @@ To obtain and run ProcyonCLS, follow these steps:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/ProcyonCLS.git
+   git clone https://github.com/gauthamnair2005/ProcyonCLS.git
    cd ProcyonCLS
    ```
 2. Run the system:
