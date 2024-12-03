@@ -7,6 +7,7 @@ import getpass
 import ekernel
 import sqlite3
 import updater
+import requests
 
 def initialize_db():
     conn = sqlite3.connect('configuration.db')
@@ -29,6 +30,15 @@ def updateCheckOnStart():
         kernel.printInfo("Run 'clsupdate' to see what's new and update")
         time.sleep(2)
     return None
+
+def fetchMOTD():
+    try:
+        url = "https://raw.githubusercontent.com/gauthamnair2005/ProcyonCLS-MOTD/main/motd.txt"
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.text
+    except:
+        return None
 
 def add_user(username, password, first_name, last_name, age, other_details):
     conn = sqlite3.connect('configuration.db')
@@ -198,7 +208,7 @@ def oobe():
         print("Update available, do you want to update? (y/n) : ", end = "", flush = True)
         confirm = input().strip()
         if confirm.lower() == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', '1.0.0'])
+            os.execv(sys.executable, ['python3', 'updater.py', '1.1.1'])
         else:
             kernel.printWarning("Not Updating")
     else:
@@ -236,8 +246,8 @@ def prompt(user, username):
     kernel.printInfo("Workspace")
     kernel.printInfo("-------------------------")
     updateCheckOnStart()
-    kernel.printWarning("This is Developer Preview VI build of ProcyonCLS 2025!")
-    kernel.printInfo("Check for updates regularly to get latest bugfixes and features.")
+    print(fetchMOTD())
+    kernel.printWarning("This is Developer Preview VII build of ProcyonCLS 2025!")
     kernel.printInfo("● " + time.strftime("Date : %d/%m/%Y"))
     kernel.printInfo("● " + time.strftime("Time : %H:%M:%S"))
     while True:
@@ -299,7 +309,7 @@ def prompt(user, username):
             confirm = input("Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
             if confirm.lower() == "y":
                 if ekernel.admin(username):
-                    os.execv(sys.executable, ['python3', 'updater.py', '1.0.0'])
+                    os.execv(sys.executable, ['python3', 'updater.py', '1.1.1'])
                 else:
                     kernel.printError("Admin access denied, updater needs admin access to run!")
         elif prmpt == "security":
@@ -413,7 +423,7 @@ def prompt(user, username):
                 kernel.printError("Cannot run system files")
             else:
                 try:
-                    kernel.callApplication(prmpt[4:], isAdmin=False)
+                    kernel.callApplication3P(prmpt[4:], isAdmin=False)
                 except Exception as e:
                     kernel.printError(f"Error running 3rd party application: {e}")
         elif prmpt.startswith("admin "):
@@ -422,7 +432,7 @@ def prompt(user, username):
                     kernel.printError("Cannot run system files")
                 else:
                     try:
-                        kernel.callApplication(prmpt[6:], isAdmin=True)
+                        kernel.callApplication3P(prmpt[6:], isAdmin=True)
                     except Exception as e:
                         kernel.printError(f"Error running 3rd party application: {e}")
             else:
@@ -437,11 +447,11 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "1.0.0":
+        if sys.argv[1] == "1.1.1":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
             print("\033[0;35m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("                         1.0.0 Developer Preview VI")
+            print("                         1.1.1 Developer Preview VII")
             print("\n\n\n                    Copyright © 2024, Procyonis Computing\n\n\n                                 Starting...")
             print("                         ", end="", flush=True)
             for _ in range(5):
@@ -511,7 +521,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 1.0.0, got {sys.argv[1]}")
+            print(f"Expected 1.1.1, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

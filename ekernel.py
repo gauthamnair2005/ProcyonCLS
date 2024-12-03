@@ -18,8 +18,8 @@ def urlDownloader(url, destAndExtensionOfFile):
         with open(destAndExtensionOfFile, 'wb') as f:
             for chunk in response.iter_content(chunk_size=8192):
                 f.write(chunk)
-    except requests.RequestException as e:
-        kernel.printError(f"Error downloading file: {e}")
+    except:
+        kernel.printError(f"Error downloading file from {url}")
 
 def splashScreen(name, ver):
     kernel.clrscr()
