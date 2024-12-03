@@ -19,9 +19,13 @@ Applications for ProcyonCLS are written in Python. To create a new application, 
 ProcyonCLS provides a Kernel API and an Extended Kernel API, which you can use to interact with the command line system. You can import these APIs into your application using the following code:
 
 ```python
+import sys
+
+folder1_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, folder1_path)
+
 import kernel
 import ekernel
-import sys
 
 def main():
     if len(sys.argv) == 2:
