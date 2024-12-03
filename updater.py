@@ -106,24 +106,39 @@ def replaceLocalFiles(extracted_path, target_path):
             kernel.printInfo(f" ● Removed deprecated file: {file_path}")
 
     # Replace or add new files from the extracted update directory
-    for item in os.listdir(extracted_path):
-        s = os.path.join(extracted_path, item)
-        d = os.path.join(target_path, item)
-        if os.path.isdir(s):
-            if os.path.basename(d) in protected_dirs:
+    for root, dirs, files in os.walk(extracted_path):
+        relative_path = os.path.relpath(root, extracted_path)
+        target_dir = os.path.join(target_path, relative_path)
+
+        if not os.path.exists(target_dir):
+            os.makedirs(target_dir)
+
+        for file in files:
+            source_file = os.path.join(root, file)
+            target_file = os.path.join(target_dir, file)
+
+            if os.path.basename(target_file) == db_file:
                 continue
-            if os.path.exists(d):
-                shutil.rmtree(d)
-            shutil.copytree(s, d)
-        else:
-            if os.path.basename(d) == db_file:
+
+            shutil.copy2(source_file, target_file)
+
+        for dir in dirs:
+            source_dir = os.path.join(root, dir)
+            target_dir = os.path.join(target_path, relative_path, dir)
+
+            if os.path.basename(target_dir) in protected_dirs:
                 continue
-            shutil.copy2(s, d)
+
+            if os.path.exists(target_dir):
+                shutil.rmtree(target_dir)
+
+            shutil.copytree(source_dir, target_dir)
+
 
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] != None:
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 1.1.2")
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 1.2.0")
             ekernel.printHeader("ProcyonCLS Updater")
             current_tag = readCurrentTag()
             kernel.printInfo(f"Current version: {current_tag}")
@@ -171,7 +186,7 @@ def main():
                 kernel.printWarning("You're using version newer than version published, make sure you obtained current version from trusted sources")
             else:
                 kernel.printSuccess("You're up to date!")
-                os.execv(sys.executable, ['python3', 'shell.py', '1.1.2'])
+                os.execv(sys.executable, ['python3', 'shell.py', '1.2.0'])
         else:
             kernel.printError("This version of updater is incompatible with the current version of ProcyonCLS")
     else:

@@ -18,8 +18,8 @@ def fetch_apps():
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "1.1.2":
-            ekernel.splashScreen("ProcyonCLS AppMarket", "Version 1.1.2")
+        if sys.argv[1] == "1.2.0":
+            ekernel.splashScreen("ProcyonCLS AppMarket", "Version 1.2.0")
             ekernel.printHeader("AppMarket")
             if not os.path.exists("apps"):
                 os.mkdir("apps")
