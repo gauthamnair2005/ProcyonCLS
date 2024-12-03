@@ -63,4 +63,4 @@ def textBrowser(url):
         text = soup.get_text()
         kernel.println(text)
     except:
-        kernel.printError(f"Error fetching page from {url}")
+        kernel.printError(f"Error fetching page from {url}!")

@@ -82,63 +82,21 @@ def replaceLocalFiles(extracted_path, target_path):
     if not os.path.exists(extracted_path):
         kernel.printError(f"Extracted path does not exist: {extracted_path}")
         sys.exit(1)
-
-    # Collect all Python files in the extracted update directory
-    extracted_files = set()
-    for root, _, files in os.walk(extracted_path):
-        for file in files:
-            if file.endswith(".py"):
-                extracted_files.add(os.path.relpath(os.path.join(root, file), extracted_path))
-
-    # Collect all Python files in the current directory
-    current_files = set()
-    for root, _, files in os.walk(target_path):
-        for file in files:
-            if file.endswith(".py"):
-                current_files.add(os.path.relpath(os.path.join(root, file), target_path))
-
-    # Remove deprecated Python files
-    deprecated_files = current_files - extracted_files
-    for file in deprecated_files:
-        file_path = os.path.join(target_path, file)
-        if os.path.exists(file_path):
-            os.remove(file_path)
-            kernel.printInfo(f" ● Removed deprecated file: {file_path}")
-
-    # Replace or add new files from the extracted update directory
-    for root, dirs, files in os.walk(extracted_path):
-        relative_path = os.path.relpath(root, extracted_path)
-        target_dir = os.path.join(target_path, relative_path)
-
-        if not os.path.exists(target_dir):
-            os.makedirs(target_dir)
-
-        for file in files:
-            source_file = os.path.join(root, file)
-            target_file = os.path.join(target_dir, file)
-
-            if os.path.basename(target_file) == db_file:
-                continue
-
-            shutil.copy2(source_file, target_file)
-
-        for dir in dirs:
-            source_dir = os.path.join(root, dir)
-            target_dir = os.path.join(target_path, relative_path, dir)
-
-            if os.path.basename(target_dir) in protected_dirs:
-                continue
-
-            if os.path.exists(target_dir):
-                shutil.rmtree(target_dir)
-
-            shutil.copytree(source_dir, target_dir)
+    for item in os.listdir():
+        if item.endswith(".py"):
+            if item not in os.listdir(extracted_path):
+                os.remove(item)
+    for item in os.listdir(extracted_path):
+        if os.path.isdir(os.path.join(extracted_path, item)):
+            shutil.copytree(os.path.join(extracted_path, item), os.path.join(target_path, item))
+        else:
+            shutil.copy2(os.path.join(extracted_path, item), os.path.join(target_path, item))
 
 
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] != None:
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 1.2.0")
+            ekernel.splashScreen("ProcyonCLS Updater", "Version v1.3.0")
             ekernel.printHeader("ProcyonCLS Updater")
             current_tag = readCurrentTag()
             kernel.printInfo(f"Current version: {current_tag}")
@@ -178,15 +136,15 @@ def main():
                         kernel.printSuccess("Update completed successfully!")
                         time.sleep(1)
                         kernel.reboot()
-                else:
-                    kernel.printError("No extracted folder found.")
-                shutil.rmtree(temp_extract_path)
-                os.remove(zip_path)
+                    else:
+                        kernel.printError("No extracted folder found.")
+                    shutil.rmtree(temp_extract_path)
+                    os.remove(zip_path)
             elif latest_tag < current_tag:
                 kernel.printWarning("You're using version newer than version published, make sure you obtained current version from trusted sources")
             else:
                 kernel.printSuccess("You're up to date!")
-                os.execv(sys.executable, ['python3', 'shell.py', '1.2.0'])
+                os.execv(sys.executable, ['python3', 'shell.py', 'v1.3.0'])
         else:
             kernel.printError("This version of updater is incompatible with the current version of ProcyonCLS")
     else:
