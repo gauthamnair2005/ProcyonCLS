@@ -12,7 +12,7 @@ def main():
             ekernel.splashScreen("ProcyonCLS Security", "Version 1.0.0")
             ekernel.printHeader("Security")
             print()
-            kernel.println("Security Update : UB-20241202-3")
+            kernel.println("Security Update : UB-20241203")
             print()
             kernel.printInfo("Menu")
             kernel.printInfo("---------------------------------")
