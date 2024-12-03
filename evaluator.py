@@ -4,8 +4,8 @@ import ekernel
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9L":
-            ekernel.splashScreen("ProcyonCLS Evaluator", "Version 0.9L")
+        if sys.argv[1] == "0.9M":
+            ekernel.splashScreen("ProcyonCLS Evaluator", "Version 0.9M")
             ekernel.printHeader("Evaluator")
             kernel.println("Type expression or 'exit' to quit")
             while True:

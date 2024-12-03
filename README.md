@@ -1,5 +1,50 @@
-# ProcyonCLS 2025 Codename "Munnar"
+# 🌟 ProcyonCLS 2025 - Codename "Munnar" 🌟
 
-ProcyonCLS is a command line system that is designed to be a simple and easy to use. It is designed to be used in a variety of different ways, from simple command line utilities to complex command line applications.
+ProcyonCLS is a versatile and user-friendly command line system designed to cater to a wide range of needs, from simple utilities to sophisticated applications. Experience the power and simplicity of ProcyonCLS!
 
-Current Version - `0.9L`
+## ✨ Features / Applications Included ✨
+
+- **Evaluator**: Perform quick calculations and evaluations.
+- **Updater**: Keep your system up-to-date with the latest features and security patches.
+- **ChatCLS**: Engage in seamless command line chat.
+- **NetGet**: Efficiently download files from the internet.
+- **HTML Viewer**: View HTML files directly from the command line.
+- **Security**: Scan and secure your system against vulnerabilities.
+- **AppMarket**: Explore and install a variety of applications.
+
+## 🚀 Current Version 🚀
+
+`0.9M`
+
+---
+
+## 📚 Documentation
+
+For detailed documentation and guides, please refer to the [Developer Guide](DEVELOPER.MD).
+
+## 🛠️ Obtaining and Running
+
+To obtain and run ProcyonCLS, follow these steps:
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/ProcyonCLS.git
+   cd ProcyonCLS
+   ```
+2. Run the system:
+   ```sh
+   python3 bootload.py
+   ```
+
+## 🧑‍💻 Contributing
+
+We welcome contributions from the community! To contribute to ProcyonCLS, follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Commit your changes and push them to your fork.
+4. Create a pull request from your branch to the main repository.
+
+## 📬 Contact
+
+For any questions or support, please reach out to me at [gautham.nair.2005@gmail.com](mailto:gautham.nair.2005@gmail.com).

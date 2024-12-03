@@ -5,8 +5,8 @@ import os
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9L":
-            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.9L")
+        if sys.argv[1] == "0.9M":
+            ekernel.splashScreen("ProcyonCLS Notes", "Version 0.9M")
             ekernel.printHeader("Notes")
             kernel.println("● R - Read")
             kernel.println("● W - Write")

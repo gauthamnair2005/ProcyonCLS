@@ -8,10 +8,10 @@ count = 0
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "0.9L":
-            ekernel.splashScreen("ProcyonCLS Security", "Version 0.9L")
+        if sys.argv[1] == "0.9M":
+            ekernel.splashScreen("ProcyonCLS Security", "Version 0.9M")
             ekernel.printHeader("Security")
-            kernel.printInfo("Security Update : UB-20241202-2")
+            kernel.printInfo("Security Update : UB-20241202-3")
             kernel.println("1. Scan for vulnerabilities")
             kernel.println("2. Update ProcyonCLS")
             kernel.println("3. Exit")
@@ -20,7 +20,7 @@ def main():
                     choice = int(input("Enter choice : "))
                     break
                 except ValueError:
-                    kernel.printWarning("Invalid input. Please enter a number.")
+                    kernel.printError("Invalid input. Please enter a number.")
             if choice == 1:
                 kernel.println("Performing Cloud Scan...")
                 def fetchFilefromGitHubRepo(filename):
@@ -76,7 +76,7 @@ def main():
                         kernel.printWarning("Please update ProcyonCLS to the latest version")
                         confirm = input("Do you want to update ProcyonCLS (y/n) : ").strip()
                         if confirm.lower() == "y":
-                            os.execv(sys.executable, ['python3', 'updater.py', '0.9L'])
+                            os.execv(sys.executable, ['python3', 'updater.py', '0.9M'])
                             exit(0)
                         else:
                             kernel.printWarning("Not updated ProcyonCLS, please update soon..!")
@@ -96,7 +96,7 @@ def main():
             elif choice == 2:
                 confirm = input("Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
                 if confirm.lower() == "y":
-                    os.execv(sys.executable, ['python3', 'updater.py', '0.9L'])
+                    os.execv(sys.executable, ['python3', 'updater.py', '0.9M'])
                     exit(0)
             elif choice == 3:
                 kernel.println("Exiting..")

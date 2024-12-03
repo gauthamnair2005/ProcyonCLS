@@ -25,7 +25,7 @@ import sys
 
 def main():
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9L":
+        if sys.argv[1] == "0.9M":
             ekernel.splashScreen("App", "Version (String)")
             ekernel.printHeader("App")
             kernel.println("Hello, World!")
@@ -53,7 +53,7 @@ The above code is a simple example of a ProcyonCLS application. It imports the K
 
 * `if len(sys.argv) == 2:` - This checks if there are two command line arguments.
 
-* `if sys.argv[1] == "0.9L":` - This checks if the second command line argument is `0.9L`.
+* `if sys.argv[1] == "0.9M":` - This checks if the second command line argument is `0.9M`.
 
 * `ekernel.splashScreen("App", "Version (String)")` - This prints the splash screen with the application name and version.
 
@@ -63,7 +63,7 @@ The above code is a simple example of a ProcyonCLS application. It imports the K
 
 * `ekernel.prettyPrint("Hello, World!")` - This prints "Hello, World!" to the command line in a pretty format.
 
-* `else:` - This is the else statement for the `if sys.argv[1] == "0.9L":` statement.
+* `else:` - This is the else statement for the `if sys.argv[1] == "0.9M":` statement.
 
 * `kernel.printError("Incompatible kernel")` - This prints an error message to the command line.
 
@@ -78,6 +78,34 @@ The above code is a simple example of a ProcyonCLS application. It imports the K
 ### Running the Application
 
 To run this application, you need to first logon to ProcyonCLS and then type `run <yourapplication>` in the command line. For example, if your application is named `hello.py`, you would type `run hello` in the command line.
+
+# ProcyonCLS App Market
+
+## Uploading Your Application
+
+To upload your application to the ProcyonCLS App Market, follow these steps:
+
+/!\ **Note**: Before uploading your application, make sure that it is working correctly and that it follows the guidelines provided in the ProcyonCLS documentation. Also it's first come first serve in terms of naming, so make sure your application name is unique.
+
+1. **Fork the Repository**: Fork the `ProcyonCLS-AppMarket` repository to your GitHub account.
+2. **Clone the Repository**: Clone the forked repository to your local machine.
+   ```sh
+   git clone https://github.com/yourusername/ProcyonCLS-AppMarket.git
+   cd ProcyonCLS-AppMarket
+   ```
+3. **Add your Application**: Add your application to the `apps` directory.
+    ```sh
+    cp /path/to/your/app.py apps/
+    ```
+4. **Commit and Push**: Commit your changes and push them to your forked repository.
+    ```sh
+    git add apps/app.py
+    git commit -m "Add MyApp - DeveloperName - Version - Description"
+    git push origin main
+    ```
+5. **Create a Pull Request**: Create a pull request from your forked repository to the main repository.
+
+Once your pull request is approved, your application will be added to the ProcyonCLS App Market.
 
 ### Conclusion
 
