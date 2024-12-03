@@ -25,13 +25,13 @@ import sys
 
 def main():
     if len(sys.argv) == 2:
-        if sys.argv[1] == "0.9M":
+        if sys.argv[1] == "1.0.0":
             ekernel.splashScreen("App", "Version (String)")
             ekernel.printHeader("App")
             kernel.println("Hello, World!")
             ekernel.prettyPrint("Hello, World!")
         else:
-            kernel.printError("Incompatible kernel")
+            kernel.printError("This version of app is incompatible with current version of ProcyonCLS")
     else:
         kernel.printError("OS Scope Error")
 
@@ -53,7 +53,7 @@ The above code is a simple example of a ProcyonCLS application. It imports the K
 
 * `if len(sys.argv) == 2:` - This checks if there are two command line arguments.
 
-* `if sys.argv[1] == "0.9M":` - This checks if the second command line argument is `0.9M`.
+* `if sys.argv[1] == "1.0.0":` - This checks if the second command line argument is `1.0.0`.
 
 * `ekernel.splashScreen("App", "Version (String)")` - This prints the splash screen with the application name and version.
 
@@ -63,9 +63,9 @@ The above code is a simple example of a ProcyonCLS application. It imports the K
 
 * `ekernel.prettyPrint("Hello, World!")` - This prints "Hello, World!" to the command line in a pretty format.
 
-* `else:` - This is the else statement for the `if sys.argv[1] == "0.9M":` statement.
+* `else:` - This is the else statement for the `if sys.argv[1] == "1.0.0":` statement.
 
-* `kernel.printError("Incompatible kernel")` - This prints an error message to the command line.
+* `kernel.printError("This version of app is incompatible with current version of ProcyonCLS")` - This prints an error message to the command line.
 
 * `else:` - This is the else statement for the `if len(sys.argv) == 2:` statement.
 
@@ -77,7 +77,7 @@ The above code is a simple example of a ProcyonCLS application. It imports the K
 
 ### Running the Application
 
-To run this application, you need to first logon to ProcyonCLS and then type `run <yourapplication>` in the command line. For example, if your application is named `hello.py`, you would type `run hello` in the command line.
+To run this application, you need to first place the application in the `apps` directory in ProcyonCLS, then type `run <yourapplication>` in ProcyonCLS prompt. For example, if your application is named `hello.py`, you would type `run hello` in the command line.
 
 # ProcyonCLS App Market
 

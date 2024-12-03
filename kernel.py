@@ -7,44 +7,44 @@ from datetime import datetime
 
 def log_error(message):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    with open("debug.log", "a") as file:
+    with open("kernel.log", "a") as file:
         file.write(f"[{timestamp}] {message}\n")
 
 try:
     def main():
         if len(sys.argv) == 2:
-            if sys.argv[1] == "0.9M":
+            if sys.argv[1] == "1.0.0":
                 os.system("cls" if sys.platform == "win32" else "clear")
-                print("Procyon Neo Kernel v0.9M")
+                print("Procyon Neo Kernel v1.0.0")
                 print("..............")
                 print("Loading Kernel modules...")
-                time.sleep(0.5)
+                time.sleep(0.1)
                 print("FDD", end=" ", flush=True)
-                time.sleep(1)
+                time.sleep(0.5)
                 print("\033[92m[Done]\033[0m")
                 print("FND", end=" ", flush=True)
-                time.sleep(1)
+                time.sleep(0.5)
                 print("\033[92m[Done]\033[0m")
                 print("FODBCD", end=" ", flush=True)
-                time.sleep(1)
+                time.sleep(0.5)
                 print("\033[92m[Done]\033[0m")
                 print("Extended Kernel", end=" ", flush=True)
                 if os.path.exists("ekernel.py"):
-                    time.sleep(1)
+                    time.sleep(0.5)
                     print("\033[92m[Done]\033[0m")
                 else:
                     print("\033[91m[Failed]\033[0m")
                     log_error("Extended Kernel not found")
                     sys.exit(1)
                 print("APIs", end=" ", flush=True)
-                time.sleep(1)
+                time.sleep(0.5)
                 print("\033[92m[Done]\033[0m")
                 print("Kernel Loaded Successfully!")
                 print("Booting ProcyonCLS...")
-                time.sleep(1)
+                time.sleep(0.2)
                 if os.path.exists("shell.py"):
                     log_error("Kernel Loaded Successfully")
-                    os.system("python3 shell.py 0.9M")
+                    os.system("python3 shell.py 1.0.0")
                 else:
                     os.system("cls" if sys.platform == "win32" else "clear")
                     print("Kernel Panic : OS error")
@@ -59,7 +59,7 @@ try:
                 print("Technical Details : ")
                 print(" Error Code : 0x0001")
                 print(" Error Description : Incompatible version reported by Bootloader")
-                print(f" Reported {sys.argv[1]} as opposed to 0.9M")
+                print(f" Reported {sys.argv[1]} as opposed to 1.0.0")
                 log_error("Incompatible version reported by Bootloader")
                 sys.exit(1)
         else:
@@ -90,10 +90,10 @@ def reboot():
     os.execv(sys.executable, ['python3', 'bootload.py'])
 
 def getVersion():
-    return "0.9M"
+    return "1.0.0"
 
 def getBuild():
-    return "2024.12.02.2116"
+    return "2024.12.03.1501"
 
 def getAuthor():
     return "Gautham Nair"
@@ -148,5 +148,5 @@ def bsod(error, msg):
     sys.exit(1)
 
 def callApplication(app, isAdmin = False):
-    appResolved = app + ".py 0.9M " + str(isAdmin)
+    appResolved = "apps/" + app + ".py 1.0.0 " + str(isAdmin)
     os.system(appResolved)
