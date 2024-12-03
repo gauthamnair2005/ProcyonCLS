@@ -20,7 +20,7 @@ ProcyonCLS is a versatile and user-friendly command line system designed to cate
 
 ## 📚 Documentation
 
-For detailed documentation and guides, please refer to the [Developer Guide](DEVELOPER.MD).
+For detailed documentation and guides, please refer to the [Developer Guide](Developer.md).
 
 ## 🛠️ Obtaining and Running
 
