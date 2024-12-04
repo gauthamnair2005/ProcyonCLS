@@ -208,7 +208,7 @@ def oobe():
         print("Update available, do you want to update? (y/n) : ", end = "", flush = True)
         confirm = input().strip()
         if confirm.lower() == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', 'v1.3.0'])
+            os.execv(sys.executable, ['python3', 'updater.py', 'v1.4.0'])
         else:
             kernel.printWarning("Not Updating")
     else:
@@ -225,7 +225,25 @@ def create_user_applet():
     kernel.printInfo("Create a new user")
     kernel.printInfo("-------------------------")
     username = input("Enter Username: ").strip()
-    password = getpass.getpass("Enter Password: ").strip()
+    while True:
+        if get_user(username):
+            kernel.printWarning("Username already exists!")
+            username = input("Enter Username: ").strip()
+        else:
+            break
+    while True:
+        password = getpass.getpass("Enter Password: ").strip()
+        while True:
+            if len(password) < 8:
+                kernel.printWarning("Password must be at least 8 characters long!")
+                password = getpass.getpass("Enter Password: ").strip()
+            else:
+                break
+        confirm = getpass.getpass("Confirm Password: ").strip()
+        if password == confirm:
+            break
+        else:
+            kernel.printError("Passwords do not match!")
     first_name = input("Enter First Name: ").strip()
     last_name = input("Enter Last Name: ").strip()
     age = input("Enter Age: ").strip()
@@ -309,7 +327,7 @@ def prompt(user, username):
             confirm = input("Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
             if confirm.lower() == "y":
                 if ekernel.admin(username):
-                    os.execv(sys.executable, ['python3', 'updater.py', 'v1.3.0'])
+                    os.execv(sys.executable, ['python3', 'updater.py', 'v1.4.0'])
                 else:
                     kernel.printError("Admin access denied, updater needs admin access to run!")
         elif prmpt == "security":
@@ -367,6 +385,9 @@ def prompt(user, username):
                 if field in ['username', 'first_name', 'last_name', 'age', 'other_details']:
                     update_user(user, field, value)
                     kernel.printSuccess(f"{field} updated successfully!")
+                elif field == "password":
+                    kernel.printError("Cannot update password here")
+                    kernel.printWarning("Use 'reset password' to reset password")
                 else:
                     kernel.printError("Invalid field")
             else:
@@ -447,11 +468,11 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "v1.3.0":
+        if sys.argv[1] == "v1.4.0":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
             print("\033[0;35m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("                         v1.3.0 Developer Preview VII")
+            print("                         v1.4.0 Developer Preview VII")
             print("\n\n\n                    Copyright © 2024, Procyonis Computing\n\n\n                                 Starting...")
             print("                         ", end="", flush=True)
             for _ in range(5):
@@ -521,7 +542,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected v1.3.0, got {sys.argv[1]}")
+            print(f"Expected v1.4.0, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")
