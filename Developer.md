@@ -20,6 +20,7 @@ ProcyonCLS provides a Kernel API and an Extended Kernel API, which you can use t
 
 ```python
 import sys
+import os
 
 folder1_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder1_path)
@@ -29,9 +30,11 @@ import ekernel
 
 def main():
     if len(sys.argv) == 2:
-        if sys.argv[1] == "v1.4.0":
+        if sys.argv[1] >= "v1.4.0":
             ekernel.splashScreen("App", "Version (String)")
             ekernel.printHeader("App")
+            ekernel.printInfo("App sub header")
+            ekernel.printInfo("-----------------------")
             kernel.println("Hello, World!")
             ekernel.prettyPrint("Hello, World!")
         else:
