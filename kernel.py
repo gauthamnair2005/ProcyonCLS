@@ -13,9 +13,9 @@ def log_error(message):
 try:
     def main():
         if len(sys.argv) == 2:
-            if sys.argv[1] == "v1.4.0":
+            if sys.argv[1] == "1.5.0":
                 os.system("cls" if sys.platform == "win32" else "clear")
-                print("Procyon Neo Kernel v1.4.0")
+                print("Procyon Neo Kernel 1.5.0")
                 print("..............")
                 print("Loading Kernel modules...")
                 time.sleep(0.1)
@@ -44,7 +44,7 @@ try:
                 time.sleep(0.2)
                 if os.path.exists("shell.py"):
                     log_error("Kernel Loaded Successfully")
-                    os.system("python3 shell.py v1.4.0")
+                    os.system("python3 shell.py 1.5.0")
                 else:
                     os.system("cls" if sys.platform == "win32" else "clear")
                     print("Kernel Panic : OS error")
@@ -59,7 +59,7 @@ try:
                 print("Technical Details : ")
                 print(" Error Code : 0x0001")
                 print(" Error Description : Incompatible version reported by Bootloader")
-                print(f" Reported {sys.argv[1]} as opposed to v1.4.0")
+                print(f" Reported {sys.argv[1]} as opposed to 1.5.0")
                 log_error("Incompatible version reported by Bootloader")
                 sys.exit(1)
         else:
@@ -90,7 +90,7 @@ def reboot():
     os.execv(sys.executable, ['python3', 'start.py'])
 
 def getVersion():
-    return "v1.4.0"
+    return "1.5.0"
 
 def getBuild():
     return "2024.12.04.0910"
@@ -148,9 +148,9 @@ def bsod(error, msg):
     sys.exit(1)
 
 def callApplication(app, isAdmin = False):
-    appResolved = "python3 " + app + ".py v1.4.0 " + str(isAdmin)
+    appResolved = "python3 " + app + ".py 1.5.0 " + str(isAdmin)
     os.system(appResolved)
 
 def callApplication3P(app, isAdmin = False):
-    appResolved = "python3 apps/" + app + ".py v1.4.0 " + str(isAdmin)
+    appResolved = "python3 apps/" + app + ".py 1.5.0 " + str(isAdmin)
     os.system(appResolved)
