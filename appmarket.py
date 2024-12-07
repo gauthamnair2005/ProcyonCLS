@@ -17,7 +17,7 @@ def fetch_apps():
         apps = response.json()
         return [app['name'] for app in apps if app['type'] == 'file' and app['name'].endswith('.py')]
     except requests.RequestException as e:
-        kernel.printError(f"Error fetching apps: {e}")
+        kernel.printError(f"Error fetching apps: {e}!")
         return []
 
 def fetch_app_version(app_name):
@@ -29,7 +29,7 @@ def fetch_app_version(app_name):
         appTagContent = response.json()
         return requests.get(appTagContent['download_url']).text.strip()
     except requests.RequestException as e:
-        kernel.printError(f"Error fetching app version: {e}")
+        kernel.printError(f"Error fetching app version: {e}!")
         return None
 
 def get_local_app_version(app_path):
@@ -45,8 +45,8 @@ def get_local_app_version(app_path):
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "1.6.0":
-            ekernel.splashScreen("ProcyonCLS AppMarket", "Version 1.6.0")
+        if sys.argv[1] >= "1.6.1":
+            ekernel.splashScreen("ProcyonCLS AppMarket", "Version 1.6.1")
             ekernel.printHeader("AppMarket")
             kernel.printInfo("Welcome to ProcyonCLS AppMarket")
             kernel.println("1. Browse Apps")

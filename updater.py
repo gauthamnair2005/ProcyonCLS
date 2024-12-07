@@ -12,7 +12,15 @@ repo = "ProcyonCLS"
 current_tag_file = "tag.txt"
 current_directory = os.getcwd()
 db_file = "configuration.db"
-protected_dirs = ["notes", "apps", "downloads"]
+protected_dirs_file = "protected_dirs.txt"
+
+def read_protected_dirs(file_path):
+    if os.path.exists(file_path):
+        with open(file_path, 'r') as f:
+            return [line.strip() for line in f if line.strip()]
+    return []
+
+protected_dirs = read_protected_dirs(protected_dirs_file)
 
 def getLatestReleaseTagOnly():
     try:
@@ -87,6 +95,8 @@ def replaceLocalFiles(extracted_path, target_path):
             if item not in os.listdir(extracted_path):
                 os.remove(item)
     for item in os.listdir(extracted_path):
+        if item == "protected_dirs.txt":
+            continue
         if os.path.isdir(os.path.join(extracted_path, item)):
             shutil.copytree(os.path.join(extracted_path, item), os.path.join(target_path, item))
         else:
@@ -96,7 +106,7 @@ def replaceLocalFiles(extracted_path, target_path):
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] != None:
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 1.6.0")
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 1.6.1")
             ekernel.printHeader("ProcyonCLS Updater")
             current_tag = readCurrentTag()
             kernel.printInfo(f"Current version: {current_tag}")
@@ -149,7 +159,7 @@ def main():
                 kernel.printWarning("You're using version newer than version published, make sure you obtained current version from trusted sources")
             else:
                 kernel.printSuccess("You're up to date!")
-                os.execv(sys.executable, ['python3', 'shell.py', '1.6.0'])
+                os.execv(sys.executable, ['python3', 'shell.py', '1.6.1'])
         else:
             kernel.printError("This version of updater is incompatible with the current version of ProcyonCLS")
     else:
