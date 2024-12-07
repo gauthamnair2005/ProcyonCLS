@@ -8,8 +8,6 @@ For support with ProcyonCLS, please refer to the following resources:
 
 - **Documentation**: For detailed documentation and guides, please refer to the [Developer Guide](Developer.md).
 
-- **Community Forums**: Engage with the ProcyonCLS community on the [official forums](https://example.com/forums).
-
 - **Contact**: For any questions or support, please reach out to me at [gautham.nair.2005@gmail.com](mailto:gautham.nair.2005@gmail.com).
 
 ## 🔒 Security
