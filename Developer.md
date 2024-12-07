@@ -35,8 +35,8 @@ def main():
         if sys.argv[1] >= "1.7.1":
             ekernel.splashScreen("App", "Version (String)")
             ekernel.printHeader("App")
-            ekernel.printInfo("App sub header")
-            ekernel.printInfo("-----------------------")
+            kernel.printInfo("App sub header")
+            kernel.printInfo("-----------------------")
             kernel.println("Hello, World!")
             ekernel.prettyPrint("Hello, World!")
         else:
@@ -64,7 +64,7 @@ Let's break down the code to understand what each part does:
 
 * `__version__ = "1.7.1"` - This is the version of the application.
 
-* `import kernel` - This is the main kernel as well as base API provider for ProcyonCLS and extended kernel. In this code, the `println()` and `printError()` are provided by the kernel API.
+* `import kernel` - This is the main kernel as well as base API provider for ProcyonCLS and extended kernel. In this code, the `println()`, `printError()` and `printInfo()` are provided by the kernel API.
 
 * `import ekernel` - This is the extended kernel API provider for ProcyonCLS. In this code, the `prettyPrint()` is provided by the extended kernel API.
 
@@ -78,9 +78,9 @@ Let's break down the code to understand what each part does:
 
 * `ekernel.printHeader("App")` - This prints the header for the application.
 
-* `ekernel.printInfo("App sub header")` - This prints the sub header for the application.
+* `kernel.printInfo("App sub header")` - This prints the sub header for the application.
 
-* `ekernel.printInfo("-----------------------")` - This prints a separator line.
+* `kernel.printInfo("-----------------------")` - This prints a separator line.
 
 * `kernel.println("Hello, World!")` - This prints "Hello, World!" to the command line.
 
