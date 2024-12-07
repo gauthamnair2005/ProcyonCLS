@@ -25,14 +25,14 @@ import os
 folder1_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder1_path)
 
-__version__ = "1.6.1"
+__version__ = "1.7.0"
 
 import kernel
 import ekernel
 
 def main():
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "1.6.1":
+        if sys.argv[1] >= "1.7.0":
             ekernel.splashScreen("App", "Version (String)")
             ekernel.printHeader("App")
             ekernel.printInfo("App sub header")
@@ -62,7 +62,7 @@ Let's break down the code to understand what each part does:
 
 * `sys.path.insert(0, folder1_path)` - This inserts the parent directory of the current file into the Python path.
 
-* `__version__ = "1.6.1"` - This is the version of the application.
+* `__version__ = "1.7.0"` - This is the version of the application.
 
 * `import kernel` - This is the main kernel as well as base API provider for ProcyonCLS and extended kernel. In this code, the `println()` and `printError()` are provided by the kernel API.
 
@@ -72,7 +72,7 @@ Let's break down the code to understand what each part does:
 
 * `if len(sys.argv) == 2:` - This checks if there are two command line arguments.
 
-* `if sys.argv[1] >= "1.6.1":` - This checks if the second command line argument is `1.6.1`.
+* `if sys.argv[1] >= "1.7.0":` - This checks if the second command line argument is `1.7.0`.
 
 * `ekernel.splashScreen("App", "Version (String)")` - This prints the splash screen with the application name and version.
 
@@ -86,7 +86,7 @@ Let's break down the code to understand what each part does:
 
 * `ekernel.prettyPrint("Hello, World!")` - This prints "Hello, World!" to the command line in a pretty format.
 
-* `else:` - This is the else statement for the `if sys.argv[1] >= "1.6.1":` statement.
+* `else:` - This is the else statement for the `if sys.argv[1] >= "1.7.0":` statement.
 
 * `kernel.printError("This version of app is incompatible with current version of ProcyonCLS")` - This prints an error message to the command line.
 
@@ -101,6 +101,8 @@ Let's break down the code to understand what each part does:
 ### Running the Application
 
 To run this application, you need to first place the application in the `apps` directory in ProcyonCLS, then type `run <yourapplication>` in ProcyonCLS prompt. For example, if your application is named `hello.py`, you would type `run hello` in the command line.
+
+---
 
 # ProcyonCLS App Market
 
@@ -130,7 +132,7 @@ To upload your application to the ProcyonCLS App Market, follow these steps:
 
 Once your pull request is approved, your application will be added to the ProcyonCLS App Market.
 
-### Configure your app in AppMarket for updates
+## Configure your app in AppMarket for updates
 
 To configure your app for updates, you need to add the following code to your app:
 
@@ -144,6 +146,8 @@ To configure your app for updates, you need to add the following code to your ap
 
 5. Commit and pull request the changes to the repository.
 
-### Conclusion
+## Conclusion
 
 This document has provided an overview of how to develop applications for ProcyonCLS. For more information on developing applications for ProcyonCLS, refer to the sample.py file in the ProcyonCLS repository.
+
+---

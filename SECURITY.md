@@ -10,6 +10,8 @@ For support with ProcyonCLS, please refer to the following resources:
 
 - **Contact**: For any questions or support, please reach out to me at [gautham.nair.2005@gmail.com](mailto:gautham.nair.2005@gmail.com).
 
+---
+
 ## 🔒 Security
 
 ### Reporting Security Vulnerabilities
@@ -27,6 +29,10 @@ Security updates for ProcyonCLS can be viewed in security app, it is recommended
 These updates sometime contain a fix or sometimes just a periodic check to keep ProcyonCLS same as in GitHub repo and it's links.
 
 #### List of Security Updates released until now:
+
+##### UB-20241207-3
+
+Periodic Update check.
 
 ##### UB-20241207-2
 
@@ -67,3 +73,5 @@ To enhance the security of your system, consider implementing the following best
 - Always try and install apps from ProcyonCLS AppMarket.
 
 By following these best practices, you can help protect your system and data from security threats.
+
+---

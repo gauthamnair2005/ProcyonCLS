@@ -22,6 +22,20 @@ def initialize_db():
     conn.commit()
     conn.close()
 
+def displayLogo():
+    text = """
+                    
+     *****####*     
+   **++***##***##   
+  **+**##%%%##**##% 
+ #***#%%%%##%####%% 
+  %%%#########%%%%  
+   %%%%%%%%%%%%%%   
+      ##%%%%%%      
+                    
+"""
+    print("\033[0;35m" + text + "\033[0m")
+
 def updateCheckOnStart():
     newtag = updater.getLatestReleaseTag()
     currenttag = updater.readCurrentTag()
@@ -207,7 +221,7 @@ def oobe():
         print("Update available, do you want to update? (y/n) : ", end = "", flush = True)
         confirm = input().strip()
         if confirm.lower() == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', '1.6.1'])
+            os.execv(sys.executable, ['python3', 'updater.py', '1.7.0'])
         else:
             kernel.printWarning("Not Updating")
     else:
@@ -223,19 +237,19 @@ def create_user_applet():
     ekernel.printHeader(f"{kernel.getReleaseName()}")
     kernel.printInfo("Create a new user")
     kernel.printInfo("-------------------------")
-    username = input("Enter Username: ").strip()
+    username = input("Enter a nice Username: ").strip()
     while True:
         if get_user(username):
             kernel.printWarning("Username already exists!")
-            username = input("Enter Username: ").strip()
+            username = input("Enter a unique and nice Username: ").strip()
         else:
             break
     while True:
-        password = getpass.getpass("Enter Password: ").strip()
+        password = getpass.getpass("Enter a good Password: ").strip()
         while True:
             if len(password) < 8:
                 kernel.printWarning("Password must be at least 8 characters long!")
-                password = getpass.getpass("Enter Password: ").strip()
+                password = getpass.getpass("Enter a bigger Password: ").strip()
             else:
                 break
         confirm = getpass.getpass("Confirm Password: ").strip()
@@ -243,14 +257,14 @@ def create_user_applet():
             break
         else:
             kernel.printError("Passwords do not match!")
-    first_name = input("Enter First Name: ").strip()
-    last_name = input("Enter Last Name: ").strip()
-    age = input("Enter Age: ").strip()
+    first_name = input("Enter your First Name: ").strip()
+    last_name = input("Enter your Last Name: ").strip()
+    age = input("Enter your Age: ").strip()
     age = int(age) if age.isdigit() else None
-    other_details = input("Enter Other Details: ").strip()
+    other_details = input("Enter your Other Details: ").strip()
     add_user(username, password, first_name, last_name, age, other_details)
     kernel.printSuccess("User Created Successfully!")
-    kernel.printWarning("Hang tight..")
+    kernel.printWarning("Hang on..")
     time.sleep(2)
     prompt(first_name, username)
 
@@ -264,7 +278,7 @@ def prompt(user, username):
     kernel.printInfo("-------------------------")
     updateCheckOnStart()
     print(fetchMOTD())
-    kernel.printWarning(f"This is Developer Preview 8 build of {kernel.getReleaseName()}!")
+    kernel.printWarning(f"This is {kernel.getRelease()} build of {kernel.getReleaseName()}!")
     kernel.printInfo("● " + time.strftime("Date : %d/%m/%Y"))
     kernel.printInfo("● " + time.strftime("Time : %H:%M:%S"))
     while True:
@@ -329,7 +343,7 @@ def prompt(user, username):
             confirm = input("Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
             if confirm.lower() == "y":
                 if ekernel.admin(username):
-                    os.execv(sys.executable, ['python3', 'updater.py', '1.6.1'])
+                    os.execv(sys.executable, ['python3', 'updater.py', '1.7.0'])
                 else:
                     kernel.printError("Admin access denied, updater needs admin access to run!")
         elif prmpt == "security":
@@ -341,15 +355,12 @@ def prompt(user, username):
             kernel.printInfo(f"| {os.getcwd()}")
             for i in os.listdir():
                 kernel.println("|--" + i)
-        elif prmpt == "ver":
-            ekernel.printHeader("Version Information")
-            kernel.printInfo(f"| {kernel.getReleaseName()} {kernel.getRelease()}")
-            kernel.println(f"|--OS Name : {kernel.getReleaseName()}")
-            kernel.println(f"|--Version : {kernel.getVersion()}")
-            kernel.println(f"|--Release : {kernel.getRelease()}")
-        elif prmpt == "info":
-            ekernel.printHeader("Software Information")
-            kernel.printInfo(f"| {kernel.getReleaseName()} {kernel.getRelease()}")
+        elif prmpt == "info" or prmpt == "ver":
+            kernel.printInfo("Software Information")
+            kernel.printInfo("-------------------------")
+            displayLogo()
+            kernel.printInfo(f"{kernel.getReleaseName()} {kernel.getRelease()}")
+            kernel.printInfo("| Information")
             kernel.println(f"|--OS Name : {kernel.getReleaseName()}")
             kernel.println(f"|--Version : {kernel.getVersion()}")
             kernel.println(f"|--Codename : {kernel.getCodeName()}")
@@ -470,10 +481,29 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "1.6.1":
+        if sys.argv[1] >= "1.7.0":
             os.system("cls" if sys.platform == "win32" else "clear")
-            print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
-            print("\033[0;35m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
+            text = """
+                                                    
+                                    *+++******             
+                               *++*******#######**         
+                             ++****************####**      
+                            +***++*******####******###     
+                          *+**++++*****###%###******###    
+                         ****+++*****###%%%%%###*****#%#   
+                         ****+****##%%##%%%%%%%##****##%#  
+                         #******##%%%%%%##########*####%%  
+                         ##*****###%%%%%%##%%%%%#####%#%%  
+                         %%###########%%%#####%%%%%%%##%#  
+                          %%%%%%################%%%%##%%   
+                           %%%%%%%%%%%%%%%%%%%%%%%%##%%    
+                            %%%%%%%%%%%%%%%%%%%%%%#%%%     
+                              #%%%%%%%%%%%%%%%%%%%%%       
+                                ###%%%%%%%%%%%%%%%         
+                                     #######%                                  
+                                        
+            """
+            print("\033[0;35m" + text + "\033[0m")
             print(f"                         {kernel.getVersion()} | {kernel.getRelease()}")
             print("\n\n\n                    Copyright © 2024, Procyonis Computing\n\n\n                                 Starting...")
             print("                         ", end="", flush=True)
@@ -516,7 +546,7 @@ def main():
                     user_data = get_user(username)
                     if user_data and user_data[1] == password:
                         kernel.printSuccess("Login Successful!")
-                        kernel.printWarning("Hang tight..")
+                        kernel.printWarning("Hang on..")
                         time.sleep(2)
                         prompt(get_name(username), username)
                         break
@@ -544,7 +574,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 1.6.1, got {sys.argv[1]}")
+            print(f"Expected 1.7.0, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

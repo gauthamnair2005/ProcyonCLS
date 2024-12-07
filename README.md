@@ -12,15 +12,25 @@ ProcyonCLS is a versatile and user-friendly command line system designed to cate
 - **Security**: Scan and secure your system against vulnerabilities.
 - **AppMarket**: Explore and install a variety of applications.
 
+---
+
 ## 🚀 Current Version 🚀
 
-ProcyonCLS 2025 `1.6.1` Developer Preview 9
+ProcyonCLS 2025 `1.7.0` Developer Preview 10
+
+### What's new in this version?
+
+* Revamped UI.
+
+* Security Update - UB-20241207-3.
 
 ---
 
 ## 📚 Documentation
 
 For detailed documentation and guides, please refer to the [Developer Guide](Developer.md).
+
+---
 
 ## 🛠️ Obtaining and Running
 
@@ -36,6 +46,8 @@ To obtain and run ProcyonCLS, follow these steps:
    python3 start.py
    ```
 
+---
+
 ## 🧑‍💻 Contributing
 
 We welcome contributions from the community! To contribute to ProcyonCLS, follow these steps:
@@ -45,6 +57,10 @@ We welcome contributions from the community! To contribute to ProcyonCLS, follow
 3. Commit your changes and push them to your fork.
 4. Create a pull request from your branch to the main repository.
 
+---
+
 ## 📬 Contact
 
 For any questions or support, please reach out to me at [gautham.nair.2005@gmail.com](mailto:gautham.nair.2005@gmail.com).
+
+---

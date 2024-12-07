@@ -5,17 +5,12 @@ import os
 import time
 from datetime import datetime
 
-def log_error(message):
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    with open("kernel.log", "a") as file:
-        file.write(f"[{timestamp}] {message}\n")
-
 try:
     def main():
         if len(sys.argv) == 2:
-            if sys.argv[1] >= "1.6.1":
+            if sys.argv[1] >= "1.7.0":
                 os.system("cls" if sys.platform == "win32" else "clear")
-                print("Procyon Neo Kernel 1.6.1")
+                print("Procyon Neo Kernel 1.7.0")
                 print("..............")
                 print("Loading Kernel modules...")
                 time.sleep(0.1)
@@ -34,7 +29,6 @@ try:
                     print("\033[92m[Done]\033[0m")
                 else:
                     print("\033[91m[Failed]\033[0m")
-                    log_error("Extended Kernel not found")
                     sys.exit(1)
                 print("APIs", end=" ", flush=True)
                 time.sleep(0.2)
@@ -43,15 +37,13 @@ try:
                 print("Booting ProcyonCLS...")
                 time.sleep(0.2)
                 if os.path.exists("shell.py"):
-                    log_error("Kernel Loaded Successfully")
-                    os.system("python3 shell.py 1.6.1")
+                    os.system("python3 shell.py 1.7.0")
                 else:
                     os.system("cls" if sys.platform == "win32" else "clear")
                     print("Kernel Panic : OS error")
                     print("Technical Details : ")
                     print(" Error Code : 0x0003")
                     print(" Error Description : OS not linked to Kernel")
-                    log_error("OS not linked to Kernel")
                     sys.exit(1)
             else:
                 os.system("cls" if sys.platform == "win32" else "clear")
@@ -59,8 +51,7 @@ try:
                 print("Technical Details : ")
                 print(" Error Code : 0x0001")
                 print(" Error Description : Incompatible version reported by Bootloader")
-                print(f" Reported {sys.argv[1]} as opposed to 1.6.1")
-                log_error("Incompatible version reported by Bootloader")
+                print(f" Reported {sys.argv[1]} as opposed to 1.7.0")
                 sys.exit(1)
         else:
             os.system("cls" if sys.platform == "win32" else "clear")
@@ -68,14 +59,12 @@ try:
             print("Technical Details : ")
             print(" Error Code : 0x0002")
             print(" Error Description : Kernel invoked without Bootloader")
-            log_error("Kernel invoked without Bootloader")
             sys.exit(1)
 
     if __name__ == "__main__":
         main()
 
 except:
-    log_error("Unhandled exception occurred")
     sys.exit(1)
 
 
@@ -90,10 +79,10 @@ def reboot():
     os.execv(sys.executable, ['python3', 'start.py'])
 
 def getVersion():
-    return "1.6.1"
+    return "1.7.0"
 
 def getBuild():
-    return "2024.12.07.1858"
+    return "2024.12.07.1932"
 
 def getAuthor():
     return "Gautham Nair"
@@ -114,7 +103,7 @@ def getReleaseName():
     return "ProcyonCLS 2025"
 
 def getRelease():
-    return "Developer Preview 9"
+    return "Developer Preview 10"
 
 def printError(param):
     print(f"\033[91m{param}\033[0m")
@@ -148,9 +137,9 @@ def bsod(error, msg):
     sys.exit(1)
 
 def callApplication(app, isAdmin = False):
-    appResolved = "python3 " + app + ".py 1.6.1 " + str(isAdmin)
+    appResolved = "python3 " + app + ".py 1.7.0 " + str(isAdmin)
     os.system(appResolved)
 
 def callApplication3P(app, isAdmin = False):
-    appResolved = "python3 apps/" + app + ".py 1.6.1 " + str(isAdmin)
+    appResolved = "python3 apps/" + app + ".py 1.7.0 " + str(isAdmin)
     os.system(appResolved)

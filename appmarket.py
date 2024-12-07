@@ -45,8 +45,8 @@ def get_local_app_version(app_path):
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "1.6.1":
-            ekernel.splashScreen("ProcyonCLS AppMarket", "Version 1.6.1")
+        if sys.argv[1] >= "1.7.0":
+            ekernel.splashScreen("ProcyonCLS AppMarket", "Version 1.7.0")
             ekernel.printHeader("AppMarket")
             kernel.printInfo("Welcome to ProcyonCLS AppMarket")
             kernel.println("1. Browse Apps")
@@ -64,7 +64,7 @@ def main():
                             kernel.println("Available Apps:")
                             for i, app in enumerate(apps):
                                 appNoExtension = app.split(".")[0]
-                                kernel.println(f"{i + 1}. {appNoExtension}")
+                                kernel.println(f" {i + 1}. {appNoExtension}")
                             try:
                                 app_num = int(input("Enter the app number to install : "))
                                 if app_num < 1 or app_num > len(apps):
@@ -89,7 +89,7 @@ def main():
                         else:
                             kernel.println("Installed Apps:")
                             for i, app in enumerate(appInstalledList):
-                                kernel.println(f"{i + 1}. {app}")
+                                kernel.println(f" {i + 1}. {app}")
                                 appWithLoc = os.path.join("apps", app)
                                 local_version = get_local_app_version(appWithLoc)
                                 server_version = fetch_app_version(app)
@@ -121,7 +121,7 @@ def main():
                         else:
                             kernel.println("Installed Apps:")
                             for i, app in enumerate(appInstalledList):
-                                kernel.println(f"{i + 1}. {app}")
+                                kernel.println(f" {i + 1}. {app}")
                             try:
                                 app_num = int(input("Enter the app number to uninstall : "))
                                 if app_num < 1 or app_num > len(appInstalledList):
