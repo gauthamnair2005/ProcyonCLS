@@ -79,7 +79,7 @@ def delete_user(username):
     conn.close()
 
 def oobe():
-    print("\033[0;35m" + pyfiglet.figlet_format("Welcome to ProcyonCLS 2025") + "\033[0m")
+    print("\033[0;35m" + pyfiglet.figlet_format(f"Welcome to {kernel.getReleaseName()}") + "\033[0m")
     time.sleep(2)
     kernel.clrscr()
     ekernel.printHeader("Out of Box Experience")
@@ -116,8 +116,7 @@ def oobe():
     kernel.println("download and install applications. You can also")
     kernel.println("create your own applications and share them with")
     kernel.println("the community.")
-    kernel.printWarning("Note : AppMarket is under development and not functional")
-    kernel.printWarning("in this build. To publish your application, pull")
+    kernel.printWarning("Note : To publish your application, pull")
     kernel.printWarning("request on GitHub.")
     time.sleep(2)
     print()
@@ -208,7 +207,7 @@ def oobe():
         print("Update available, do you want to update? (y/n) : ", end = "", flush = True)
         confirm = input().strip()
         if confirm.lower() == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', '1.5.0'])
+            os.execv(sys.executable, ['python3', 'updater.py', '1.6.0'])
         else:
             kernel.printWarning("Not Updating")
     else:
@@ -221,7 +220,7 @@ def oobe():
     kernel.clrscr()
 
 def create_user_applet():
-    ekernel.printHeader("ProcyonCLS 2025")
+    ekernel.printHeader(f"{kernel.getReleaseName()}")
     kernel.printInfo("Create a new user")
     kernel.printInfo("-------------------------")
     username = input("Enter Username: ").strip()
@@ -260,12 +259,12 @@ def prompt(user, username):
     ekernel.prettyPrint(f"Welcome, {user}")
     time.sleep(2)
     kernel.clrscr()
-    ekernel.printHeader("ProcyonCLS 2025")
+    ekernel.printHeader(f"{kernel.getReleaseName()}")
     kernel.printInfo("Workspace")
     kernel.printInfo("-------------------------")
     updateCheckOnStart()
     print(fetchMOTD())
-    kernel.printWarning("This is Developer Preview 8 build of ProcyonCLS 2025!")
+    kernel.printWarning(f"This is Developer Preview 8 build of {kernel.getReleaseName()}!")
     kernel.printInfo("● " + time.strftime("Date : %d/%m/%Y"))
     kernel.printInfo("● " + time.strftime("Time : %H:%M:%S"))
     while True:
@@ -327,7 +326,7 @@ def prompt(user, username):
             confirm = input("Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
             if confirm.lower() == "y":
                 if ekernel.admin(username):
-                    os.execv(sys.executable, ['python3', 'updater.py', '1.5.0'])
+                    os.execv(sys.executable, ['python3', 'updater.py', '1.6.0'])
                 else:
                     kernel.printError("Admin access denied, updater needs admin access to run!")
         elif prmpt == "security":
@@ -468,11 +467,11 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] == "1.5.0":
+        if sys.argv[1] >= "1.6.0":
             os.system("cls" if sys.platform == "win32" else "clear")
             print(pyfiglet.figlet_format("ProcyonCLS", font="slant", justify="center"))
             print("\033[0;35m" + pyfiglet.figlet_format("2025", font="slant", justify="center") + "\033[0m")
-            print("                         1.5.0 | Developer Preview 8")
+            print(f"                         {kernel.getVersion()} | {kernel.getRelease()}")
             print("\n\n\n                    Copyright © 2024, Procyonis Computing\n\n\n                                 Starting...")
             print("                         ", end="", flush=True)
             for _ in range(5):
@@ -506,7 +505,7 @@ def main():
             else:
                 tries = 0
                 while tries <= 5:
-                    ekernel.printHeader("ProcyonCLS 2025")
+                    ekernel.printHeader(f"{kernel.getReleaseName()}")
                     kernel.printInfo("Login")
                     kernel.printInfo("-------------------------")
                     username = input("Enter Username: ").strip()
@@ -542,7 +541,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 1.5.0, got {sys.argv[1]}")
+            print(f"Expected 1.6.0, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

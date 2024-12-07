@@ -17,8 +17,8 @@ def generate_response(prompt_text):
     return response.choices[0].text.strip()
 
 def chat():
-    print("Welcome to Procyon ChatCLS")
-    print("Type 'exit' to end the conversation.")
+    kernel.printInfo("Type 'exit' to end the conversation.")
+    openai.api_key = os.getenv(input("Enter your OpenAI API key: "))
     while True:
         user_input = prompt("You: ")
         if user_input.lower() == 'exit':
@@ -29,10 +29,9 @@ def chat():
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "1.5.0":
-            ekernel.splashScreen("Procyon ChatCLS", "Version 1.5.0")
+        if sys.argv[1] >= "1.6.0":
+            ekernel.splashScreen("Procyon ChatCLS", "Version 1.6.0")
             ekernel.printHeader("ChatCLS")
-            openai.api_key = os.getenv(input("Enter your OpenAI API key: "))
             chat()
         else:
             kernel.printError("This version of market is incompatible with current version of ProcyonCLS")

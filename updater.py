@@ -96,20 +96,25 @@ def replaceLocalFiles(extracted_path, target_path):
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] != None:
-            ekernel.splashScreen("ProcyonCLS Updater", "Version 1.5.0")
+            ekernel.splashScreen("ProcyonCLS Updater", "Version 1.6.0")
             ekernel.printHeader("ProcyonCLS Updater")
             current_tag = readCurrentTag()
             kernel.printInfo(f"Current version: {current_tag}")
+            print()
             kernel.println("Checking for updates...")
+            print()
             time.sleep(2)
             latest_tag, zip_url = getLatestReleaseTag()
             if latest_tag > current_tag:
                 kernel.printInfo(f"Update available: {current_tag} -> {latest_tag}")
+                print()
                 kernel.println(fetchWhatsNew())
+                print()
                 confirm = input("Do you want to update? (y/n) : ").strip()
                 if confirm.lower() != "y":
                     kernel.printWarning("Update cancelled by user")
                 elif confirm.lower() == "y":
+                    print()
                     kernel.printInfo("Updating ProcyonCLS...")
                     zip_path = os.path.join(current_directory, "latest_release.zip")
                     temp_extract_path = os.path.join(current_directory, "temp")
@@ -144,7 +149,7 @@ def main():
                 kernel.printWarning("You're using version newer than version published, make sure you obtained current version from trusted sources")
             else:
                 kernel.printSuccess("You're up to date!")
-                os.execv(sys.executable, ['python3', 'shell.py', '1.5.0'])
+                os.execv(sys.executable, ['python3', 'shell.py', '1.6.0'])
         else:
             kernel.printError("This version of updater is incompatible with the current version of ProcyonCLS")
     else:

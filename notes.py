@@ -5,13 +5,13 @@ import os
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] == "1.5.0":
-            ekernel.splashScreen("ProcyonCLS Notes", "Version 1.5.0")
+        if sys.argv[1] >= "1.6.0":
+            ekernel.splashScreen("ProcyonCLS Notes", "Version 1.6.0")
             ekernel.printHeader("Notes")
-            kernel.println("● R - Read")
-            kernel.println("● W - Write")
-            kernel.println("● A - Append")
-            kernel.println("● R+ - Read and Write")
+            kernel.printInfo("● R - Read")
+            kernel.printInfo("● W - Write")
+            kernel.printInfo("● A - Append")
+            kernel.printInfo("● R+ - Read and Write")
             if not os.path.exists("notes"):
                 os.mkdir("notes")
             while True:

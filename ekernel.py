@@ -19,7 +19,7 @@ def urlDownloader(url, destAndExtensionOfFile):
             for chunk in response.iter_content(chunk_size=8192):
                 f.write(chunk)
     except:
-        kernel.printError(f"Error downloading file from {url}!")
+        kernel.printError(f"Error downloading file from {url}")
 
 def splashScreen(name, ver):
     kernel.clrscr()
@@ -63,4 +63,4 @@ def textBrowser(url):
         text = soup.get_text()
         kernel.println(text)
     except:
-        kernel.printError(f"Error fetching page from {url}!")
+        kernel.printError(f"Error fetching page from {url}")
