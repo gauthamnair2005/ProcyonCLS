@@ -45,8 +45,8 @@ def get_local_app_version(app_path):
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "1.7.0":
-            ekernel.splashScreen("ProcyonCLS AppMarket", "Version 1.7.0")
+        if sys.argv[1] >= "1.7.1":
+            ekernel.splashScreen("ProcyonCLS AppMarket", "Version 1.7.1")
             ekernel.printHeader("AppMarket")
             kernel.printInfo("Welcome to ProcyonCLS AppMarket")
             kernel.println("1. Browse Apps")

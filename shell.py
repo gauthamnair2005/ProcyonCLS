@@ -221,7 +221,7 @@ def oobe():
         print("Update available, do you want to update? (y/n) : ", end = "", flush = True)
         confirm = input().strip()
         if confirm.lower() == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', '1.7.0'])
+            os.execv(sys.executable, ['python3', 'updater.py', '1.7.1'])
         else:
             kernel.printWarning("Not Updating")
     else:
@@ -343,7 +343,7 @@ def prompt(user, username):
             confirm = input("Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
             if confirm.lower() == "y":
                 if ekernel.admin(username):
-                    os.execv(sys.executable, ['python3', 'updater.py', '1.7.0'])
+                    os.execv(sys.executable, ['python3', 'updater.py', '1.7.1'])
                 else:
                     kernel.printError("Admin access denied, updater needs admin access to run!")
         elif prmpt == "security":
@@ -481,7 +481,7 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "1.7.0":
+        if sys.argv[1] >= "1.7.1":
             os.system("cls" if sys.platform == "win32" else "clear")
             text = """
                                                     
@@ -574,7 +574,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 1.7.0, got {sys.argv[1]}")
+            print(f"Expected 1.7.1, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")
