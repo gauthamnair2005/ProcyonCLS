@@ -20,9 +20,11 @@ ProcyonCLS 2025 `1.8.0` Developer Preview 10
 
 ### What's new in this version?
 
-* Security Update - UB-20241207-4.
+* Security Update - UB-20241209.
 
-* Patched a critical vulnerability in the security app.
+* Revamped security app.
+
+* Added new importable kernel APIs.
 
 ---
 
