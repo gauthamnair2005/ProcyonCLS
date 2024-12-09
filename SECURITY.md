@@ -30,6 +30,10 @@ These updates sometime contain a fix or sometimes just a periodic check to keep 
 
 #### List of Security Updates released until now:
 
+##### UB-20241209
+
+Revamped security app.
+
 ##### UB-20241207-4
 
 Patched a critical vulnerability in the security app.

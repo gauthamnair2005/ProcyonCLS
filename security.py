@@ -8,11 +8,11 @@ count = 0
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "1.7.1":
-            ekernel.splashScreen("ProcyonCLS Security", "Version 1.7.1")
+        if sys.argv[1] >= "1.8.0":
+            ekernel.splashScreen("ProcyonCLS Security", "Version 1.8.0")
             ekernel.printHeader("Security")
             print()
-            kernel.println("Security Update : UB-20241207-4")
+            kernel.printBold("Security Update : UB-20241209")
             print()
             kernel.printInfo("Menu")
             kernel.printInfo("---------------------------------")
@@ -50,8 +50,14 @@ def main():
                     def checkVulnerability(filename):
                         global count
                         if compareFile(filename):
+                            filename = filename.replace(".py", "")
+                            filename = filename.replace("_", " ")
+                            filename = filename[0].upper() + filename[1:]
                             kernel.printSuccess("No vulnerabilities found in " + filename)
                         else:
+                            filename = filename.replace(".py", "")
+                            filename = filename.replace("_", " ")
+                            filename = filename[0].upper() + filename[1:]
                             kernel.printError("Vulnerability found in " + filename)
                             count += 1
                     for file in os.listdir():
@@ -80,7 +86,7 @@ def main():
                             kernel.printWarning("Please update ProcyonCLS to the latest version")
                             confirm = input("Do you want to update ProcyonCLS (y/n) : ").strip()
                             if confirm.lower() == "y":
-                                os.execv(sys.executable, ['python3', 'updater.py', '1.7.1'])
+                                os.execv(sys.executable, ['python3', 'updater.py', '1.8.0'])
                                 exit(0)
                             else:
                                 kernel.printWarning("Not updated ProcyonCLS, please update soon..!")
@@ -93,6 +99,9 @@ def main():
                                     if not compareFile(file):
                                         with open(file, "w", encoding="utf-8") as openfile:
                                             openfile.write(fetchFilefromGitHubRepo(file).replace('\r\n', '\n'))
+                                            filename = file.replace(".py", "")
+                                            filename = filename.replace("_", " ")
+                                            filename = filename[0].upper() + filename[1:]
                                         kernel.printSuccess("Recovered " + file)
                             kernel.printSuccess("Recovered all files..!")
                     else:
@@ -100,7 +109,7 @@ def main():
                 elif choice == 2:
                     confirm = input("Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
                     if confirm.lower() == "y":
-                        os.execv(sys.executable, ['python3', 'updater.py', '1.7.1'])
+                        os.execv(sys.executable, ['python3', 'updater.py', '1.8.0'])
                         exit(0)
                 elif choice == 3:
                     kernel.println("Exiting..")
