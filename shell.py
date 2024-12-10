@@ -221,7 +221,7 @@ def oobe():
         print("Update available, do you want to update? (y/n) : ", end = "", flush = True)
         confirm = input().strip()
         if confirm.lower() == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', '1.8.0'])
+            os.execv(sys.executable, ['python3', 'updater.py', '1.9.0'])
         else:
             kernel.printWarning("Not Updating")
     else:
@@ -343,7 +343,7 @@ def prompt(user, username):
             confirm = input("Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
             if confirm.lower() == "y":
                 if ekernel.admin(username):
-                    os.execv(sys.executable, ['python3', 'updater.py', '1.8.0'])
+                    os.execv(sys.executable, ['python3', 'updater.py', '1.9.0'])
                 else:
                     kernel.printError("Admin access denied, updater needs admin access to run!")
         elif prmpt == "security":
@@ -360,16 +360,16 @@ def prompt(user, username):
             kernel.printInfo("-------------------------")
             displayLogo()
             kernel.printInfo(f"{kernel.getReleaseName()} {kernel.getRelease()}")
-            kernel.printInfo("| Information")
-            kernel.println(f"|--OS Name : {kernel.getReleaseName()}")
-            kernel.println(f"|--Version : {kernel.getVersion()}")
-            kernel.println(f"|--Codename : {kernel.getCodeName()}")
-            kernel.println(f"|--Build : {kernel.getBuild()}")
-            kernel.println(f"|--Author : {kernel.getAuthor()}")
-            kernel.println(f"|--Company : {kernel.getCompany()}")
-            kernel.println(f"|--License : {kernel.getLicense()}")
-            kernel.println(f"|--Kernel : {kernel.getKernelName()} {kernel.getVersion()}")
-            kernel.println(f"|--Release : {kernel.getRelease()}")
+            kernel.printInfo("|Information")
+            kernel.println(f"|-OS Name : {kernel.getReleaseName()}")
+            kernel.println(f"|-Version : {kernel.getVersion()}")
+            kernel.println(f"|-Codename : {kernel.getCodeName()}")
+            kernel.println(f"|-Build : {kernel.getBuild()}")
+            kernel.println(f"|-Author : {kernel.getAuthor()}")
+            kernel.println(f"|-Company : {kernel.getCompany()}")
+            kernel.println(f"|-License : {kernel.getLicense()}")
+            kernel.println(f"|-Kernel : {kernel.getKernelName()} {kernel.getVersion()}")
+            kernel.println(f"|-Release : {kernel.getRelease()}")
         elif prmpt in ["calc", "calculator", "eval", "evaluator"]:
             try:
                 kernel.callApplication("evaluator", isAdmin=False)
@@ -409,34 +409,34 @@ def prompt(user, username):
             create_user_applet()
         elif prmpt == "help":
             ekernel.printHeader("Help")
-            kernel.printInfo("| Available commands :")
-            kernel.println("|--help - Display this help message")
-            kernel.println("|--exit - Exit the shell")
-            kernel.println("|--run <application> - Run a 3rd party application")
-            kernel.println("|--admin <application> - Run a 3rd party application with admin prVileges")
-            kernel.println("|--clrscr - Clear the screen")
-            kernel.println("|--eval - Open the evaluator")
-            kernel.println("|--date - Display the current date")
-            kernel.println("|--time - Display the current time")
-            kernel.println("|--datetime - Display the current date and time")
-            kernel.println("|--reset password - Reset the user password")
-            kernel.println("|--update <field> <value> - Update user details")
-            kernel.println("|--create user - Create a new user")
-            kernel.println("|--ver - Display OS version information")
-            kernel.println("|--info - Display OS information")
-            kernel.println("|--notes - Open the notes application")
-            kernel.println("|--dir/ls - List files and folders in the current directory")
-            kernel.println("|--mkdir - Create a new folder")
-            kernel.println("|--security - Open the security application")
-            kernel.println("|--delete - Delete a file")
-            kernel.println("|--chatcls - Open the ChatCLS application")
-            kernel.println("|--market - Open the AppMarket application")
-            kernel.println("|--clsupdate - Update the OS")
-            kernel.println("|--browser - Open the browser application")
-            kernel.println("|--netget - Open the NetGet application")
-            kernel.println("|--delete user - Delete the current user")
-            kernel.println("|--reboot - Reboot the system")
-            kernel.println("|--shutdown - Shutdown the system")
+            kernel.printInfo("|Available commands :")
+            kernel.println("|-help - Display this help message")
+            kernel.println("|-exit - Exit the shell")
+            kernel.println("|-run <application> - Run a 3rd party application")
+            kernel.println("|-admin <application> - Run a 3rd party application with admin prVileges")
+            kernel.println("|-clrscr - Clear the screen")
+            kernel.println("|-eval - Open the evaluator")
+            kernel.println("|-date - Display the current date")
+            kernel.println("|-time - Display the current time")
+            kernel.println("|-datetime - Display the current date and time")
+            kernel.println("|-reset password - Reset the user password")
+            kernel.println("|-update <field> <value> - Update user details")
+            kernel.println("|-create user - Create a new user")
+            kernel.println("|-ver - Display OS version information")
+            kernel.println("|-info - Display OS information")
+            kernel.println("|-notes - Open the notes application")
+            kernel.println("|-dir/ls - List files and folders in the current directory")
+            kernel.println("|-mkdir - Create a new folder")
+            kernel.println("|-security - Open the security application")
+            kernel.println("|-delete - Delete a file")
+            kernel.println("|-chatcls - Open the ChatCLS application")
+            kernel.println("|-market - Open the AppMarket application")
+            kernel.println("|-clsupdate - Update the OS")
+            kernel.println("|-browser - Open the browser application")
+            kernel.println("|-netget - Open the NetGet application")
+            kernel.println("|-delete user - Delete the current user")
+            kernel.println("|-reboot - Reboot the system")
+            kernel.println("|-shutdown - Shutdown the system")
         elif prmpt.startswith("prettyprint "):
             ekernel.prettyPrint(prmpt[12:])
         elif prmpt.startswith("echo "):
@@ -481,7 +481,7 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "1.8.0":
+        if sys.argv[1] >= "1.9.0":
             os.system("cls" if sys.platform == "win32" else "clear")
             text = """
                                                     
@@ -504,8 +504,8 @@ def main():
                                         
             """
             print("\033[0;35m" + text + "\033[0m")
-            print(f"                         {kernel.getVersion()} | {kernel.getRelease()}")
-            print("\n\n\n                    Copyright © 2024, Procyonis Computing\n\n\n                                 Starting...")
+            print(f"                                 {kernel.getReleaseName()}")
+            print("\n\n\n                      Copyright © 2024, Procyonis Computing\n\n\n                                 Starting...")
             print("                         ", end="", flush=True)
             for _ in range(5):
                 print("\033[0;35m═\033[0m", end="", flush=True)
@@ -574,7 +574,7 @@ def main():
                         kernel.printError("Exiting...")
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 1.8.0, got {sys.argv[1]}")
+            print(f"Expected 1.9.0, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

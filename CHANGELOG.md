@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## What's new in ProcyonCLS 2025 1.8.0 Developer Preview 10?
+## What's new in ProcyonCLS 2025 1.9.0 Developer Preview 10?
+
+* Security Update - UB-20241210.
+
+* Added new file explorer app.
+
+## What was new in ProcyonCLS 2025 1.8.0 Developer Preview 10?
 
 * Security Update - UB-20241209.
 
