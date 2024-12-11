@@ -8,11 +8,11 @@ count = 0
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "1.9.0":
-            ekernel.splashScreen("ProcyonCLS Security", "Version 1.9.0")
+        if sys.argv[1] >= "1.9.1":
+            ekernel.splashScreen("ProcyonCLS Security", "Version 1.9.1")
             ekernel.printHeader("Security")
             print()
-            kernel.printBold("Security Update : UB-20241210")
+            kernel.printBold("Security Update : UB-20241211")
             print()
             kernel.printInfo("Menu")
             kernel.printInfo("---------------------------------")
@@ -86,7 +86,7 @@ def main():
                             kernel.printWarning("Please update ProcyonCLS to the latest version")
                             confirm = input("Do you want to update ProcyonCLS (y/n) : ").strip()
                             if confirm.lower() == "y":
-                                os.execv(sys.executable, ['python3', 'updater.py', '1.9.0'])
+                                os.execv(sys.executable, ['python3', 'updater.py', '1.9.1'])
                                 exit(0)
                             else:
                                 kernel.printWarning("Not updated ProcyonCLS, please update soon..!")
@@ -109,7 +109,7 @@ def main():
                 elif choice == 2:
                     confirm = input("Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
                     if confirm.lower() == "y":
-                        os.execv(sys.executable, ['python3', 'updater.py', '1.9.0'])
+                        os.execv(sys.executable, ['python3', 'updater.py', '1.9.1'])
                         exit(0)
                 elif choice == 3:
                     kernel.println("Exiting..")

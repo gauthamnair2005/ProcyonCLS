@@ -8,9 +8,9 @@ from datetime import datetime
 try:
     def main():
         if len(sys.argv) == 2:
-            if sys.argv[1] >= "1.9.0":
+            if sys.argv[1] >= "1.9.1":
                 os.system("cls" if sys.platform == "win32" else "clear")
-                print("Procyon Neo Kernel 1.9.0")
+                print("Procyon Neo Kernel 1.9.1")
                 print("..............")
                 print("Loading Kernel modules...")
                 time.sleep(0.1)
@@ -37,7 +37,7 @@ try:
                 print("Booting ProcyonCLS...")
                 time.sleep(0.2)
                 if os.path.exists("shell.py"):
-                    os.system("python3 shell.py 1.9.0")
+                    os.system("python3 shell.py 1.9.1")
                 else:
                     os.system("cls" if sys.platform == "win32" else "clear")
                     print("Kernel Panic : OS error")
@@ -51,7 +51,7 @@ try:
                 print("Technical Details : ")
                 print(" Error Code : 0x0001")
                 print(" Error Description : Incompatible version reported by Bootloader")
-                print(f" Reported {sys.argv[1]} as opposed to 1.9.0")
+                print(f" Reported {sys.argv[1]} as opposed to 1.9.1")
                 sys.exit(1)
         else:
             os.system("cls" if sys.platform == "win32" else "clear")
@@ -79,10 +79,10 @@ def reboot():
     os.execv(sys.executable, ['python3', 'start.py'])
 
 def getVersion():
-    return "1.9.0"
+    return "1.9.1"
 
 def getBuild():
-    return "2024.12.10.1713"
+    return "2024.12.11.1032"
 
 def getAuthor():
     return "Gautham Nair"
@@ -209,9 +209,9 @@ def printRainbow(param):
     print(f"\033[38;2;255;0;0m{param}\033[0m")
 
 def callApplication(app, isAdmin = False):
-    appResolved = "python3 " + app + ".py 1.9.0 " + str(isAdmin)
+    appResolved = "python3 " + app + ".py 1.9.1 " + str(isAdmin)
     os.system(appResolved)
 
 def callApplication3P(app, isAdmin = False):
-    appResolved = "python3 apps/" + app + ".py 1.9.0 " + str(isAdmin)
+    appResolved = "python3 apps/" + app + ".py 1.9.1 " + str(isAdmin)
     os.system(appResolved)

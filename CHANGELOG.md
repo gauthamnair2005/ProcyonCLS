@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-## What's new in ProcyonCLS 2025 1.9.0 Developer Preview 10?
+## What's new in ProcyonCLS 2025 1.9.1 Developer Preview 10?
+
+* Security Update - UB-20241211.
+
+* File explorer enablement patch.
+
+* Revamped shell.
+
+## What was new in ProcyonCLS 2025 1.9.0 Developer Preview 10?
 
 * Security Update - UB-20241210.
 

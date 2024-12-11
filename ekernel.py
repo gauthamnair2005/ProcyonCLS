@@ -34,7 +34,7 @@ def prettyPrint(param):
 def printHeader(header):
     color = "\033[0;35m"
     reset = "\033[0m"
-    kernel.printBold(f"{color}▓▒ {header} ▒░{reset}")
+    kernel.printUnderline(f"{color}▓▒ {header} ▒░{reset}")
 
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()

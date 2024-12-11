@@ -29,8 +29,8 @@ def chat():
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "1.9.0":
-            ekernel.splashScreen("Procyon ChatCLS", "Version 1.9.0")
+        if sys.argv[1] >= "1.9.1":
+            ekernel.splashScreen("Procyon ChatCLS", "Version 1.9.1")
             ekernel.printHeader("ChatCLS")
             chat()
         else:

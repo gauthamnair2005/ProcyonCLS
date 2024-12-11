@@ -30,6 +30,10 @@ These updates sometime contain a fix or sometimes just a periodic check to keep 
 
 #### List of Security Updates released until now:
 
+##### UB-20241211
+
+Periodic Update check.
+
 ##### UB-20241210
 
 Periodic Update check.
