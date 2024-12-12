@@ -1,13 +1,74 @@
 import kernel
 import sys
 import os
-import pyfiglet
 import time
 import getpass
 import ekernel
 import sqlite3
 import updater
 import requests
+import blessed
+from blessed import Terminal
+
+term = Terminal()
+
+logo = """
+                                                    
+                                    *+++******             
+                               *++*******#######**         
+                             ++****************####**      
+                            +***++*******####******###     
+                          *+**++++*****###%###******###    
+                         ****+++*****###%%%%%###*****#%#   
+                         ****+****##%%##%%%%%%%##****##%#  
+                         #******##%%%%%%##########*####%%  
+                         ##*****###%%%%%%##%%%%%#####%#%%  
+                         %%###########%%%#####%%%%%%%##%#  
+                          %%%%%%################%%%%##%%   
+                           %%%%%%%%%%%%%%%%%%%%%%%%##%%    
+                            %%%%%%%%%%%%%%%%%%%%%%#%%%     
+                              #%%%%%%%%%%%%%%%%%%%%%       
+                                ###%%%%%%%%%%%%%%%         
+                                     #######%                                  
+                                        
+            """
+
+def boot():
+    kernel.clrscr()
+    lines = logo.split('\n')
+    max_line_length = max(len(line) for line in lines)
+    terminal_width = term.width
+    padding = (terminal_width - max_line_length) // 2
+    centered_logo = '\n'.join(' ' * padding + line for line in lines)
+    kernel.println(term.magenta(centered_logo))
+    kernel.println(term.center(f"{kernel.getReleaseName()}"))
+    kernel.println(term.center("Copyright © 2024, Procyonis Computing"))
+    print()
+    
+    # Progress bar positioning and animation
+    progress_y = term.height - 5
+    bar_width = min(50, term.width - 20)
+    padding = (term.width - bar_width) // 2
+    
+    # Move cursor and show progress
+    print(term.move_y(progress_y))
+    kernel.println(term.center("Starting..."))
+    
+    for i in range(bar_width + 1):
+        percent = int((i / bar_width) * 100)
+        bar = '═' * i + '─' * (bar_width - i)
+        print(term.move_x(padding) + f"{bar}", end='\r', flush=True)
+        
+        if i < bar_width * 0.3:
+            time.sleep(0.1)
+        elif i < bar_width * 0.7:
+            time.sleep(0.05)
+        else:
+            time.sleep(0.08)
+    
+    print()
+    time.sleep(1)
+    kernel.clrscr()
 
 def initialize_db():
     conn = sqlite3.connect('configuration.db')
@@ -23,7 +84,9 @@ def initialize_db():
     conn.close()
 
 def displayLogo():
-    text = """
+    term = blessed.Terminal()
+    
+    logo_text = """
                     
      *****####*     
    **++***##***##   
@@ -34,14 +97,19 @@ def displayLogo():
       ##%%%%%%      
                     
 """
-    kernel.printBold("\033[0;35m" + text + "\033[0m")
+    lines = logo_text.split('\n')
+    max_line_length = max(len(line) for line in lines)
+    terminal_width = term.width
+    padding = (terminal_width - max_line_length) // 2
+    centered_logo = '\n'.join(' ' * padding + line for line in lines)
+    kernel.println(term.magenta(centered_logo))
 
 def updateCheckOnStart():
-    newtag = updater.getLatestReleaseTag()
-    currenttag = updater.readCurrentTag()
+    newtag = updater.get_latest_release()
+    currenttag = updater.read_current_tag()
     if newtag[0] > currenttag:
-        kernel.printWarning(f"Version {newtag[0]} is available!")
-        kernel.printInfo("Run 'clsupdate' to see what's new and update")
+        kernel.printWarning(term.center(f"Version {newtag[0]} is available!"))
+        kernel.printInfo(term.center("Run 'clsupdate' to see what's new and update"))
         time.sleep(2)
     return None
 
@@ -50,9 +118,9 @@ def fetchMOTD():
         url = "https://raw.githubusercontent.com/gauthamnair2005/ProcyonCLS-MOTD/main/motd.txt"
         response = requests.get(url)
         response.raise_for_status()
-        kernel.printUnderline(response.text)
+        kernel.printBold(term.center(response.text))
     except:
-        kernel.printError("Could not fetch MOTD.!")
+        kernel.printError(term.center("Could not fetch MOTD.!"))
 
 def add_user(username, password, first_name, last_name, age, other_details):
     conn = sqlite3.connect('configuration.db')
@@ -93,198 +161,138 @@ def delete_user(username):
     conn.close()
 
 def oobe():
-    print("\033[0;35m" + pyfiglet.figlet_format(f"Welcome to {kernel.getReleaseName()}") + "\033[0m")
-    time.sleep(2)
+    term = blessed.Terminal()
+    
+    # Welcome screen
     kernel.clrscr()
-    ekernel.printHeader("Out of Box Experience")
-    time.sleep(1)
-    print()
-    kernel.printInfo("ProcyonCLS got better")
-    kernel.printInfo("-------------------------")
-    time.sleep(1)
-    kernel.println("  With ProcyonCLS 2025, you get a rich and secure experience")
-    kernel.println("along with the new AppMarket, ChatCLS, NetGet and more!")
+    ekernel.prettyPrint(term.center(f"Welcome to {kernel.getReleaseName()}"))
     time.sleep(2)
-    print()
-    input("Press any key to continue...")
-    kernel.clrscr()
-    ekernel.printHeader("Out of Box Experience")
-    print()    
-    kernel.printInfo("ProcyonCLS 2025 : Security at it's peak")
-    kernel.printInfo("--------------------------------------------")
-    time.sleep(1)
-    kernel.println("  ProcyonCLS 2025 comes with enhanced security features")
-    kernel.println("to protect your data and privacy. Like updates, ")
-    kernel.println("password reset, secure account verification and" )
-    kernel.println("system repair.!")
-    time.sleep(2)
-    print()
-    input("Press any key to continue...")
-    kernel.clrscr()
-    ekernel.printHeader("Out of Box Experience")
-    print()
-    kernel.printInfo("ProcyonCLS 2025 : AppMarket")
-    kernel.printInfo("----------------------------------")
-    time.sleep(1)
-    kernel.println("  ProcyonCLS 2025 comes with AppMarket, a place to")
-    kernel.println("download and install applications. You can also")
-    kernel.println("create your own applications and share them with")
-    kernel.println("the community.")
-    kernel.printWarning("Note : To publish your application, pull")
-    kernel.printWarning("request on GitHub.")
-    time.sleep(2)
-    print()
-    input("Press any key to continue...")
-    kernel.clrscr()
-    ekernel.printHeader("Out of Box Experience")
-    print()
-    kernel.printInfo("ProcyonCLS 2025 : ChatCLS")
-    kernel.printInfo("----------------------------------")
-    time.sleep(1)
-    kernel.println("  ProcyonCLS 2025 comes with ChatCLS, an AI powered")
-    kernel.println("chat application. ChatCLS can help you with your")
-    kernel.println("queries, provide information and much more.")
-    kernel.printWarning("Note: ChatCLS is still in beta, and requires")
-    kernel.printWarning("OpenAI API key.")
-    time.sleep(2)
-    print()
-    input("Press any key to continue...")
+    
+    sections = [
+        {
+            "title": "ProcyonCLS got better",
+            "content": "With ProcyonCLS 2025, you get a rich and secure experience along with the new AppMarket, ChatCLS, NetGet and more!"
+        },
+        {
+            "title": "Security at its peak",
+            "content": "ProcyonCLS 2025 comes with enhanced security features to protect your data and privacy. Like updates, password reset, secure account verification and system repair!"
+        },
+        {
+            "title": "AppMarket",
+            "content": "ProcyonCLS 2025 comes with AppMarket, a place to download and install applications.",
+            "note": "To publish your application, pull request on GitHub."
+        },
+        {
+            "title": "ChatCLS",
+            "content": "ProcyonCLS 2025 comes with ChatCLS, an AI powered chat application.",
+            "note": "ChatCLS is still in beta, and requires OpenAI API key."
+        },
+        {
+            "title": "NetGet",
+            "content": "ProcyonCLS 2025 comes with NetGet, a network download tool.",
+            "note": "NetGet is still in beta, and requires internet connection."
+        },
+        {
+            "title": "Files",
+            "content": "ProcyonCLS 2025 comes with Files, a file manager application."
+        }
+    ]
+    for section in sections:
+        kernel.clrscr()
+        ekernel.printHeader("Out of Box Experience")
+        print()
+        kernel.printInfo(term.center(f"ProcyonCLS 2025 : {section['title']}"))
+        kernel.printInfo(term.center("-" * (len(section['title']) + 20)))
+        time.sleep(1)
+        content_lines = section['content'].split('\n')
+        for line in content_lines:
+            print(term.center(line))
+            
+        if 'note' in section:
+            kernel.printWarning(term.center(f"Note: {section['note']}"))
+            
+        print()
+        kernel.centered_input(term.center("Press any key to continue..."))
     kernel.clrscr()
     ekernel.printHeader("Out of Box Experience")
     print()
-    kernel.printInfo("ProcyonCLS 2025 : NetGet")
-    kernel.printInfo("----------------------------------")
+    kernel.printInfo(term.center("Checking for updates..."))
     time.sleep(1)
-    kernel.println("  ProcyonCLS 2025 comes with NetGet, a download")
-    kernel.println("manager to download files from the internet.")
-    kernel.printWarning("Note: NetGet is still in beta,")
-    kernel.printWarning("and may not work properly.")
-    time.sleep(2)
-    print()
-    input("Press any key to continue...")
-    kernel.clrscr()
-    ekernel.printHeader("Out of Box Experience")
-    print()
-    kernel.printInfo("ProcyonCLS 2025 : Evaluator")
-    kernel.printInfo("----------------------------------")
-    time.sleep(1)
-    kernel.println("  ProcyonCLS 2025 comes with Evaluator, a calculator")
-    kernel.println("application to perform mathematical operations.")
-    time.sleep(2)
-    print()
-    input("Press any key to continue...")
-    kernel.clrscr()
-    ekernel.printHeader("Out of Box Experience")
-    print()
-    kernel.printInfo("ProcyonCLS 2025 : HTML Viewer")
-    kernel.printInfo("----------------------------------")
-    time.sleep(1)
-    kernel.println("  ProcyonCLS 2025 comes with HTML Viewer, a browser")
-    kernel.println("application to view HTML files.")
-    time.sleep(2)
-    print()
-    input("Press any key to continue...")
-    kernel.clrscr()
-    ekernel.printHeader("Out of Box Experience")
-    print()
-    kernel.printInfo("ProcyonCLS 2025 : Notes")
-    kernel.printInfo("----------------------------------")
-    time.sleep(1)
-    kernel.println("  ProcyonCLS 2025 comes with Notes, a note taking")
-    kernel.println("application to write and save notes.")
-    time.sleep(2)
-    print()
-    input("Press any key to continue...")
-    kernel.clrscr()
-    ekernel.printHeader("Out of Box Experience")
-    print()
-    kernel.printInfo("ProcyonCLS 2025 : Security")
-    kernel.printInfo("----------------------------------")
-    time.sleep(1)
-    kernel.println("  ProcyonCLS 2025 comes with enhanced security features")
-    kernel.println("to protect your data and privacy. Like updates, ")
-    kernel.println("password reset, secure account verification and" )
-    kernel.println("system repair.!")
-    time.sleep(2)
-    print()
-    input("Press any key to continue...")
-    kernel.clrscr()
-    ekernel.printHeader("Out of Box Experience")
-    print()
-    kernel.printInfo("ProcyonCLS 2025 : Let's Get Started")
-    kernel.printInfo("--------------------------------------------")
-    time.sleep(1)
-    print("Checking for updates...", end = " ", flush = True)
-    time.sleep(1)
+    
     if updater.getLatestReleaseTagOnly() > updater.readCurrentTag():
-        kernel.printWarning("[Outdated]")
-        print("Update available, do you want to update? (y/n) : ", end = "", flush = True)
-        confirm = input().strip()
-        if confirm.lower() == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', '1.9.1'])
+        kernel.printWarning(term.center("[Outdated]"))
+        if kernel.centered_input(term, "Update available, do you want to update? (y/n): ").strip().lower() == "y":
+            os.execv(sys.executable, ['python3', 'updater.py', '2.0.1'])
         else:
-            kernel.printWarning("Not Updating")
+            kernel.printWarning(term.center("Not Updating"))
     else:
-        kernel.printSuccess("[Up to date]")
+        kernel.printSuccess(term.center("[Up to date]"))
+    
     time.sleep(2)
     kernel.clrscr()
     ekernel.printHeader("Out of Box Experience")
-    print("\033[0;35m" + pyfiglet.figlet_format("Let's Get Started") + "\033[0m")
+    ekernel.prettyPrint(term.center("Let's Get Started"))
     time.sleep(2)
     kernel.clrscr()
 
 def create_user_applet():
     ekernel.printHeader(f"{kernel.getReleaseName()}")
-    kernel.printInfo("Create a new user")
-    kernel.printInfo("-------------------------")
-    username = input("Enter a nice Username: ").strip()
+    kernel.printInfo(term.center("Create a new user"))
+    kernel.printInfo(term.center("-" * (len("Create a new user") + 20)))
+    username = kernel.centered_input(term, "Enter a nice Username: ").strip()
     while True:
         if get_user(username):
-            kernel.printWarning("Username already exists!")
-            username = input("Enter a unique and nice Username: ").strip()
+            kernel.printWarning(term.center("Username already exists!"))
+            username = kernel.centered_input(term, "Enter a unique and nice Username: ").strip()
         else:
             break
     while True:
-        password = getpass.getpass("Enter a good Password: ").strip()
+        password = getpass.getpass(term.center("Enter a good Password: ")).strip()
         while True:
             if len(password) < 8:
-                kernel.printWarning("Password must be at least 8 characters long!")
-                password = getpass.getpass("Enter a bigger Password: ").strip()
+                kernel.printWarning(term.center("Password must be at least 8 characters long!"))
+                password = getpass.getpass(term.center("Enter a bigger Password: ")).strip()
             else:
                 break
-        confirm = getpass.getpass("Confirm Password: ").strip()
+        confirm = getpass.getpass(term.center("Confirm Password: ")).strip()
         if password == confirm:
             break
         else:
-            kernel.printError("Passwords do not match!")
-    first_name = input("Enter your First Name: ").strip()
-    last_name = input("Enter your Last Name: ").strip()
-    age = input("Enter your Age: ").strip()
+            kernel.printError(term.center("Passwords do not match!"))
+    first_name = kernel.centered_input(term, "Enter your First Name: ").strip()
+    last_name = kernel.centered_input(term, "Enter your Last Name: ").strip()
+    age = kernel.centered_input(term, "Enter your Age: ").strip()
     age = int(age) if age.isdigit() else None
-    other_details = input("Enter your Other Details: ").strip()
+    other_details = kernel.centered_input(term, "Enter your Other Details: ").strip()
     add_user(username, password, first_name, last_name, age, other_details)
-    kernel.printSuccess("User Created Successfully!")
-    kernel.printWarning("Hang on..")
+    kernel.printSuccess(term.center("User Created Successfully!"))
+    kernel.printWarning(term.center("Hang on.."))
     time.sleep(2)
     prompt(first_name, username)
 
 def prompt(user, username):
+    term = blessed.Terminal()
     kernel.clrscr()
-    ekernel.prettyPrint(f"Welcome, {user}")
+    with term.location(0, term.height // 2):
+        ekernel.prettyPrint(term.center(f"Welcome {user}!"))
     time.sleep(2)
     kernel.clrscr()
-    ekernel.printHeader(f"{kernel.getReleaseName()}")
+    ekernel.printHeader("ProcyonCLS")
     updateCheckOnStart()
-    kernel.printInfo("Message of the Day")
-    kernel.printInfo("-------------------------")
+    kernel.printInfo(term.center("Message Of The Day"))
+    kernel.printInfo(term.center("-" * (len("Message Of The Day") + 20)))
     fetchMOTD()
-    kernel.printInfo("Workspace")
-    kernel.printInfo("-------------------------")
-    kernel.printWarning(f"This is {kernel.getRelease()} build of {kernel.getReleaseName()}!")
-    kernel.printInfo("● " + time.strftime("Date : %d/%m/%Y"))
-    kernel.printInfo("● " + time.strftime("Time : %H:%M:%S"))
+    kernel.printInfo(term.center("Workspace"))
+    kernel.printInfo(term.center("-" * (len("Workspace") + 20)))
+    kernel.printInfo(term.center("● " + time.strftime("Date : %d/%m/%Y")))
+    kernel.printInfo(term.center("● " + time.strftime("Time : %H:%M:%S")))
     while True:
-        prmpt = input(f"\033[92m{username}\033[0m@\033[96mProcyonCLS\033[0m:~\033[93m$\033[0m ").strip()
+        prompt_text = (f"{term.bright_green(username)}"
+                      f"{term.normal}@"
+                      f"{term.bright_cyan('ProcyonCLS')}"
+                      f"{term.normal}:~"
+                      f"{term.yellow('$')} ")
+        prmpt = input(prompt_text).strip()
         if prmpt == "exit" or prmpt == "shutdown":
             kernel.shutDown()
         elif prmpt == "reboot":
@@ -298,15 +306,15 @@ def prompt(user, username):
         elif prmpt.startswith("system "):
             os.system(prmpt[7:])
         elif prmpt == "delete":
-            fileFolder = input("Enter file name to delete : ").strip()
+            fileFolder = kernel.centered_input(term, "Enter file name to delete : ").strip()
             if os.path.exists(fileFolder):
                 try:
                     os.remove(fileFolder)
-                    kernel.printSuccess(f"{fileFolder} deleted successfully!")
+                    kernel.printSuccess(term.center(f"{fileFolder} deleted successfully!"))
                 except Exception as e:
-                    kernel.printError(f"Error deleting file: {e}")
+                    kernel.printError(term.center(f"Error deleting file: {e}"))
             else:
-                kernel.printError(f"{fileFolder} not found")
+                kernel.printError(term.center(f"{fileFolder} not found"))
         elif prmpt.startswith("mkdir "):
             folder = prmpt[6:]
             if sys.platform == "win32" and folder.lower() in ["con", "prn", "aux", "nul"] + [f"com{i}" for i in range(1, 10)] + [f"lpt{i}" for i in range(1, 10)]:
@@ -317,130 +325,133 @@ def prompt(user, username):
                         f.write(folder + "\n")
                         f.close()
                     os.mkdir(folder)
-                    kernel.printSuccess(f"{folder} created successfully!")
+                    kernel.printSuccess(term.center(f"{folder} created successfully!"))
                 except Exception as e:
-                    kernel.printError(f"Error creating folder: {e}")
+                    kernel.printError(term.center(f"Error creating folder: {e}"))
         elif prmpt == "mkdir":
-            folder = input("Enter folder name : ").strip()
+            folder = kernel.centered_input(term, "Enter folder name : ").strip()
             if sys.platform == "win32" and folder.lower() in ["con", "prn", "aux", "nul"] + [f"com{i}" for i in range(1, 10)] + [f"lpt{i}" for i in range(1, 10)]:
                 kernel.bsod("0x0007", "Attempted to create system file")
             else:
                 try:
                     os.mkdir(folder)
-                    kernel.printSuccess(f"{folder} created successfully!")
+                    kernel.printSuccess(term.center(f"{folder} created successfully!"))
                 except Exception as e:
-                    kernel.printError(f"Error creating folder: {e}")
+                    kernel.printError(term.center(f"Error creating folder: {e}"))
         elif prmpt == "notes":
             kernel.callApplication("notes", isAdmin=False)
         elif prmpt == "market" or prmpt == "appmarket" or prmpt == "appstore" or prmpt == "store":
             if ekernel.admin(username):
+                kernel.printSuccess(term.center("Admin access granted"))
                 kernel.callApplication("appmarket", isAdmin=True)
             else:
-                kernel.printError("Admin access denied, market needs admin access to run!")
+                kernel.printError(term.center("Admin access denied, market needs admin access to run!"))
         elif prmpt == "python":
             os.system("python3")
         elif prmpt == "browser":
             kernel.callApplication("browser", isAdmin=False)
         elif prmpt == "clsupdate":
-            confirm = input("Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
+            confirm = kernel.centered_input(term, "Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
             if confirm.lower() == "y":
                 if ekernel.admin(username):
-                    os.execv(sys.executable, ['python3', 'updater.py', '1.9.1'])
+                    kernel.printSuccess(term.center("Admin access granted"))
+                    os.execv(sys.executable, ['python3', 'updater.py', '2.0.1'])
                 else:
-                    kernel.printError("Admin access denied, updater needs admin access to run!")
+                    kernel.printError(term.center("Admin access denied, updater needs admin access to run!"))
         elif prmpt == "security":
             if ekernel.admin(username):
+                kernel.printSuccess(term.center("Admin access granted"))
                 kernel.callApplication("security", isAdmin=True)
             else:
-                kernel.printError("Admin access denied, security needs admin access to run!")
+                kernel.printError(term.center("Admin access denied, security needs admin access to run!"))
         elif prmpt in ["dir", "ls"]:
-            kernel.printInfo(f"|{os.getcwd()}")
+            kernel.printInfo(term.center(f"{os.getcwd()}"))
             for i in os.listdir():
-                kernel.println("|-" + i)
+                kernel.println(term.center(i))
         elif prmpt == "info" or prmpt == "ver":
-            kernel.printInfo("Software Information")
-            kernel.printInfo("-------------------------")
+            kernel.printInfo(term.center("Software Information"))
+            kernel.printInfo(term.center("-------------------------"))
             displayLogo()
-            kernel.printInfo(f"{kernel.getReleaseName()} {kernel.getRelease()}")
-            kernel.printInfo("|Information")
-            kernel.println(f"|-OS Name : {kernel.getReleaseName()}")
-            kernel.println(f"|-Version : {kernel.getVersion()}")
-            kernel.println(f"|-Codename : {kernel.getCodeName()}")
-            kernel.println(f"|-Build : {kernel.getBuild()}")
-            kernel.println(f"|-Author : {kernel.getAuthor()}")
-            kernel.println(f"|-Company : {kernel.getCompany()}")
-            kernel.println(f"|-License : {kernel.getLicense()}")
-            kernel.println(f"|-Kernel : {kernel.getKernelName()} {kernel.getVersion()}")
-            kernel.println(f"|-Release : {kernel.getRelease()}")
+            kernel.printInfo(term.center("Information"))
+            kernel.println(term.center(f"{kernel.getReleaseName()}"))
+            kernel.println(term.center(f"{kernel.getVersion()}"))
+            kernel.println(term.center(f"{kernel.getCodeName()}"))
+            kernel.println(term.center(f"{kernel.getBuild()}"))
+            kernel.println(term.center(f"{kernel.getAuthor()}"))
+            kernel.println(term.center(f"{kernel.getCompany()}"))
+            kernel.println(term.center(f"{kernel.getLicense()}"))
+            kernel.println(term.center(f"{kernel.getKernelName()} {kernel.getVersion()}"))
+            kernel.println(term.center(f"{kernel.getRelease()}"))
         elif prmpt in ["calc", "calculator", "eval", "evaluator"]:
             try:
                 kernel.callApplication("evaluator", isAdmin=False)
             except:
-                kernel.printError(f"Error running evaluator")
+                kernel.printError(term.center(f"Error running evaluator"))
         elif prmpt == "date":
-            kernel.println(time.strftime("%d/%m/%Y"))
+            kernel.println(term.center(time.strftime("%d/%m/%Y")))
         elif prmpt == "time":
-            kernel.println(time.strftime("%H:%M:%S"))
+            kernel.println(term.center(time.strftime("%H:%M:%S")))
         elif prmpt == "datetime":
-            kernel.println(time.strftime("%d/%m/%Y %H:%M:%S"))
+            kernel.println(term.center(time.strftime("%d/%m/%Y %H:%M:%S")))
         elif prmpt in ["reset password", "reset-password"]:
             ekernel.printHeader("Reset Password")
-            if ekernel.admin("Enter old password : "):
-                password = getpass.getpass("Enter new password : ").strip()
+            if ekernel.admin(user, "Enter old password : "):
+                kernel.printSuccess(term.center("Admin access granted"))
+                password = getpass.getpass(term.center("Enter new password : ")).strip()
                 update_user(user, 'password', password)
-                kernel.printSuccess("Password reset successfully!")
+                kernel.printSuccess(term.center("Password reset successfully!"))
             else:
-                kernel.printError("Admin access denied")
+                kernel.printError(term.center("Admin access denied"))
         elif prmpt == "update":
-            kernel.printError("Usage: update <field> <value>")
+            kernel.printError(term.center("Usage: update <field> <value>"))
         elif prmpt.startswith("update "):
             parts = prmpt.split()
             if len(parts) == 3:
                 field, value = parts[1], parts[2]
                 if field in ['username', 'first_name', 'last_name', 'age', 'other_details']:
                     update_user(user, field, value)
-                    kernel.printSuccess(f"{field} updated successfully!")
+                    kernel.printSuccess(term.center(f"{field} updated successfully!"))
                 elif field == "password":
-                    kernel.printError("Cannot update password here")
-                    kernel.printWarning("Use 'reset password' to reset password")
+                    kernel.printError(term.center("Cannot update password here"))
+                    kernel.printWarning(term.center("Use 'reset password' to reset password"))
                 else:
-                    kernel.printError("Invalid field")
+                    kernel.printError(term.center("Invalid field"))
             else:
-                kernel.printError("Usage: update <field> <value>")
+                kernel.printError(term.center("Usage: update <field> <value>"))
         elif prmpt == "create user":
             create_user_applet()
         elif prmpt == "file" or prmpt == "files":
             kernel.callApplication("files", isAdmin=False)
         elif prmpt == "help":
             ekernel.printHeader("Help")
-            kernel.printInfo("|Available commands :")
-            kernel.println("|-help - Display this help message")
-            kernel.println("|-run <application> - Run a 3rd party application")
-            kernel.println("|-admin <application> - Run a 3rd party application with admin prVileges")
-            kernel.println("|-clrscr - Clear the screen")
-            kernel.println("|-eval - Open the evaluator")
-            kernel.println("|-date - Display the current date")
-            kernel.println("|-time - Display the current time")
-            kernel.println("|-datetime - Display the current date and time")
-            kernel.println("|-reset password - Reset the user password")
-            kernel.println("|-update <field> <value> - Update user details")
-            kernel.println("|-create user - Create a new user")
-            kernel.println("|-ver - Display OS version information")
-            kernel.println("|-info - Display OS information")
-            kernel.println("|-notes - Open the notes application")
-            kernel.println("|-dir - List files and folders in the current directory")
-            kernel.println("|-mkdir - Create a new folder")
-            kernel.println("|-security - Open the security application")
-            kernel.println("|-delete - Delete a file")
-            kernel.println("|-chatcls - Open the ChatCLS application")
-            kernel.println("|-market - Open the AppMarket application")
-            kernel.println("|-clsupdate - Update the OS")
-            kernel.println("|-file - Open the Files application")
-            kernel.println("|-browser - Open the browser application")
-            kernel.println("|-netget - Open the NetGet application")
-            kernel.println("|-delete user - Delete the current user")
-            kernel.println("|-reboot - Reboot the system")
-            kernel.println("|-shutdown - Shutdown the system")
+            kernel.printInfo(term.center("Available Commands"))
+            kernel.println(term.center("help - Display this help message"))
+            kernel.println(term.center("run <application> - Run a 3rd party application"))
+            kernel.println(term.center("admin <application> - Run a 3rd party application with admin prVileges"))
+            kernel.println(term.center("clrscr - Clear the screen"))
+            kernel.println(term.center("eval - Open the evaluator"))
+            kernel.println(term.center("date - Display the current date"))
+            kernel.println(term.center("time - Display the current time"))
+            kernel.println(term.center("datetime - Display the current date and time"))
+            kernel.println(term.center("reset password - Reset the user password"))
+            kernel.println(term.center("update <field> <value> - Update user details"))
+            kernel.println(term.center("create user - Create a new user"))
+            kernel.println(term.center("ver - Display OS version information"))
+            kernel.println(term.center("info - Display OS information"))
+            kernel.println(term.center("notes - Open the notes application"))
+            kernel.println(term.center("dir - List files and folders in the current directory"))
+            kernel.println(term.center("mkdir - Create a new folder"))
+            kernel.println(term.center("security - Open the security application"))
+            kernel.println(term.center("delete - Delete a file"))
+            kernel.println(term.center("chatcls - Open the ChatCLS application"))
+            kernel.println(term.center("market - Open the AppMarket application"))
+            kernel.println(term.center("clsupdate - Update the OS"))
+            kernel.println(term.center("file - Open the Files application"))
+            kernel.println(term.center("browser - Open the browser application"))
+            kernel.println(term.center("netget - Open the NetGet application"))
+            kernel.println(term.center("delete user - Delete the current user"))
+            kernel.println(term.center("reboot - Reboot the system"))
+            kernel.println(term.center("shutdown - Shutdown the system"))
         elif prmpt.startswith("prettyprint "):
             ekernel.prettyPrint(prmpt[12:])
         elif prmpt.startswith("echo "):
@@ -449,86 +460,50 @@ def prompt(user, username):
             break
         elif prmpt == "delete user":
             if ekernel.admin(username):
+                kernel.printSuccess(term.center("Admin access granted"))
                 delete_user(username)
-                kernel.printSuccess("User deleted successfully!")
+                kernel.printSuccess(term.center("User deleted successfully!"))
                 break
             else:
-                kernel.printError("Admin access denied")
+                kernel.printError(term.center("Admin access denied"))
         elif prmpt == "bsod":
             kernel.bsod("0x0004", "User invoked BSOD")
         elif prmpt.startswith("run "):
             if prmpt[4:] in ["bootload", "kernel", "shell", "ekernel"]:
-                kernel.printError("Cannot run system files")
+                kernel.printError(term.center("Cannot run system files"))
             else:
                 try:
                     kernel.callApplication3P(prmpt[4:], isAdmin=False)
                 except Exception as e:
-                    kernel.printError(f"Error running 3rd party application: {e}")
+                    kernel.printError(term.center(f"Error running 3rd party application: {e}"))
         elif prmpt.startswith("admin "):
             if ekernel.admin(username):
                 if prmpt[6:] in ["bootload", "kernel", "shell", "ekernel"]:
-                    kernel.printError("Cannot run system files")
+                    kernel.printError(term.center("Cannot run system files"))
                 else:
                     try:
+                        kernel.printSuccess(term.center("Admin access granted"))
                         kernel.callApplication3P(prmpt[6:], isAdmin=True)
                     except Exception as e:
-                        kernel.printError(f"Error running 3rd party application: {e}")
+                        kernel.printError(term.center(f"Error running 3rd party application: {e}"))
             else:
-                kernel.printError("Admin access denied")
+                kernel.printError(term.center("Admin access denied"))
         elif prmpt == "clrscr":
             kernel.clrscr()
         elif prmpt == "" or prmpt.isspace():
             continue
         else:
-            kernel.printError("Command not found")
+            kernel.printError(term.center(f"Command '{prmpt}' not found"))
 
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "1.9.1":
-            os.system("cls" if sys.platform == "win32" else "clear")
-            text = """
-                                                    
-                                    *+++******             
-                               *++*******#######**         
-                             ++****************####**      
-                            +***++*******####******###     
-                          *+**++++*****###%###******###    
-                         ****+++*****###%%%%%###*****#%#   
-                         ****+****##%%##%%%%%%%##****##%#  
-                         #******##%%%%%%##########*####%%  
-                         ##*****###%%%%%%##%%%%%#####%#%%  
-                         %%###########%%%#####%%%%%%%##%#  
-                          %%%%%%################%%%%##%%   
-                           %%%%%%%%%%%%%%%%%%%%%%%%##%%    
-                            %%%%%%%%%%%%%%%%%%%%%%#%%%     
-                              #%%%%%%%%%%%%%%%%%%%%%       
-                                ###%%%%%%%%%%%%%%%         
-                                     #######%                                  
-                                        
-            """
-            print("\033[0;35m" + text + "\033[0m")
-            print(f"                                 {kernel.getReleaseName()}")
-            print("\n\n\n                      Copyright © 2024, Procyonis Computing\n\n\n                                    Starting...")
-            print("                            ", end="", flush=True)
-            for _ in range(5):
-                print("\033[0;35m═\033[0m", end="", flush=True)
-                time.sleep(0.5)
-            for _ in range(8):
-                print("\033[0;35m═\033[0m", end="", flush=True)
-                time.sleep(0.1)
-            for _ in range(3):
-                print("\033[0;35m═\033[0m", end="", flush=True)
-                time.sleep(0.2)
-            for _ in range(5):
-                print("\033[0;35m═\033[0m", end="", flush=True)
-                time.sleep(0.5)
-            for _ in range(3):
-                print("\033[0;35m═\033[0m", end="", flush=True)
-                time.sleep(0.2)
+        if sys.argv[1] >= "2.0.1":
+            kernel.clrscr()
+            boot()
             time.sleep(2)
             kernel.clrscr()
-            kernel.println("Welcome")
+            kernel.println(term.center("Welcome"))
             time.sleep(1.5)
             kernel.clrscr()
             conn = sqlite3.connect('configuration.db')
@@ -543,42 +518,42 @@ def main():
                 tries = 0
                 while tries <= 5:
                     ekernel.printHeader(f"{kernel.getReleaseName()}")
-                    kernel.printInfo("Login")
-                    kernel.printInfo("-------------------------")
-                    username = input("Enter Username: ").strip()
-                    password = getpass.getpass("Enter Password: ").strip()
+                    kernel.printInfo(term.center("Login"))
+                    kernel.printInfo(term.center("-" * ((len("Login") + 20))))
+                    username = kernel.centered_input(term, "Enter Username: ").strip()
+                    password = getpass.getpass(term.center("Enter Password: ")).strip()
                     user_data = get_user(username)
                     if user_data and user_data[1] == password:
-                        kernel.printSuccess("Login Successful!")
-                        kernel.printWarning("Hang on..")
+                        kernel.printSuccess(term.center("Login Successful!"))
+                        kernel.printWarning(term.center("Hang on.."))
                         time.sleep(2)
                         prompt(get_name(username), username)
                         break
                     else:
-                        kernel.printError("Login Failed!")
+                        kernel.printError(term.center("Login Failed!"))
                         tries += 1
                         time.sleep(2)
                         kernel.clrscr()
                 else:
-                    kernel.printError("Maximum login attempts reached")
-                    confirm = input("Do you want to reset the password (y/n) : ").strip()
+                    kernel.printError(term.center("Maximum login attempts reached"))
+                    confirm = kernel.centered_input(term, "Do you want to reset the password (y/n) : ").strip()
                     if confirm.lower() == "y":
-                        reset = input("Enter username to reset password : ").strip()
+                        reset = kernel.centered_input(term, "Enter username to reset password : ").strip()
                         if get_user(reset):
-                            confirmN = input("Enter your last name to confirm identity : ").strip()
+                            confirmN = kernel.centered_input(term, "Enter your last name to confirm identity : ").strip()
                             if confirmN == get_user(reset)[3]:
-                                new_password = getpass.getpass("Enter new password : ").strip()
+                                new_password = getpass.getpass(term.center("Enter new password : ")).strip()
                                 update_user(reset, 'password', new_password)
-                                kernel.printSuccess("Password reset successfully!")
+                                kernel.printSuccess(term.center("Password reset successfully!"))
                             else:
-                                kernel.printError("Identity not confirmed")
+                                kernel.printError(term.center("Identity not confirmed"))
                         else:
-                            kernel.printError("User not found")
+                            kernel.printError(term.center("User not found"))
                     else:
-                        kernel.printError("Exiting...")
+                        kernel.printError(term.center("Exiting..."))
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 1.9.1, got {sys.argv[1]}")
+            print(f"Expected 2.0.1, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

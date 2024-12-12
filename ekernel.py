@@ -7,9 +7,10 @@ import hashlib
 import pyfiglet
 import sqlite3
 import requests
-import requests
 from bs4 import BeautifulSoup
+from blessed import Terminal
 
+term = Terminal()
 
 def urlDownloader(url, destAndExtensionOfFile):
     try:
@@ -19,22 +20,20 @@ def urlDownloader(url, destAndExtensionOfFile):
             for chunk in response.iter_content(chunk_size=8192):
                 f.write(chunk)
     except:
-        kernel.printError(f"Error downloading file from {url}, please check the URL or your internet and try again!")
+        return f"Error downloading file from {url}, please check the URL or your internet and try again!"
 
 def splashScreen(name, ver):
     kernel.clrscr()
-    prettyPrint(name)
-    kernel.println(ver)
+    kernel.println(term.magenta(term.center(term.bold(pyfiglet.figlet_format(name)))))
+    kernel.println(term.center(ver))
     time.sleep(3)
     kernel.clrscr()
 
 def prettyPrint(param):
-    print("\033[0;35m" + pyfiglet.figlet_format(param) + "\033[0m")
+    kernel.println(pyfiglet.figlet_format(param))
 
 def printHeader(header):
-    color = "\033[0;35m"
-    reset = "\033[0m"
-    kernel.printUnderline(f"{color}▓▒ {header} ▒░{reset}")
+    kernel.println(term.center(term.magenta(f"▓▒ {header} ▒░")))
 
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
@@ -42,8 +41,8 @@ def hash_password(password):
 def securePass(display):
     return hash_password(getpass.getpass(display))
 
-def admin(username, display = "Enter Password : "):
-    password = getpass.getpass(display)
+def admin(username, display="Enter Password : "):
+    password = getpass.getpass(term.center(display))
     conn = sqlite3.connect('configuration.db')
     cursor = conn.cursor()
     cursor.execute(f'SELECT password FROM users WHERE username = "{username}"')
@@ -51,16 +50,14 @@ def admin(username, display = "Enter Password : "):
         return True
     else:
         return False
-        
+
 def textBrowser(url):
     try:
-        if url.startswith("http://") or url.startswith("https://"):
-            pass
-        else:
+        if not url.startswith("http://") and not url.startswith("https://"):
             url = "https://" + url
         response = requests.get(url, verify=True)
         soup = BeautifulSoup(response.content, 'html.parser')
         text = soup.get_text()
-        kernel.println(text)
+        return text
     except:
-        kernel.printError(f"Error fetching page from {url}!")
+        return f"Error fetching the page from {url}. Please check the URL and your internet connection."

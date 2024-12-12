@@ -3,6 +3,9 @@ import sys
 import ekernel
 import os
 import requests
+from blessed import Terminal
+
+term = Terminal()
 
 GITHUB_REPO = "https://api.github.com/repos/gauthamnair2005/ProcyonCLS-AppMarket/contents/apps"
 GITHUB_APP_UPDATE_TAG_REPO = "https://api.github.com/repos/gauthamnair2005/ProcyonCLS-App-Updater/contents/"
@@ -45,102 +48,136 @@ def get_local_app_version(app_path):
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "1.9.1":
-            ekernel.splashScreen("ProcyonCLS AppMarket", "Version 1.9.1")
-            ekernel.printHeader("AppMarket")
-            kernel.printInfo("Welcome to ProcyonCLS AppMarket")
-            kernel.println("1. Browse Apps")
-            kernel.println("2. Update Apps")
-            kernel.println("3. Uninstall Apps")
-            kernel.println("4. Exit")
+        if sys.argv[1] >= "2.0.1":
+            # Initialize with splash screen
+            ekernel.splashScreen("ProcyonCLS AppMarket", "Version 2.0.1")
+            
             while True:
+                # Display menu
+                kernel.clrscr()
+                ekernel.printHeader("AppMarket")
+                kernel.printInfo(term.center("Welcome to ProcyonCLS AppMarket"))
+                print()
+                menu_items = [
+                    "1. Browse Apps",
+                    "2. Update Apps", 
+                    "3. Uninstall Apps",
+                    "4. Exit"
+                ]
+                for item in menu_items:
+                    print(term.center(item))
+                print()
+
                 try:
-                    choice = int(input("Enter choice : "))
+                    kernel.println(term.center("Enter choice:"))
+                    choice = int(kernel.centered_input(term))
+
                     if choice == 1:
+                        kernel.clrscr()
+                        ekernel.printHeader("Browse Apps")
                         apps = fetch_apps()
                         if not apps:
-                            kernel.printError("Internet connection not available")
+                            kernel.printError(term.center("Internet connection not available"))
                         else:
-                            kernel.println("Available Apps:")
+                            kernel.println(term.center("Available Apps:"))
+                            print()
                             for i, app in enumerate(apps):
                                 appNoExtension = app.split(".")[0]
-                                kernel.println(f" {i + 1}. {appNoExtension}")
+                                print(term.center(f"{i + 1}. {appNoExtension}"))
+                            
                             try:
-                                app_num = int(input("Enter the app number to install : "))
-                                if app_num < 1 or app_num > len(apps):
-                                    kernel.printError("Invalid input")
-                                else:
+                                print()
+                                kernel.println(term.center("Enter app number to install:"))
+                                app_num = int(kernel.centered_input(term))
+                                if 1 <= app_num <= len(apps):
                                     app_name = apps[app_num - 1]
                                     app_url = f"{GITHUB_REPO}/{app_name}"
                                     response = requests.get(app_url)
                                     response.raise_for_status()
                                     app_content = response.json()
                                     appInstallLoc = os.path.join("apps", app_name)
+                                    
+                                    # Show progress
+                                    kernel.printInfo(term.center("Downloading..."))
                                     with open(appInstallLoc, 'w') as f:
                                         f.write(requests.get(app_content['download_url']).text)
-                                    kernel.printSuccess(f"App {app_name} installed successfully")
+                                    kernel.printSuccess(term.center(f"App {app_name} installed successfully"))
+                                else:
+                                    kernel.printError(term.center("Invalid selection"))
                             except ValueError:
-                                kernel.printError("Invalid input. Please enter a number.")
+                                kernel.printError(term.center("Invalid input. Please enter a number."))
+
                     elif choice == 2:
-                        appInstalledList = os.listdir("apps")
-                        appInstalledList = [app for app in appInstalledList if app.endswith('.py')]
+                        kernel.clrscr()
+                        ekernel.printHeader("Update Apps")
+                        appInstalledList = [app for app in os.listdir("apps") if app.endswith('.py')]
+                        
                         if not appInstalledList:
-                            kernel.printError("No apps installed")
+                            kernel.printError(term.center("No apps installed"))
                         else:
-                            kernel.println("Installed Apps:")
                             for i, app in enumerate(appInstalledList):
-                                kernel.println(f" {i + 1}. {app}")
+                                print(term.center(f"{i + 1}. {app}"))
                                 appWithLoc = os.path.join("apps", app)
                                 local_version = get_local_app_version(appWithLoc)
                                 server_version = fetch_app_version(app)
+                                
                                 if local_version and server_version:
                                     if local_version == server_version:
-                                        kernel.printSuccess(f"App {app} is up to date")
+                                        kernel.printSuccess(term.center(f"App {app} is up to date"))
                                     else:
-                                        kernel.printError(f"App {app} update available")
-                                        update = input("Do you want to update the app? (y/n) : ").lower()
-                                        if update == "y":
+                                        kernel.printWarning(term.center(f"Update available for {app}"))
+                                        kernel.println(term.center("Do you want to update? (y/n)"))
+                                        if kernel.centered_input(term).lower() == 'y':
                                             app_url = f"{GITHUB_REPO}/{app}"
                                             response = requests.get(app_url)
                                             response.raise_for_status()
                                             app_content = response.json()
                                             with open(appWithLoc, 'w') as f:
                                                 f.write(requests.get(app_content['download_url']).text)
-                                            kernel.printSuccess(f"App {app} updated successfully")
-                                        elif update == "n":
-                                            kernel.printError("App not updated")
-                                        else:
-                                            kernel.printError("Invalid input")
+                                            kernel.printSuccess(term.center(f"App {app} updated successfully"))
                                 else:
-                                    kernel.printError(f"Could not determine version for app {app}")
+                                    kernel.printError(term.center(f"Could not determine version for {app}"))
+
                     elif choice == 3:
-                        appInstalledList = os.listdir("apps")
-                        appInstalledList = [app for app in appInstalledList if app.endswith('.py')]
+                        kernel.clrscr()
+                        ekernel.printHeader("Uninstall Apps")
+                        appInstalledList = [app for app in os.listdir("apps") if app.endswith('.py')]
+                        
                         if not appInstalledList:
-                            kernel.printError("No apps installed")
+                            kernel.printError(term.center("No apps installed"))
                         else:
-                            kernel.println("Installed Apps:")
+                            kernel.println(term.center("Installed Apps:"))
+                            print()
                             for i, app in enumerate(appInstalledList):
-                                kernel.println(f" {i + 1}. {app}")
+                                print(term.center(f"{i + 1}. {app}"))
+                            
                             try:
-                                app_num = int(input("Enter the app number to uninstall : "))
-                                if app_num < 1 or app_num > len(appInstalledList):
-                                    kernel.printError("Invalid input")
-                                else:
+                                print()
+                                kernel.println(term.center("Enter app number to uninstall:"))
+                                app_num = int(kernel.centered_input(term))
+                                if 1 <= app_num <= len(appInstalledList):
                                     app_name = appInstalledList[app_num - 1]
                                     os.remove(os.path.join("apps", app_name))
-                                    kernel.printSuccess(f"App {app_name} uninstalled successfully")
+                                    kernel.printSuccess(term.center(f"App {app_name} uninstalled successfully"))
+                                else:
+                                    kernel.printError(term.center("Invalid selection"))
                             except ValueError:
-                                kernel.printError("Invalid input. Please enter a number.")
-                            except OSError as e:
-                                kernel.printError(f"Error uninstalling app: {e}")
+                                kernel.printError(term.center("Invalid input. Please enter a number."))
+
                     elif choice == 4:
-                        kernel.printInfo("Exiting AppMarket")
+                        kernel.printInfo(term.center("Exiting AppMarket"))
                         break
+
                     else:
-                        kernel.printError("Invalid choice. Please enter a number between 1 and 4.")
+                        kernel.printError(term.center("Invalid choice"))
+                    kernel.println(term.center("\nPress Enter to continue..."))
+                    kernel.centered_input(term)
+
                 except ValueError:
-                    kernel.printError("Invalid input. Please enter a number.")
+                    kernel.printError(term.center("Invalid input"))
+                    kernel.println(term.center("\nPress Enter to continue..."))
+                    kernel.centered_input(term)
+
         else:
             kernel.printError("This version of market is incompatible with current version of ProcyonCLS")
     else:

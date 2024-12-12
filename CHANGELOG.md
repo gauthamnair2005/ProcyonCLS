@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-## What's new in ProcyonCLS 2025 1.9.1 Developer Preview 10?
+## What's new in ProcyonCLS 2025 2.0.1 Developer Preview 10?
+
+* Security Update - UB-20241212.
+
+* Revamped UI.
+
+* Using `blessed` for UI.
+
+## What was new in ProcyonCLS 2025 1.9.1 Developer Preview 10?
 
 * Security Update - UB-20241211.
 

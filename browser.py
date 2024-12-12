@@ -1,16 +1,19 @@
 import kernel
 import sys
 import ekernel
+from blessed import Terminal
+
+term = Terminal()
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "1.9.1":
-            ekernel.splashScreen("ProcyonCLS HTML Viewer", "Version 1.9.1")
+        if sys.argv[1] >= "2.0.1":
+            ekernel.splashScreen("ProcyonCLS HTML Viewer", "Version 2.0.1")
             ekernel.printHeader("HTML Viewer")
-            url = input("Enter URL : ").strip()
-            ekernel.textBrowser(url)
+            url = kernel.centered_input(term, "Enter URL : ").strip()
+            kernel.println(term.center(ekernel.textBrowser(url)))
         else:
-            kernel.printError("This version of HTML Viewer is incompatible with current version of ProcyonCLS")
+            kernel.printError(term.center("This version of HTML Viewer is incompatible with current version of ProcyonCLS"))
     else:
         kernel.printError("OS Scope Error")
 

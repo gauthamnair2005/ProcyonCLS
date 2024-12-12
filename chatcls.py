@@ -4,6 +4,9 @@ from prompt_toolkit import prompt
 import kernel
 import sys
 import ekernel
+from blessed import Terminal
+
+term = Terminal()
 
 def generate_response(prompt_text):
     response = openai.Completion.create(
@@ -18,7 +21,7 @@ def generate_response(prompt_text):
 
 def chat():
     kernel.printInfo("Type 'exit' to end the conversation.")
-    openai.api_key = os.getenv(input("Enter your OpenAI API key: "))
+    openai.api_key = os.getenv(kernel.centered_input(term, "Enter your OpenAI API key: "))
     while True:
         user_input = prompt("You: ")
         if user_input.lower() == 'exit':
@@ -29,8 +32,8 @@ def chat():
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "1.9.1":
-            ekernel.splashScreen("Procyon ChatCLS", "Version 1.9.1")
+        if sys.argv[1] >= "2.0.1":
+            ekernel.splashScreen("Procyon ChatCLS", "Version 2.0.1")
             ekernel.printHeader("ChatCLS")
             chat()
         else:
