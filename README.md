@@ -16,15 +16,11 @@ ProcyonCLS is a versatile and user-friendly command line system designed to cate
 
 ## 🚀 Current Version 🚀
 
-ProcyonCLS 2025 `2.0.1` Developer Preview 10
+ProcyonCLS 2025 `2.0.2` Developer Preview 10
 
 ### What's new in this version?
 
-* Security Update - UB-20241212.
-
-* Revamped UI.
-
-* Using `blessed` for UI.
+* Fixed Critical OOBE Flaw.
 
 ---
 

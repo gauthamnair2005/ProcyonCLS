@@ -212,7 +212,7 @@ def oobe():
             kernel.printWarning(term.center(f"Note: {section['note']}"))
             
         print()
-        kernel.centered_input(term.center("Press any key to continue..."))
+        kernel.centered_input(term, "Press any key to continue...")
     kernel.clrscr()
     ekernel.printHeader("Out of Box Experience")
     print()
@@ -222,7 +222,7 @@ def oobe():
     if updater.getLatestReleaseTagOnly() > updater.readCurrentTag():
         kernel.printWarning(term.center("[Outdated]"))
         if kernel.centered_input(term, "Update available, do you want to update? (y/n): ").strip().lower() == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', '2.0.1'])
+            os.execv(sys.executable, ['python3', 'updater.py', '2.0.2'])
         else:
             kernel.printWarning(term.center("Not Updating"))
     else:
@@ -355,7 +355,7 @@ def prompt(user, username):
             if confirm.lower() == "y":
                 if ekernel.admin(username):
                     kernel.printSuccess(term.center("Admin access granted"))
-                    os.execv(sys.executable, ['python3', 'updater.py', '2.0.1'])
+                    os.execv(sys.executable, ['python3', 'updater.py', '2.0.2'])
                 else:
                     kernel.printError(term.center("Admin access denied, updater needs admin access to run!"))
         elif prmpt == "security":
@@ -498,7 +498,7 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "2.0.1":
+        if sys.argv[1] >= "2.0.2":
             kernel.clrscr()
             boot()
             time.sleep(2)
@@ -553,7 +553,7 @@ def main():
                         kernel.printError(term.center("Exiting..."))
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 2.0.1, got {sys.argv[1]}")
+            print(f"Expected 2.0.2, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

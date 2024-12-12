@@ -44,9 +44,9 @@ def validate_url(url):
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "2.0.1":
+        if sys.argv[1] >= "2.0.2":
             # Initialize with splash screen
-            ekernel.splashScreen("ProcyonCLS NetGet", "Version 2.0.1")
+            ekernel.splashScreen("ProcyonCLS NetGet", "Version 2.0.2")
             
             # Create downloads directory if not exists
             if not os.path.exists("downloads"):

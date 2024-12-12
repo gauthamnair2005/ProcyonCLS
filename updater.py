@@ -99,9 +99,9 @@ def replace_local_files(extracted_path, target_path):
         return False
 
 def main():
-    if len(sys.argv) >= 2 and sys.argv[1] >= "2.0.1":
+    if len(sys.argv) >= 2 and sys.argv[1] >= "2.0.2":
         # Initialize with splash screen
-        ekernel.splashScreen("ProcyonCLS Updater", "Version 2.0.1")
+        ekernel.splashScreen("ProcyonCLS Updater", "Version 2.0.2")
         
         # Display header
         kernel.clrscr()
@@ -181,7 +181,7 @@ def main():
             kernel.printWarning(term.center("Make sure you obtained current version from trusted sources"))
         else:
             kernel.printSuccess(term.center("You're up to date!"))
-            os.execv(sys.executable, ['python3', 'shell.py', '2.0.1'])
+            os.execv(sys.executable, ['python3', 'shell.py', '2.0.2'])
     else:
         kernel.printError(term.center("This version of updater is incompatible with ProcyonCLS"))
 
