@@ -6,14 +6,14 @@ import time
 
 try:
     os.system("cls" if sys.platform == "win32" else "clear")
-    print("Procyon Bootloader 2.0.2")
+    print("Procyon Bootloader 2.0.3")
     print("..............")
     print("Detecting ProcyonCLS Kernel...")
     if os.path.exists("kernel.py"):
         print("Kernel found!")
         print("Booting kernel...")
         time.sleep(0.5)
-        os.system("python3 kernel.py 2.0.2")
+        os.system("python3 kernel.py 2.0.3")
     else:
         print("Kernel not found!")
         print("Exiting...")

@@ -9,9 +9,9 @@ term = Terminal()
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "2.0.2":
+        if sys.argv[1] >= "2.0.3":
             # Initialize with splash screen
-            ekernel.splashScreen("ProcyonCLS Evaluator", "Version 2.0.2")
+            ekernel.splashScreen("ProcyonCLS Evaluator", "Version 2.0.3")
             
             while True:
                 # Display interface
