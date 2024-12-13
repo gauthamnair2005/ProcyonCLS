@@ -28,24 +28,24 @@ term = Terminal()
 folder1_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder1_path)
 
-__version__ = "2.0.3"
+__version__ = "2.0.4"
 
 import kernel
 import ekernel
 
 def main():
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "2.0.3":
+        if sys.argv[1] >= "2.0.4":
             ekernel.splashScreen("App", "Version (String)")
             ekernel.printHeader("App")
-            kernel.printInfo(term.center("App sub header"))
-            kernel.printInfo(term.center("-" * (len("App sub header") + 20)))
-            kernel.println(term.center("Hello, World!"))
+            kernel.printInfo(("App sub header"))
+            kernel.printInfo(("-" * (len("App sub header") + 20)))
+            kernel.println(("Hello, World!"))
             ekernel.prettyPrint("Hello, World!")
         else:
-            kernel.printError(term.center("This version of app is incompatible with current version of ProcyonCLS"))
+            kernel.printError(("This version of app is incompatible with current version of ProcyonCLS"))
     else:
-        kernel.printError(term.center("OS Scope Error"))
+        kernel.printError(("OS Scope Error"))
 
 if __name__ == "__main__":
     main()
@@ -67,7 +67,7 @@ Let's break down the code to understand what each part does:
 
 * `sys.path.insert(0, folder1_path)` - This inserts the parent directory of the current file into the Python path.
 
-* `__version__ = "2.0.3"` - This is the version of the application.
+* `__version__ = "2.0.4"` - This is the version of the application.
 
 * `import kernel` - This is the main kernel as well as base API provider for ProcyonCLS and extended kernel. In this code, the `println()`, `printError()` and `printInfo()` are provided by the kernel API.
 
@@ -77,27 +77,27 @@ Let's break down the code to understand what each part does:
 
 * `if len(sys.argv) == 2:` - This checks if there are two command line arguments.
 
-* `if sys.argv[1] >= "2.0.3":` - This checks if the second command line argument is `2.0.3`.
+* `if sys.argv[1] >= "2.0.4":` - This checks if the second command line argument is `2.0.4`.
 
 * `ekernel.splashScreen("App", "Version (String)")` - This prints the splash screen with the application name and version.
 
 * `ekernel.printHeader("App")` - This prints the header for the application.
 
-* `kernel.printInfo(term.center("App sub header"))` - This prints the sub header for the application.
+* `kernel.printInfo(("App sub header"))` - This prints the sub header for the application.
 
-* `kernel.printInfo(term.center("-" * (len("App sub header") + 20)))` - This prints a separator line.
+* `kernel.printInfo(("-" * (len("App sub header") + 20)))` - This prints a separator line.
 
-* `kernel.println(term.center("Hello, World!"))` - This prints "Hello, World!" to the command line.
+* `kernel.println(("Hello, World!"))` - This prints "Hello, World!" to the command line.
 
 * `ekernel.prettyPrint("Hello, World!")` - This prints "Hello, World!" to the command line in a pretty format.
 
-* `else:` - This is the else statement for the `if sys.argv[1] >= "2.0.3":` statement.
+* `else:` - This is the else statement for the `if sys.argv[1] >= "2.0.4":` statement.
 
-* `kernel.printError(term.center("This version of app is incompatible with current version of ProcyonCLS"))` - This prints an error message to the command line.
+* `kernel.printError(("This version of app is incompatible with current version of ProcyonCLS"))` - This prints an error message to the command line.
 
 * `else:` - This is the else statement for the `if len(sys.argv) == 2:` statement.
 
-* `kernel.printError(term.center("OS Scope Error"))` - This prints an error message to the command line.
+* `kernel.printError(("OS Scope Error"))` - This prints an error message to the command line.
 
 * `if __name__ == "__main__":` - This checks if the script is being run as the main program.
 
@@ -121,23 +121,23 @@ term = Terminal()
 folder1_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder1_path)
 
-__version__ = "2.0.3"
+__version__ = "2.0.4"
 
 import kernel
 import ekernel
 
 def main():
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "2.0.3":
+        if sys.argv[1] >= "2.0.4":
             ekernel.splashScreen("App", "Version (String)")
             ekernel.printHeader("App")
-            kernel.printInfo(term.center("App sub header"))
-            kernel.printInfo(term.center("-" * (len("App sub header") + 20)))
+            kernel.printInfo(("App sub header"))
+            kernel.printInfo(("-" * (len("App sub header") + 20)))
             # Your code here
         else:
-            kernel.printError(term.center("This version of app is incompatible with current version of ProcyonCLS"))
+            kernel.printError(("This version of app is incompatible with current version of ProcyonCLS"))
     else:
-        kernel.printError(term.center("OS Scope Error"))
+        kernel.printError(("OS Scope Error"))
 
 if __name__ == "__main__":
     main()

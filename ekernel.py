@@ -25,7 +25,7 @@ def urlDownloader(url, destAndExtensionOfFile):
 def splashScreen(name, ver):
     kernel.clrscr()
     kernel.println(term.magenta(term.center(term.bold(pyfiglet.figlet_format(name)))))
-    kernel.println(term.center(ver))
+    kernel.println((ver))
     time.sleep(3)
     kernel.clrscr()
 
@@ -33,7 +33,7 @@ def prettyPrint(param):
     kernel.println(pyfiglet.figlet_format(param))
 
 def printHeader(header):
-    kernel.println(term.center(term.magenta(f"▓▒ {header} ▒░")))
+    kernel.println((term.magenta(f"▓▒ {header} ▒░")))
 
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()

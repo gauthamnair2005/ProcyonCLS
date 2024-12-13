@@ -32,7 +32,7 @@ def get_latest_release():
         release_info = response.json()
         return release_info["tag_name"], release_info["zipball_url"], release_info["body"]
     except requests.RequestException as e:
-        kernel.printError(term.center(f"Error fetching latest release: {e}"))
+        kernel.printError((f"Error fetching latest release: {e}"))
         return None, None, None
 
 def read_current_tag():
@@ -47,7 +47,7 @@ def write_current_tag(tag):
 
 def download_release(url, dest):
     try:
-        kernel.println(term.center(" ● Downloading update..."))
+        kernel.println((" ● Downloading update..."))
         response = requests.get(url, stream=True)
         response.raise_for_status()
         with open(dest, 'wb') as f:
@@ -55,26 +55,26 @@ def download_release(url, dest):
                 f.write(chunk)
         return True
     except requests.RequestException as e:
-        kernel.printError(term.center(f"Error downloading release: {e}"))
+        kernel.printError((f"Error downloading release: {e}"))
         return False
 
 def extract_release(zip_path, extract_to):
     try:
-        kernel.println(term.center(" ● Extracting update..."))
+        kernel.println((" ● Extracting update..."))
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             zip_ref.extractall(extract_to)
         return True
     except zipfile.BadZipFile as e:
-        kernel.printError(term.center(f"Error extracting release: {e}"))
+        kernel.printError((f"Error extracting release: {e}"))
         return False
 
 def replace_local_files(extracted_path, target_path):
     if not os.path.exists(extracted_path):
-        kernel.printError(term.center(f"Extracted path does not exist: {extracted_path}"))
+        kernel.printError((f"Extracted path does not exist: {extracted_path}"))
         return False
     
     try:
-        kernel.println(term.center(" ● Updating files..."))
+        kernel.println((" ● Updating files..."))
         protected_dirs = read_protected_dirs(PROTECTED_DIRS_FILE)
         
         # Remove old Python files
@@ -95,13 +95,13 @@ def replace_local_files(extracted_path, target_path):
                 shutil.copy2(source, destination)
         return True
     except Exception as e:
-        kernel.printError(term.center(f"Error replacing files: {e}"))
+        kernel.printError((f"Error replacing files: {e}"))
         return False
 
 def main():
-    if len(sys.argv) >= 2 and sys.argv[1] >= "2.0.3":
+    if len(sys.argv) >= 2 and sys.argv[1] >= "2.0.4":
         # Initialize with splash screen
-        ekernel.splashScreen("ProcyonCLS Updater", "Version 2.0.3")
+        ekernel.splashScreen("ProcyonCLS Updater", "Version 2.0.4")
         
         # Display header
         kernel.clrscr()
@@ -109,11 +109,12 @@ def main():
         
         # Display current version
         current_tag = read_current_tag()
-        kernel.printInfo(term.center(f"Current version: {current_tag}"))
+        print()
+        kernel.println(f"{kernel.getReleaseName()} | {current_tag}")
         print()
         
         # Check for updates
-        kernel.println(term.center("Checking for updates..."))
+        kernel.println(("Checking for updates..."))
         print()
         time.sleep(1)
         
@@ -122,16 +123,15 @@ def main():
             return
             
         if latest_tag > current_tag:
-            kernel.printInfo(term.center(f"Update available: {latest_tag}"))
+            kernel.printInfo((f"Update available: {latest_tag}"))
             print()
-            kernel.println(term.center("What's New:"))
             for line in whats_new.split('\n'):
-                kernel.println(term.center(line))
+                kernel.println((line))
             print()
             
             confirm = kernel.centered_input(term, f"Do you want to update? {current_tag} -> {latest_tag} (y/n): ")
             if confirm.lower() != "y":
-                kernel.printWarning(term.center("Update cancelled"))
+                kernel.printWarning(("Update cancelled"))
                 return
                 
             # Perform update
@@ -149,7 +149,7 @@ def main():
                 extracted_folder = next((item for item in os.listdir(temp_extract_path) 
                                       if os.path.isdir(os.path.join(temp_extract_path, item))), None)
                 if not extracted_folder:
-                    kernel.printError(term.center("No extracted folder found"))
+                    kernel.printError(("No extracted folder found"))
                     return
                 
                 extracted_path = os.path.join(temp_extract_path, extracted_folder)
@@ -158,32 +158,32 @@ def main():
                 if not replace_local_files(extracted_path, CURRENT_DIRECTORY):
                     return
                     
-                kernel.println(term.center(" ● Writing new tag..."))
+                kernel.println((" ● Writing new tag..."))
                 write_current_tag(latest_tag)
                 
-                kernel.println(term.center(" ● Cleaning up..."))
+                kernel.println((" ● Cleaning up..."))
                 shutil.rmtree(temp_extract_path)
                 os.remove(zip_path)
                 
-                kernel.printSuccess(term.center("Update completed successfully!"))
+                kernel.printSuccess(("Update completed successfully!"))
                 time.sleep(1)
                 kernel.reboot()
                 
             except Exception as e:
-                kernel.printError(term.center(f"Update failed: {e}"))
+                kernel.printError((f"Update failed: {e}"))
                 if os.path.exists(temp_extract_path):
                     shutil.rmtree(temp_extract_path)
                 if os.path.exists(zip_path):
                     os.remove(zip_path)
                     
         elif latest_tag < current_tag:
-            kernel.printWarning(term.center("You're using a newer version than published"))
-            kernel.printWarning(term.center("Make sure you obtained current version from trusted sources"))
+            kernel.printWarning(("You're using a newer version than published"))
+            kernel.printWarning(("Make sure you obtained current version from trusted sources"))
         else:
-            kernel.printSuccess(term.center("You're up to date!"))
-            os.execv(sys.executable, ['python3', 'shell.py', '2.0.3'])
+            kernel.printSuccess(("You're up to date!"))
+            os.execv(sys.executable, ['python3', 'shell.py', '2.0.4'])
     else:
-        kernel.printError(term.center("This version of updater is incompatible with ProcyonCLS"))
+        kernel.printError(("This version of updater is incompatible with ProcyonCLS"))
 
 if __name__ == "__main__":
     try:

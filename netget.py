@@ -9,7 +9,7 @@ term = Terminal()
 
 def download_file(url, destination):
     try:
-        kernel.println(term.center("Starting download..."))
+        kernel.println(("Starting download..."))
         response = requests.get(url, stream=True)
         response.raise_for_status()
         
@@ -24,15 +24,15 @@ def download_file(url, destination):
                     downloaded += len(chunk)
                     if total_size:
                         progress = (downloaded / total_size) * 100
-                        kernel.println(term.center(f"Download progress: {progress:.1f}%"), end='\r')
+                        kernel.println((f"Download progress: {progress:.1f}%"), end='\r')
         
-        kernel.printSuccess(term.center("\nDownload completed successfully!"))
+        kernel.printSuccess(("\nDownload completed successfully!"))
         return True
     except requests.RequestException as e:
-        kernel.printError(term.center(f"Download failed: {str(e)}"))
+        kernel.printError((f"Download failed: {str(e)}"))
         return False
     except Exception as e:
-        kernel.printError(term.center(f"Error: {str(e)}"))
+        kernel.printError((f"Error: {str(e)}"))
         return False
 
 def validate_url(url):
@@ -44,9 +44,9 @@ def validate_url(url):
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "2.0.3":
+        if sys.argv[1] >= "2.0.4":
             # Initialize with splash screen
-            ekernel.splashScreen("ProcyonCLS NetGet", "Version 2.0.3")
+            ekernel.splashScreen("ProcyonCLS NetGet", "Version 2.0.4")
             
             # Create downloads directory if not exists
             if not os.path.exists("downloads"):
@@ -65,7 +65,7 @@ def main():
                 ]
                 
                 for item in menu_items:
-                    kernel.println(term.center(item))
+                    kernel.println((item))
                 print()
 
                 try:
@@ -78,16 +78,16 @@ def main():
                         
                         url = kernel.centered_input(term, "Enter URL: ").strip()
                         if not url:
-                            kernel.printError(term.center("URL cannot be empty"))
+                            kernel.printError(("URL cannot be empty"))
                             continue
                             
                         if not validate_url(url):
-                            kernel.printError(term.center("Invalid or unreachable URL"))
+                            kernel.printError(("Invalid or unreachable URL"))
                             continue
                         
                         filename = kernel.centered_input(term, "Enter filename with extension: ").strip()
                         if not filename:
-                            kernel.printError(term.center("Filename cannot be empty"))
+                            kernel.printError(("Filename cannot be empty"))
                             continue
                         
                         destination = os.path.join("downloads", filename)
@@ -95,7 +95,7 @@ def main():
                         if os.path.exists(destination):
                             overwrite = kernel.centered_input(term, "File exists. Overwrite? (y/n): ").lower()
                             if overwrite != 'y':
-                                kernel.printWarning(term.center("Download cancelled"))
+                                kernel.printWarning(("Download cancelled"))
                                 continue
                         
                         if download_file(url, destination):
@@ -114,35 +114,35 @@ def main():
                                 history = f.readlines()
                                 if history:
                                     for entry in history:
-                                        kernel.println(term.center(entry.strip()))
+                                        kernel.println((entry.strip()))
                                 else:
-                                    kernel.printWarning(term.center("No download history"))
+                                    kernel.printWarning(("No download history"))
                         else:
-                            kernel.printWarning(term.center("No download history"))
+                            kernel.printWarning(("No download history"))
                     
                     elif choice == 3:
-                        kernel.printInfo(term.center("Exiting NetGet"))
+                        kernel.printInfo(("Exiting NetGet"))
                         break
                     
                     else:
-                        kernel.printError(term.center("Invalid choice"))
+                        kernel.printError(("Invalid choice"))
                     
                     print()
                     kernel.centered_input(term, "Press Enter to continue...")
                 
                 except ValueError:
-                    kernel.printError(term.center("Invalid input"))
+                    kernel.printError(("Invalid input"))
                     print()
                     kernel.centered_input(term, "Press Enter to continue...")
                 
                 except KeyboardInterrupt:
-                    kernel.printWarning(term.center("\nOperation cancelled"))
+                    kernel.printWarning(("\nOperation cancelled"))
                     continue
         
         else:
-            kernel.printError(term.center("This version of NetGet is incompatible with current version of ProcyonCLS"))
+            kernel.printError(("This version of NetGet is incompatible with current version of ProcyonCLS"))
     else:
-        kernel.printError(term.center("OS Scope Error"))
+        kernel.printError(("OS Scope Error"))
 
 if __name__ == "__main__":
     main()

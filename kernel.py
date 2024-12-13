@@ -18,9 +18,9 @@ def clrscr():
 
 def main():
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "2.0.3":
+        if sys.argv[1] >= "2.0.4":
             clrscr()
-            print(term.bold("Procyon Neo Kernel 2.0.3"))
+            print(term.bold("Procyon Neo Kernel 2.0.4"))
             print("..............")
             print("Loading Kernel modules...")
             time.sleep(0.1)
@@ -46,7 +46,7 @@ def main():
             print("Booting ProcyonCLS...")
             time.sleep(0.2)
             if os.path.exists("shell.py"):
-                os.system("python3 shell.py 2.0.3")
+                os.system("python3 shell.py 2.0.4")
             else:
                 clrscr()
                 print(term.bold_red("Kernel Panic : OS error"))
@@ -60,7 +60,7 @@ def main():
             print("Technical Details : ")
             print(term.red(" Error Code : 0x0001"))
             print(term.red(" Error Description : Incompatible version reported by Bootloader"))
-            print(term.red(f" Reported {sys.argv[1]} as opposed to 2.0.3"))
+            print(term.red(f" Reported {sys.argv[1]} as opposed to 2.0.4"))
             sys.exit(1)
     else:
         clrscr()
@@ -84,10 +84,10 @@ def reboot():
     os.execv(sys.executable, ['python3', 'start.py'])
 
 def getVersion():
-    return "2.0.3"
+    return "2.0.4"
 
 def getBuild():
-    return "2024.12.12.1944"
+    return "2024.12.13.1712"
 
 def getAuthor():
     return "Gautham Nair"
@@ -111,24 +111,24 @@ def getRelease():
     return "Developer Preview 12"
 
 def printError(param, end="\n"):
-    print(term.red(param), end=end)
+    print(term.center(term.red(param)), end=end)
 
 def printWarning(param, end="\n"):
-    print(term.yellow(param), end=end)
+    print(term.center(term.yellow(param)), end=end)
 
 def printSuccess(param, end="\n"):
-    print(term.green(param), end=end)
+    print(term.center(term.green(param)), end=end)
 
 def printInfo(param, end="\n"):
-    print(term.blue(param), end=end)
+    print(term.center(term.blue(param)), end=end)
 
 def println(param="", end="\n", flush=False):
-    print(param, end=end, flush=flush)
+    print(term.center(param), end=end, flush=flush)
 
 def centered_input(term, prompt=""):
     width = term.width
     if prompt:
-        println(term.center(prompt))
+        println((prompt))
     input_width = 30
     center_pos = (width - input_width) // 2
     print('\r' + ' ' * center_pos, end='', flush=True)
@@ -136,89 +136,86 @@ def centered_input(term, prompt=""):
 
 def bsod(error, msg):
     clrscr()
-    print(term.on_blue(term.white(" " * 1000000000)))
-    clrscr()
-    print(term.on_blue(term.white("Kernel Panic : System Failure")))
-    print(term.on_blue(term.white("Technical Details : ")))
-    print(term.on_blue(term.white(f" Error Code : {error}")))
-    print(term.on_blue(term.white(f" Error Description : {msg}")))
-    print(term.normal)
+    print(term.bold_red("Kernel Panic : Bootloader error"))
+    print("Technical Details : ")
+    print(term.red(f" Error Code : {error}"))
+    print(term.red(f" Error Description : {msg}"))
     time.sleep(5)
     sys.exit(1)
 
 def printYellow(param):
-    print(term.yellow(param))
+    print(term.center(term.yellow(param)))
 
 def printGreen(param):
-    print(term.green(param))
+    print(term.center(term.green(param)))
 
 def printBlue(param):
-    print(term.blue(param))
+    print(term.center(term.blue(param)))
 
 def printCyan(param):
-    print(term.cyan(param))
+    print(term.center(term.cyan(param)))
 
 def printMagenta(param):
-    print(term.magenta(param))
+    print(term.center(term.magenta(param)))
 
 def printRed(param):
-    print(term.red(param))
+    print(term.center(term.red(param)))
 
 def printWhite(param):
-    print(term.white(param))
+    print(term.center(term.white(param)))
 
 def printBlack(param):
-    print(term.black(param))
+    print(term.center(term.black(param)))
 
 def printBold(param):
-    print(term.bold(param))
+    print(term.center(term.bold(param)))
 
 def printUnderline(param):
-    print(term.underline(param))
+    print(term.center(term.underline(param)))
 
 def printInverted(param):
-    print(term.reverse(param))
+    print(term.center(term.reverse(param)))
 
 def printStrikethrough(param):
-    print(term.strikethrough(param))
+    print(term.center(term.strikethrough(param)))
 
 def printReset(param):
-    print(term.normal(param))
+    print(term.center(term.normal(param)))
 
 def printItalic(param):
-    print(term.italic(param))
+    print(term.center(term.italic(param)))
 
 def printOverline(param):
-    print(term.overline(param))
+    print(term.center(term.overline(param)))
 
 def printBlink(param):
-    print(term.blink(param))
+    print(term.center(term.blink(param)))
 
 def printDoubleUnderline(param):
-    print(term.double_underline(param))
+    print(term.center(term.double_underline(param)))
 
 def printDoubleStrikethrough(param):
-    print(term.double_strikethrough(param))
+    print(term.center(term.double_strikethrough(param)))
 
 def printDoubleOverline(param):
-    print(term.double_overline(param))
+    print(term.center(term.double_overline(param)))
 
 def printDoubleBlink(param):
-    print(term.double_blink(param))
+    print(term.center(term.double_blink(param)))
 
 def printFramed(param):
-    print(term.framed(param))
+    print(term.center(term.framed(param)))
 
 def printEncircled(param):
-    print(term.encircled(param))
+    print(term.center(term.encircled(param)))
 
 def printRainbow(param):
-    print(term.color_rgb(255, 0, 0)(param))
+    print(term.center(term.color_rgb(255, 0, 0)(param)))
 
 def callApplication(app, isAdmin=False):
-    appResolved = f"python3 {app}.py 2.0.3 {isAdmin}"
+    appResolved = f"python3 {app}.py 2.0.4 {isAdmin}"
     os.system(appResolved)
 
 def callApplication3P(app, isAdmin=False):
-    appResolved = f"python3 apps/{app}.py 2.0.3 {isAdmin}"
+    appResolved = f"python3 apps/{app}.py 2.0.4 {isAdmin}"
     os.system(appResolved)

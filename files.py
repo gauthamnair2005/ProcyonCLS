@@ -11,12 +11,12 @@ def print_directory_contents(path="."):
     try:
         contents = sorted(os.listdir(path))
         if not contents:
-            kernel.printWarning(term.center("Empty directory"))
+            kernel.printWarning(("Empty directory"))
             return
 
         # Print header
-        kernel.printInfo(term.center("Directory Contents"))
-        kernel.printInfo(term.center("-" * 30))
+        kernel.printInfo(("Directory Contents"))
+        kernel.printInfo(("-" * 30))
         print()
 
         # Calculate column width and number of items per row
@@ -42,28 +42,28 @@ def print_directory_contents(path="."):
             print()
             
     except Exception as e:
-        kernel.printError(term.center(f"Error listing directory: {str(e)}"))
+        kernel.printError((f"Error listing directory: {str(e)}"))
 
 def view_file_properties(path, filename):
     try:
         file_path = os.path.join(path, filename)
         if os.path.exists(file_path):
-            kernel.printInfo(term.center(f"Properties of {filename}"))
-            kernel.printInfo(term.center("-" * 30))
-            kernel.printInfo(term.center(f"Size: {os.path.getsize(file_path)} bytes"))
-            kernel.printInfo(term.center(f"Created: {time.ctime(os.path.getctime(file_path))}"))
-            kernel.printInfo(term.center(f"Modified: {time.ctime(os.path.getmtime(file_path))}"))
-            kernel.printInfo(term.center(f"Accessed: {time.ctime(os.path.getatime(file_path))}"))
+            kernel.printInfo((f"Properties of {filename}"))
+            kernel.printInfo(("-" * 30))
+            kernel.printInfo((f"Size: {os.path.getsize(file_path)} bytes"))
+            kernel.printInfo((f"Created: {time.ctime(os.path.getctime(file_path))}"))
+            kernel.printInfo((f"Modified: {time.ctime(os.path.getmtime(file_path))}"))
+            kernel.printInfo((f"Accessed: {time.ctime(os.path.getatime(file_path))}"))
         else:
-            kernel.printError(term.center(f"File {filename} does not exist"))
+            kernel.printError((f"File {filename} does not exist"))
     except Exception as e:
-        kernel.printError(term.center(f"Error getting file properties: {str(e)}"))
+        kernel.printError((f"Error getting file properties: {str(e)}"))
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "2.0.3":
+        if sys.argv[1] >= "2.0.4":
             # Initialize with splash screen
-            ekernel.splashScreen("ProcyonCLS File Explorer", "Version 2.0.3")
+            ekernel.splashScreen("ProcyonCLS File Explorer", "Version 2.0.4")
             
             current_path = os.getcwd()
             
@@ -74,7 +74,7 @@ def main():
                 print()
                 
                 # Show current path
-                kernel.printInfo(term.center(f"Current Directory: {current_path}"))
+                kernel.printInfo((f"Current Directory: {current_path}"))
                 print()
                 
                 # Show directory contents
@@ -89,7 +89,7 @@ def main():
                 ]
                 
                 for item in menu_items:
-                    kernel.println(term.center(item))
+                    kernel.println((item))
                 print()
 
                 try:
@@ -104,7 +104,7 @@ def main():
                             if os.path.isdir(new_path):
                                 current_path = os.path.abspath(new_path)
                             else:
-                                kernel.printError(term.center(f"Directory '{new_dir}' does not exist"))
+                                kernel.printError((f"Directory '{new_dir}' does not exist"))
                                 kernel.centered_input(term, "Press Enter to continue...")
                     
                     elif choice == "2":
@@ -113,26 +113,26 @@ def main():
                         kernel.centered_input(term, "Press Enter to continue...")
                     
                     elif choice == "3":
-                        kernel.printInfo(term.center("Exiting File Explorer"))
+                        kernel.printInfo(("Exiting File Explorer"))
                         break
                     
                     else:
-                        kernel.printError(term.center("Invalid choice"))
+                        kernel.printError(("Invalid choice"))
                         kernel.centered_input(term, "Press Enter to continue...")
 
                 except Exception as e:
-                    kernel.printError(term.center(f"An error occurred: {str(e)}"))
+                    kernel.printError((f"An error occurred: {str(e)}"))
                     kernel.centered_input(term, "Press Enter to continue...")
 
         else:
-            kernel.printError(term.center("This version of File Explorer is incompatible with current version of ProcyonCLS"))
+            kernel.printError(("This version of File Explorer is incompatible with current version of ProcyonCLS"))
     else:
-        kernel.printError(term.center("OS Scope Error"))
+        kernel.printError(("OS Scope Error"))
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        kernel.printWarning(term.center("\nOperation cancelled by user"))
+        kernel.printWarning(("\nOperation cancelled by user"))
     except Exception as e:
-        kernel.printError(term.center(f"An error occurred: {str(e)}"))
+        kernel.printError((f"An error occurred: {str(e)}"))

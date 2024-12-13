@@ -23,17 +23,17 @@ def chat():
     kernel.printInfo("Type 'exit' to end the conversation.")
     openai.api_key = os.getenv(kernel.centered_input(term, "Enter your OpenAI API key: "))
     while True:
-        user_input = prompt("You: ")
+        user_input = kernel.centered_input(term, "You ↓ ")
         if user_input.lower() == 'exit':
-            print("Goodbye!")
+            kernel.println("Goodbye!")
             break
         response = generate_response(user_input)
-        print(f"ChatCLS : {response}")
+        kernel.println(f"ChatCLS : {response}")
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "2.0.3":
-            ekernel.splashScreen("Procyon ChatCLS", "Version 2.0.3")
+        if sys.argv[1] >= "2.0.4":
+            ekernel.splashScreen("Procyon ChatCLS", "Version 2.0.4")
             ekernel.printHeader("ChatCLS")
             chat()
         else:
