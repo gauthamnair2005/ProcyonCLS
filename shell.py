@@ -221,7 +221,7 @@ def oobe():
     if updater.get_latest_release()[0] > updater.read_current_tag():
         kernel.printWarning(("[Outdated]"))
         if kernel.centered_input(term, "Update available, do you want to update? (y/n): ").strip().lower() == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', '2.0.4'])
+            os.execv(sys.executable, ['python3', 'updater.py', '2.0.5'])
         else:
             kernel.printWarning(("Not Updating"))
     else:
@@ -354,7 +354,7 @@ def prompt(user, username):
             if confirm.lower() == "y":
                 if ekernel.admin(username):
                     kernel.printSuccess(("Admin access granted"))
-                    os.execv(sys.executable, ['python3', 'updater.py', '2.0.4'])
+                    os.execv(sys.executable, ['python3', 'updater.py', '2.0.5'])
                 else:
                     kernel.printError(("Admin access denied, updater needs admin access to run!"))
         elif prmpt == "security":
@@ -497,7 +497,7 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "2.0.4":
+        if sys.argv[1] >= "2.0.5":
             kernel.clrscr()
             boot()
             time.sleep(2)
@@ -552,7 +552,7 @@ def main():
                         kernel.printError(("Exiting..."))
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 2.0.4, got {sys.argv[1]}")
+            print(f"Expected 2.0.5, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

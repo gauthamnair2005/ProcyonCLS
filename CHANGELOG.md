@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## What's new in ProcyonCLS 2025 2.0.4 Developer Preview 12?
+## What's new in ProcyonCLS 2025 2.0.5 Developer Preview 12?
+
+* Security Update - UB-20241219.
+
+## What was new in ProcyonCLS 2025 2.0.4 Developer Preview 12?
 
 * Security Update - UB-20241213.
 
