@@ -117,7 +117,9 @@ def fetchMOTD():
         url = "https://raw.githubusercontent.com/gauthamnair2005/ProcyonCLS-MOTD/main/motd.txt"
         response = requests.get(url)
         response.raise_for_status()
-        kernel.printBold((response.text))
+        text = response.text
+        text = str(text)
+        kernel.printBold((text))
     except:
         kernel.printError(("Could not fetch MOTD.!"))
 
@@ -221,7 +223,7 @@ def oobe():
     if updater.get_latest_release()[0] > updater.read_current_tag():
         kernel.printWarning(("[Outdated]"))
         if kernel.centered_input(term, "Update available, do you want to update? (y/n): ").strip().lower() == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', '2.0.5'])
+            os.execv(sys.executable, ['python3', 'updater.py', '2.1.0'])
         else:
             kernel.printWarning(("Not Updating"))
     else:
@@ -285,6 +287,10 @@ def prompt(user, username):
     kernel.printInfo(("-" * (len("Workspace") + 20)))
     kernel.printInfo(("● " + time.strftime("Date : %d/%m/%Y")))
     kernel.printInfo(("● " + time.strftime("Time : %H:%M:%S")))
+    if sys.platform == "win32":
+        print()
+    else:
+        kernel.printInfo("Note : You are running ProcyonCLS on a Unix/Linux system, so make sure you type the apps to run in correct case as mentioned in AppMarket or the file directory listing.")
     while True:
         prompt_text = (f"{term.bright_green(username)}"
                       f"{term.normal}@"
@@ -347,6 +353,25 @@ def prompt(user, username):
                 kernel.printError(("Admin access denied, market needs admin access to run!"))
         elif prmpt == "python":
             os.system("python3")
+        elif prmpt.startswith("for "):
+            parts = prmpt[4:].split()
+            if len(parts) == 4:
+                if parts[1] == "till":
+                    if parts[2].isdigit():
+                        if parts[0] == parts[4]:
+                            if parts[3] == "echo":
+                                for i in range(0, int(parts[2].split(":")[0])):
+                                    print(i)
+                            else:
+                                kernel.printError(("Invalid command for for loop"))
+                        else:
+                            kernel.printError(("Invalid iterator or invalid call of iterator"))
+                    else:
+                        kernel.printError(("Invalid range"))
+                else:
+                    kernel.printError(("Invalid for loop action"))
+            else:
+                kernel.printError(("Invalid for loop syntax"))
         elif prmpt == "browser":
             kernel.callApplication("browser", isAdmin=False)
         elif prmpt == "clsupdate":
@@ -354,7 +379,7 @@ def prompt(user, username):
             if confirm.lower() == "y":
                 if ekernel.admin(username):
                     kernel.printSuccess(("Admin access granted"))
-                    os.execv(sys.executable, ['python3', 'updater.py', '2.0.5'])
+                    os.execv(sys.executable, ['python3', 'updater.py', '2.1.0'])
                 else:
                     kernel.printError(("Admin access denied, updater needs admin access to run!"))
         elif prmpt == "security":
@@ -497,7 +522,7 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "2.0.5":
+        if sys.argv[1] >= "2.1.0":
             kernel.clrscr()
             boot()
             time.sleep(2)
@@ -552,7 +577,7 @@ def main():
                         kernel.printError(("Exiting..."))
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 2.0.5, got {sys.argv[1]}")
+            print(f"Expected 2.1.0, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

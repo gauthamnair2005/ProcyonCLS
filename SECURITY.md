@@ -30,6 +30,10 @@ These updates sometime contain a fix or sometimes just a periodic check to keep 
 
 #### List of Security Updates released until now:
 
+##### UB-20241224
+
+Fixed Critical Flaw in security system during system repair.
+
 ##### UB-20241219
 
 Periodic Update check.

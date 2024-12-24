@@ -11,16 +11,16 @@ count = 0
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "2.0.5":
+        if sys.argv[1] >= "2.1.0":
             # Initialize with splash screen
-            ekernel.splashScreen("ProcyonCLS Security", "Version 2.0.5")
+            ekernel.splashScreen("ProcyonCLS Security", "Version 2.1.0")
             
             while True:
                 # Display menu
                 kernel.clrscr()
                 ekernel.printHeader("Security")
                 print()
-                kernel.printBold(("Security Update : UB-20241219"))
+                kernel.printBold(("Security Update : UB-20241224"))
                 print()
                 kernel.printInfo(("Menu"))
                 kernel.printInfo(("-" * 30))
@@ -91,15 +91,15 @@ def main():
                             kernel.printWarning(("Reason (Either of them):\n● ProcyonCLS is outdated\n● File has been modified"))
                             kernel.printInfo(("Detecting which reason is true.."))
                             
-                            updTag = updater.getLatestReleaseTagOnly()
+                            updTag = updater.get_latest_release()
                             curTag = updater.readCurrentTag()
                             
-                            if curTag != updTag:
+                            if curTag != updTag[0]:
                                 kernel.printError(("Reason: ProcyonCLS is outdated"))
                                 kernel.printWarning(("Please update ProcyonCLS to the latest version"))
                                 confirm = kernel.centered_input(term, "Do you want to update ProcyonCLS (y/n): ").strip()
                                 if confirm.lower() == "y":
-                                    os.execv(sys.executable, ['python3', 'updater.py', '2.0.5'])
+                                    os.execv(sys.executable, ['python3', 'updater.py', '2.1.0'])
                                     exit(0)
                                 else:
                                     kernel.printWarning(("Not updated ProcyonCLS, please update soon!"))
@@ -123,7 +123,7 @@ def main():
                     elif choice == 2:
                         confirm = kernel.centered_input(term, "Running updater will terminate current session. Do you want to continue (y/n): ").strip()
                         if confirm.lower() == "y":
-                            os.execv(sys.executable, ['python3', 'updater.py', '2.0.5'])
+                            os.execv(sys.executable, ['python3', 'updater.py', '2.1.0'])
                             exit(0)
 
                     elif choice == 3:

@@ -61,9 +61,9 @@ def view_file_properties(path, filename):
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "2.0.5":
+        if sys.argv[1] >= "2.1.0":
             # Initialize with splash screen
-            ekernel.splashScreen("ProcyonCLS File Explorer", "Version 2.0.5")
+            ekernel.splashScreen("ProcyonCLS File Explorer", "Version 2.1.0")
             
             current_path = os.getcwd()
             
