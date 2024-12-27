@@ -2,7 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
-## What's new in ProcyonCLS 2025 2.1.0 Release Preview?
+## What's new in ProcyonCLS 2025 2.2.0 Release Preview?
+
+* Security Update - UB-20241227.
+
+* Internal code refactoring.
+
+* New update checker app (separate from Updater).
+
+### WHat's the difference Update Checker and Updater?
+
+The update checker application now performs update checks, whereas the updater app now will directly update the system. Why this change you may ask? Well previously, if a user checks for update, and if there wasn't any, the updater app would reboot the system, as it was launched not directly from kernel but as a standalone app, which was not the intended behavior. Now, the update checker app will check for updates, and if there are any, it will prompt the user to update the system, or else, we can resume working without need for rebooting unnecessarily.
+
+## What was new in ProcyonCLS 2025 2.1.0 Release Preview?
 
 * Security Update - UB-20241224.
 

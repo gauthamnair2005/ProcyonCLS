@@ -107,8 +107,8 @@ def updateCheckOnStart():
     newtag = updater.get_latest_release()
     currenttag = updater.read_current_tag()
     if newtag[0] > currenttag:
-        kernel.printWarning((f"Version {newtag[0]} is available!"))
-        kernel.printInfo(("Run 'clsupdate' to see what's new and update"))
+        kernel.printWarning(f"Version {newtag[0]} is available!")
+        kernel.printInfo("Run 'clsupdate' to see what's new and update")
         time.sleep(2)
     return None
 
@@ -223,7 +223,7 @@ def oobe():
     if updater.get_latest_release()[0] > updater.read_current_tag():
         kernel.printWarning(("[Outdated]"))
         if kernel.centered_input(term, "Update available, do you want to update? (y/n): ").strip().lower() == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', '2.1.0'])
+            os.execv(sys.executable, ['python3', 'updater.py', '2.2.0'])
         else:
             kernel.printWarning(("Not Updating"))
     else:
@@ -280,17 +280,17 @@ def prompt(user, username):
     kernel.clrscr()
     ekernel.printHeader("ProcyonCLS")
     updateCheckOnStart()
-    kernel.printInfo(("Message Of The Day"))
-    kernel.printInfo(("-" * (len("Message Of The Day") + 20)))
+    kernel.printInfo("Message Of The Day")
+    kernel.printInfo("-" * (len("Message Of The Day") + 20))
     fetchMOTD()
-    kernel.printInfo(("Workspace"))
-    kernel.printInfo(("-" * (len("Workspace") + 20)))
-    kernel.printInfo(("● " + time.strftime("Date : %d/%m/%Y")))
-    kernel.printInfo(("● " + time.strftime("Time : %H:%M:%S")))
+    kernel.printInfo("Workspace")
+    kernel.printInfo("-" * (len("Workspace") + 20))
+    kernel.printInfo("● " + time.strftime("Date : %d/%m/%Y"))
+    kernel.printInfo("● " + time.strftime("Time : %H:%M:%S"))
     if sys.platform == "win32":
         print()
     else:
-        kernel.printInfo("Note : You are running ProcyonCLS on a Unix/Linux system, so make sure you type the apps to run in correct case as mentioned in AppMarket or the file directory listing.")
+        kernel.printWarning("Note : You are running ProcyonCLS on a Unix/Linux system, so make sure you type the apps to run in correct case as mentioned in AppMarket or the file directory listing.")
     while True:
         prompt_text = (f"{term.bright_green(username)}"
                       f"{term.normal}@"
@@ -375,13 +375,11 @@ def prompt(user, username):
         elif prmpt == "browser":
             kernel.callApplication("browser", isAdmin=False)
         elif prmpt == "clsupdate":
-            confirm = kernel.centered_input(term, "Running updater will terminate current session. Do you want to continue (y/n) : ").strip()
-            if confirm.lower() == "y":
-                if ekernel.admin(username):
-                    kernel.printSuccess(("Admin access granted"))
-                    os.execv(sys.executable, ['python3', 'updater.py', '2.1.0'])
-                else:
-                    kernel.printError(("Admin access denied, updater needs admin access to run!"))
+            if ekernel.admin(username):
+                kernel.printSuccess(("Admin access granted"))
+                kernel.callApplication("updChk", isAdmin=True)
+            else:
+                kernel.printError(("Admin access denied, updater needs admin access to run!"))
         elif prmpt == "security":
             if ekernel.admin(username):
                 kernel.printSuccess(("Admin access granted"))
@@ -522,7 +520,7 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "2.1.0":
+        if sys.argv[1] >= "2.2.0":
             kernel.clrscr()
             boot()
             time.sleep(2)
@@ -577,7 +575,7 @@ def main():
                         kernel.printError(("Exiting..."))
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 2.1.0, got {sys.argv[1]}")
+            print(f"Expected 2.2.0, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

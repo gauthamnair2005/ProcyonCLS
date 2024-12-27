@@ -99,89 +99,47 @@ def replace_local_files(extracted_path, target_path):
         return False
 
 def main():
-    if len(sys.argv) >= 2 and sys.argv[1] >= "2.1.0":
-        # Initialize with splash screen
-        ekernel.splashScreen("ProcyonCLS Updater", "Version 2.1.0")
-        
-        # Display header
+    if len(sys.argv) >= 2 and sys.argv[1] >= "2.2.0":
+        ekernel.splashScreen("ProcyonCLS Updater", "Version 2.2.0")
         kernel.clrscr()
         ekernel.printHeader("System Updater")
-        
-        # Display current version
-        current_tag = read_current_tag()
         print()
-        kernel.println(f"{kernel.getReleaseName()} | {current_tag}")
-        print()
-        
-        # Check for updates
-        kernel.println(("Checking for updates..."))
-        print()
-        time.sleep(1)
-        
-        latest_tag, zip_url, whats_new = get_latest_release()
-        if not latest_tag:
-            return
-            
-        if latest_tag > current_tag:
-            kernel.printInfo((f"Update available: {latest_tag}"))
-            print()
-            for line in whats_new.split('\n'):
-                kernel.println((line))
-            print()
-            
-            confirm = kernel.centered_input(term, f"Do you want to update? {current_tag} -> {latest_tag} (y/n): ")
-            if confirm.lower() != "y":
-                kernel.printWarning(("Update cancelled"))
+        latestTag, zip_url, desc = get_latest_release()
+        zip_path = os.path.join(CURRENT_DIRECTORY, "latest_release.zip")
+        temp_extract_path = os.path.join(CURRENT_DIRECTORY, "temp")
+        try:
+            if not download_release(zip_url, zip_path):
+                return
+            if not extract_release(zip_path, temp_extract_path):
+                return
+            extracted_folder = next((item for item in os.listdir(temp_extract_path) 
+                                      if os.path.isdir(os.path.join(temp_extract_path, item))), None)
+            if not extracted_folder:
+                kernel.printError(("No extracted folder found"))
                 return
                 
-            # Perform update
-            zip_path = os.path.join(CURRENT_DIRECTORY, "latest_release.zip")
-            temp_extract_path = os.path.join(CURRENT_DIRECTORY, "temp")
-            
-            try:
-                # Download and extract
-                if not download_release(zip_url, zip_path):
-                    return
-                if not extract_release(zip_path, temp_extract_path):
-                    return
+            extracted_path = os.path.join(temp_extract_path, extracted_folder)
                 
-                # Find extracted folder
-                extracted_folder = next((item for item in os.listdir(temp_extract_path) 
-                                      if os.path.isdir(os.path.join(temp_extract_path, item))), None)
-                if not extracted_folder:
-                    kernel.printError(("No extracted folder found"))
-                    return
-                
-                extracted_path = os.path.join(temp_extract_path, extracted_folder)
-                
-                # Replace files and cleanup
-                if not replace_local_files(extracted_path, CURRENT_DIRECTORY):
-                    return
+            if not replace_local_files(extracted_path, CURRENT_DIRECTORY):
+                return
                     
-                kernel.println((" ● Writing new tag..."))
-                write_current_tag(latest_tag)
+            kernel.println((" ● Writing new tag..."))
+            write_current_tag(latestTag)
                 
-                kernel.println((" ● Cleaning up..."))
+            kernel.println((" ● Cleaning up..."))
+            shutil.rmtree(temp_extract_path)
+            os.remove(zip_path)
+                
+            kernel.printSuccess(("Update completed successfully!"))
+            time.sleep(1)
+            kernel.reboot()
+                
+        except Exception as e:
+            kernel.printError((f"Update failed: {e}"))
+            if os.path.exists(temp_extract_path):
                 shutil.rmtree(temp_extract_path)
+            if os.path.exists(zip_path):
                 os.remove(zip_path)
-                
-                kernel.printSuccess(("Update completed successfully!"))
-                time.sleep(1)
-                kernel.reboot()
-                
-            except Exception as e:
-                kernel.printError((f"Update failed: {e}"))
-                if os.path.exists(temp_extract_path):
-                    shutil.rmtree(temp_extract_path)
-                if os.path.exists(zip_path):
-                    os.remove(zip_path)
-                    
-        elif latest_tag < current_tag:
-            kernel.printWarning(("You're using a newer version than published"))
-            kernel.printWarning(("Make sure you obtained current version from trusted sources"))
-        else:
-            kernel.printSuccess(("You're up to date!"))
-            os.execv(sys.executable, ['python3', 'shell.py', '2.1.0'])
     else:
         kernel.printError(("This version of updater is incompatible with ProcyonCLS"))
 

@@ -48,9 +48,9 @@ def get_local_app_version(app_path):
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "2.1.0":
+        if sys.argv[1] >= "2.2.0":
             # Initialize with splash screen
-            ekernel.splashScreen("ProcyonCLS AppMarket", "Version 2.1.0")
+            ekernel.splashScreen("ProcyonCLS AppMarket", "Version 2.2.0")
             
             while True:
                 # Display menu
