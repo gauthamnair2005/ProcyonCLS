@@ -11,16 +11,16 @@ count = 0
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "2.2.0":
+        if sys.argv[1] >= "2.3.0":
             # Initialize with splash screen
-            ekernel.splashScreen("ProcyonCLS Security", "Version 2.2.0")
+            ekernel.splashScreen("ProcyonCLS Security", "Version 2.3.0")
             
             while True:
                 # Display menu
                 kernel.clrscr()
                 ekernel.printHeader("Security")
                 print()
-                kernel.printBold(("Security Update : UB-20241227"))
+                kernel.printBold(("Security Update : UB-20250000"))
                 print()
                 kernel.printInfo(("Menu"))
                 kernel.printInfo(("-" * 30))
@@ -99,7 +99,7 @@ def main():
                                 kernel.printWarning(("Please update ProcyonCLS to the latest version"))
                                 confirm = kernel.centered_input(term, "Do you want to update ProcyonCLS (y/n): ").strip()
                                 if confirm.lower() == "y":
-                                    os.execv(sys.executable, ['python3', 'updater.py', '2.2.0'])
+                                    os.execv(sys.executable, ['python3', 'updater.py', '2.3.0'])
                                     exit(0)
                                 else:
                                     kernel.printWarning(("Not updated ProcyonCLS, please update soon!"))

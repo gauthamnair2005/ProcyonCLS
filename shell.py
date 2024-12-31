@@ -2,6 +2,7 @@ import kernel
 import sys
 import os
 import time
+import datetime
 import getpass
 import ekernel
 import sqlite3
@@ -42,7 +43,7 @@ def boot():
     centered_logo = '\n'.join(' ' * padding + line for line in lines)
     kernel.println(term.magenta(centered_logo))
     kernel.println((f"{kernel.getReleaseName()}"))
-    kernel.println(("Copyright © 2024, Procyonis Computing"))
+    kernel.println((f"Copyright © {datetime.datetime.now().year}, Procyonis Computing"))
     print()
     
     # Progress bar positioning and animation
@@ -223,7 +224,7 @@ def oobe():
     if updater.get_latest_release()[0] > updater.read_current_tag():
         kernel.printWarning(("[Outdated]"))
         if kernel.centered_input(term, "Update available, do you want to update? (y/n): ").strip().lower() == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', '2.2.0'])
+            os.execv(sys.executable, ['python3', 'updater.py', '2.3.0'])
         else:
             kernel.printWarning(("Not Updating"))
     else:
@@ -520,7 +521,7 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "2.2.0":
+        if sys.argv[1] >= "2.3.0":
             kernel.clrscr()
             boot()
             time.sleep(2)
@@ -575,7 +576,7 @@ def main():
                         kernel.printError(("Exiting..."))
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 2.2.0, got {sys.argv[1]}")
+            print(f"Expected 2.3.0, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")
