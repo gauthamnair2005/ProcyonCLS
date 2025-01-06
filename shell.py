@@ -224,7 +224,7 @@ def oobe():
     if updater.get_latest_release()[0] > updater.read_current_tag():
         kernel.printWarning(("[Outdated]"))
         if kernel.centered_input(term, "Update available, do you want to update? (y/n): ").strip().lower() == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', '2.3.0'])
+            os.execv(sys.executable, ['python3', 'updater.py', '2.3.5'])
         else:
             kernel.printWarning(("Not Updating"))
     else:
@@ -286,8 +286,8 @@ def prompt(user, username):
     fetchMOTD()
     kernel.printInfo("Workspace")
     kernel.printInfo("-" * (len("Workspace") + 20))
-    kernel.printInfo("● " + time.strftime("Date : %d/%m/%Y"))
-    kernel.printInfo("● " + time.strftime("Time : %H:%M:%S"))
+    kernel.printInfo(time.strftime("Date : %d/%m/%Y"))
+    kernel.printInfo(time.strftime("Time : %H:%M:%S"))
     if sys.platform == "win32":
         print()
     else:
@@ -521,7 +521,7 @@ def prompt(user, username):
 def main():
     initialize_db()
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "2.3.0":
+        if sys.argv[1] >= "2.3.5":
             kernel.clrscr()
             boot()
             time.sleep(2)
@@ -576,7 +576,7 @@ def main():
                         kernel.printError(("Exiting..."))
         else:
             print("OS Error : Kernel version mismatch")
-            print(f"Expected 2.3.0, got {sys.argv[1]}")
+            print(f"Expected 2.3.5, got {sys.argv[1]}")
             sys.exit(1)
     else:
         print("OS Error : Shell needs kernel to run")

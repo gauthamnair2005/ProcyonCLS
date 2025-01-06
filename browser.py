@@ -7,8 +7,8 @@ term = Terminal()
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "2.3.0":
-            ekernel.splashScreen("ProcyonCLS HTML Viewer", "Version 2.3.0")
+        if sys.argv[1] >= "2.3.5":
+            ekernel.splashScreen("ProcyonCLS HTML Viewer", "Version 2.3.5")
             ekernel.printHeader("HTML Viewer")
             url = kernel.centered_input(term, "Enter URL : ").strip()
             kernel.println((ekernel.textBrowser(url)))

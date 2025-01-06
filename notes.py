@@ -8,8 +8,8 @@ term = Terminal()
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "2.3.0":
-            ekernel.splashScreen("ProcyonCLS Notes", "Version 2.3.0")
+        if sys.argv[1] >= "2.3.5":
+            ekernel.splashScreen("ProcyonCLS Notes", "Version 2.3.5")
             ekernel.printHeader("Notes")
             if not os.path.exists("notes"):
                 os.mkdir("notes")

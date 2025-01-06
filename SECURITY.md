@@ -28,7 +28,11 @@ Security updates for ProcyonCLS can be viewed in security app, it is recommended
 
 These updates sometime contain a fix or sometimes just a periodic check to keep ProcyonCLS same as in GitHub repo and it's links.
 
-#### List of Security Updates released until now:
+#### List of Security Updates released until now
+
+##### UB-20250106
+
+Periodic Update check.
 
 ##### UB-20250000
 

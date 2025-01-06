@@ -29,7 +29,7 @@ def check_for_updates():
         print()
         confirm = kernel.centered_input(term, "Do you want to update now? (y/n) : ")
         if confirm == "y":
-            os.execv(sys.executable, ['python3', 'updater.py', '2.3.0'])
+            os.execv(sys.executable, ['python3', 'updater.py', '2.3.5'])
         else:
             kernel.printError(("Update cancelled!"))
     elif curTag > latestTag:
@@ -39,8 +39,8 @@ def check_for_updates():
 
 def main():
     if len(sys.argv) >= 2:
-        if sys.argv[1] >= "2.3.0":
-            ekernel.splashScreen("ProcyonCLS Update Checker", "Version 2.3.0")
+        if sys.argv[1] >= "2.3.5":
+            ekernel.splashScreen("ProcyonCLS Update Checker", "Version 2.3.5")
             ekernel.printHeader("Update Checker")
             check_for_updates()
         else:

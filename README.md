@@ -16,11 +16,11 @@ ProcyonCLS is a versatile and user-friendly command line system designed to cate
 
 ## 🚀 Current Version 🚀
 
-ProcyonCLS 2025 `2.3.0` Release Preview
+ProcyonCLS 2025 `2.3.5` Release Preview
 
 ### What's new in this version?
 
-* Security Update - UB-20250000. (New Year update)
+- Security Update - UB-20250106.
 
 ---
 
@@ -35,11 +35,14 @@ For detailed documentation and guides, please refer to the [Developer Guide](Dev
 To obtain and run ProcyonCLS, follow these steps:
 
 1. Clone the repository:
+
    ```sh
    git clone https://github.com/gauthamnair2005/ProcyonCLS.git
    cd ProcyonCLS
    ```
+
 2. Run the system:
+
    ```sh
    python3 start.py
    ```

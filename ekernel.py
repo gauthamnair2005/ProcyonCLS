@@ -60,4 +60,4 @@ def textBrowser(url):
         text = soup.get_text()
         return text
     except:
-        return f"Error fetching the page from {url}. Please check the URL and your internet connection."
+        return f"Error fetching the site from {url}. Please check the URL and your internet connection."

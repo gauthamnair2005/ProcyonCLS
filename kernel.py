@@ -18,9 +18,9 @@ def clrscr():
 
 def main():
     if len(sys.argv) == 2:
-        if sys.argv[1] >= "2.3.0":
+        if sys.argv[1] >= "2.3.5":
             clrscr()
-            print(term.bold("Procyon Neo Kernel 2.3.0"))
+            print(term.bold("Procyon Neo Kernel 2.3.5"))
             print("..............")
             print("Loading Kernel modules...")
             time.sleep(0.1)
@@ -46,7 +46,7 @@ def main():
             print("Booting ProcyonCLS...")
             time.sleep(0.2)
             if os.path.exists("shell.py"):
-                os.system("python3 shell.py 2.3.0")
+                os.system("python3 shell.py 2.3.5")
             else:
                 clrscr()
                 print(term.bold_red("Kernel Panic : OS error"))
@@ -60,7 +60,7 @@ def main():
             print("Technical Details : ")
             print(term.red(" Error Code : 0x0001"))
             print(term.red(" Error Description : Incompatible version reported by Bootloader"))
-            print(term.red(f" Reported {sys.argv[1]} as opposed to 2.3.0"))
+            print(term.red(f" Reported {sys.argv[1]} as opposed to 2.3.5"))
             sys.exit(1)
     else:
         clrscr()
@@ -84,10 +84,10 @@ def reboot():
     os.execv(sys.executable, ['python3', 'start.py'])
 
 def getVersion():
-    return "2.3.0"
+    return "2.3.5"
 
 def getBuild():
-    return "2024.12.27.1924"
+    return "2025.01.06.1854"
 
 def getAuthor():
     return "Gautham Nair"
@@ -213,9 +213,9 @@ def printRainbow(param):
     print(term.center(term.color_rgb(255, 0, 0)(param)))
 
 def callApplication(app, isAdmin=False):
-    appResolved = f"python3 {app}.py 2.3.0 {isAdmin}"
+    appResolved = f"python3 {app}.py 2.3.5 {isAdmin}"
     os.system(appResolved)
 
 def callApplication3P(app, isAdmin=False):
-    appResolved = f"python3 apps/{app}.py 2.3.0 {isAdmin}"
+    appResolved = f"python3 apps/{app}.py 2.3.5 {isAdmin}"
     os.system(appResolved)

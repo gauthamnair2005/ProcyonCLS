@@ -99,8 +99,8 @@ def replace_local_files(extracted_path, target_path):
         return False
 
 def main():
-    if len(sys.argv) >= 2 and sys.argv[1] >= "2.3.0":
-        ekernel.splashScreen("ProcyonCLS Updater", "Version 2.3.0")
+    if len(sys.argv) >= 2 and sys.argv[1] >= "2.3.5":
+        ekernel.splashScreen("ProcyonCLS Updater", "Version 2.3.5")
         kernel.clrscr()
         ekernel.printHeader("System Updater")
         print()
